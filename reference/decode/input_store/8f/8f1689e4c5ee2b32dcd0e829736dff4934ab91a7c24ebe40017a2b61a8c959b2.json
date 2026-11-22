@@ -1,0 +1,43 @@
+{
+ "cluster": "a180",
+ "asset": "data/hugbench60_assets/val/large_3/dumbbell/sim_assets",
+ "qpos7": [
+  0.45,
+  0.0,
+  0.05418364,
+  1.0,
+  0.0,
+  0.0,
+  0.0
+ ],
+ "camera_offset": [
+  -0.184227655694,
+  0.0,
+  0.332355488713
+ ],
+ "target": [
+  0.45,
+  0.0,
+  0.05418364
+ ],
+ "table_gap_mm": 9.825010457986671e-07,
+ "renderable": 1,
+ "case_file": "runs/ex245_1116/input_store/8f/8f1689e4c5ee2b32dcd0e829736dff4934ab91a7c24ebe40017a2b61a8c959b2.npz",
+ "mask_pixels_frame": 14854,
+ "unit_key": "8f1689e4c5ee2b32dcd0e829736dff4934ab91a7c24ebe40017a2b61a8c959b2",
+ "input_sha256": "f86d00830da8d9242ea3af5085ad9f4ccaa82a10d9b1b555a9a59377e0f89bd6",
+ "mask_pixels": 14854,
+ "mask_touches_border": false,
+ "condition_uv": [
+  318.0,
+  241.0
+ ],
+ "camera": {
+  "distance_m": 0.3800000000002159,
+  "elevation_deg": 60.99999999995048,
+  "azimuth_deg": 180.0,
+  "fovy_deg": 65.8,
+  "focal_px_224": 173.12564100979796
+ },
+ "case_file_sha256": "2c3dbce3ef1e94138743c5a5fb172655fde63bef4681e42c2fb59c034b4330e9"
+}

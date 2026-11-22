@@ -1,0 +1,226 @@
+{
+ "release": "wuji_floating_20261120",
+ "source_commit": "c223ac7768c2be2be3c6eab42f295e915814cd89",
+ "source_branch": "the project's working branch",
+ "copied_files": {
+  "code/tools/float/collab_native.py": {
+   "source": "tools/float/collab_native.py",
+   "sha256": "fdb9345517e1f41792423089aafa429a24f4784db7c2c9fe2925c778835e236d",
+   "edited": true,
+   "source_sha256": "498928cc7f7db3b6647f20e327ea1c54905b5b747efe70ce0f850982b69fc4d4",
+   "edit": "docstring: a branch name replaced by a description; the unused default folder PROJECT (every caller passes its own paths) replaced by a placeholder (a digest-pinned file: the release's protocols carry the sha256 of this copy and their new digest)"
+  },
+  "code/tools/float/protocol.py": {
+   "source": "tools/float/protocol.py",
+   "sha256": "85d6e97b170abd2f846d0f363bbbad8cc11bc763ba112e1521df3bc4325cf395",
+   "edited": true,
+   "edit": "docstring: role wording replaced by a description"
+  },
+  "code/tools/float/records.py": {
+   "source": "tools/float/records.py",
+   "sha256": "0880f00056fa901434fbde5ede8112cc28f13ccf9ab096764962d080066c0212",
+   "edited": false
+  },
+  "code/tools/float/rollout.py": {
+   "source": "tools/float/rollout.py",
+   "sha256": "67edef78fbc3d13ddf933771f95867ca674d3933af72242f0fbcc9fe582053e8",
+   "edited": true,
+   "edit": "docstrings: role wording replaced by descriptions"
+  },
+  "code/tools/float/wristload.py": {
+   "source": "tools/float/wristload.py",
+   "sha256": "c2f06050194e8764976577c03f5ede9fed6e11c23527875beb026f5667507160",
+   "edited": true,
+   "source_sha256": "d77546b010e28a2dcb7d17ccebdfb16e705d436fb9ae63dc686c73892102064b",
+   "edit": "the text of the summary that write() puts into a new protocol file: role wording replaced (a digest-pinned file: the release's protocols carry the sha256 of this copy and their new digest)"
+  },
+  "code/tools/float/wristoffset.py": {
+   "source": "tools/float/wristoffset.py",
+   "sha256": "8ff7f6b9c5fd4d535d3063685ab82fb1fd4ca29d8fbd54a6386d30c36d1a150f",
+   "edited": false
+  },
+  "code/tools/float/decode.py": {
+   "source": "tools/float/decode.py",
+   "sha256": "9a6ea0a70038a7db4d6e5d645f732f1ca13f7baa8e8cd06765354c56fa6e76e5",
+   "edited": true,
+   "edit": "docstring and comments: a branch name and role wording replaced by descriptions"
+  },
+  "code/grasp_runtime/hug_sampling.py": {
+   "source": "grasp_runtime/hug_sampling.py",
+   "sha256": "713c6306a672bb98b652dd8bcf04b80efbb802908e52e29f857dd10e52797370",
+   "edited": false
+  },
+  "code/tools/float_hands/__init__.py": {
+   "source": "tools/float_hands/__init__.py",
+   "sha256": "25ee681e8f86f0863ebef1d51240d99253fdcad4ba7a572d53333b316574e9c8",
+   "edited": false
+  },
+  "code/tools/float_hands/fit4r.py": {
+   "source": "tools/float_hands/fit4r.py",
+   "sha256": "94d29c9adf36eb571d433b72b4c6d6f627f68e4522ea8bba454a9e0d5312ade1",
+   "edited": false
+  },
+  "code/tools/float_hands/hand_eval.py": {
+   "source": "tools/float_hands/hand_eval.py",
+   "sha256": "87f5281e3872f854f0b130fe2f044fb339086be7a576af9558d68492cad8cc20",
+   "edited": true,
+   "source_sha256": "70578fe80983b05cae019131e5702de0801b5a32a38c0eb057a75b85fe4681e0",
+   "edit": "docstring and one comment: role wording and a machine name replaced (a digest-pinned file: the release's protocols carry the sha256 of this copy and their new digest)"
+  },
+  "code/tools/float_hands/protocol_hand.py": {
+   "source": "tools/float_hands/protocol_hand.py",
+   "sha256": "2bc7832bb36ccf4defaae4dd51bce255cfeeb0e2b74651fb8760432ea519fe98",
+   "edited": true,
+   "edit": "write() and main() (they write protocol files from our machines) and the docstring's usage lines removed; role wording replaced"
+  },
+  "code/tools/float_hands/rollout_hand.py": {
+   "source": "tools/float_hands/rollout_hand.py",
+   "sha256": "2527afaf0656458953ebf7b2e62893e41672fdab0f0305d7310851f472655e44",
+   "edited": false
+  },
+  "code/tools/float_wuji/protocol_wuji.py": {
+   "source": "tools/float_wuji/protocol_wuji.py",
+   "sha256": "5f01adafa940f19d838473a0180fcc36192535f3e8e1b103d9996bc6d9f5d694",
+   "edited": true,
+   "edit": "write() (it writes the protocol file from our machines) removed; one docstring path removed; role wording replaced"
+  },
+  "code/tools/float_wuji/rollout_wuji.py": {
+   "source": "tools/float_wuji/rollout_wuji.py",
+   "sha256": "37eee36e38a0399994322fb0ff1d3470b6c36e2c1b3e8c137f6a63e43301caf9",
+   "edited": false
+  },
+  "code/tools/float_wuji/wuji_eval.py": {
+   "source": "tools/float_wuji/wuji_eval.py",
+   "sha256": "eaa390c9590e053c4b756bd7996bed5afb0f95430a31d7f8507772aec40376cb",
+   "edited": true,
+   "source_sha256": "5eb5510cef3d43a46a18cfe67af4a0be1faa23f76121e7e46b642b316179c6d6",
+   "edit": "one comment and the fallback values of three environment variables (the runner always sets them) replaced by placeholders (a digest-pinned file: the release's protocols carry the sha256 of this copy and their new digest)"
+  },
+  "code/rl/sim/multihand/__init__.py": {
+   "source": "rl/sim/multihand/__init__.py",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "edited": false
+  },
+  "code/rl/sim/multihand/handspec_build.py": {
+   "source": "rl/sim/multihand/handspec_build.py",
+   "sha256": "0b15f498538f1e4b4092f9f10875057ee6aa68112e7ad931de6a74145d4ea8ec",
+   "edited": false
+  },
+  "code/rl/sim/multihand/retarget.py": {
+   "source": "rl/sim/multihand/retarget.py",
+   "sha256": "c3d9743f78e65fb3064215a44a16ccc8c5ae4964b7bbfa69c7c4d0ab7dea70f1",
+   "edited": false
+  },
+  "code/rl/sim/multihand/specs.py": {
+   "source": "rl/sim/multihand/specs.py",
+   "sha256": "2bbdf00d6cc3a1a84d7eca7f6896d2b4395af2fc4b60fa01fb8ebe8f32c0b65c",
+   "edited": false
+  },
+  "code/tools/dsrl_port/dsrl.py": {
+   "source": "tools/dsrl_port/dsrl.py",
+   "sha256": "8bf9f76d9244d69cf82fff45c8a93b268552c6f8a43dc447095ea2c60d437d07",
+   "edited": true,
+   "edit": "docstring: the paper cited by its title; the copyright line is referred to the licence file"
+  },
+  "code/tools/dsrl_port/sb3_parts.py": {
+   "source": "tools/dsrl_port/sb3_parts.py",
+   "sha256": "7f43ef799ef21bf866cd5279402b8beb5947d13bd38b821509bb611f8c9d4855",
+   "edited": true,
+   "edit": "docstring: the path of our local clone of the upstream repository removed; the copyright line is referred to the licence file"
+  },
+  "code/tools/dsrl_port/hug2_adapter.py": {
+   "source": "tools/dsrl_port/hug2_adapter.py",
+   "sha256": "aed4cbcc84a923ab261c23a02572983658a25eabd615fa21702a43b3b6dddc7b",
+   "edited": false
+  },
+  "code/tools/dsrl_port/LICENSE_stable-baselines3-dsrl": {
+   "source": "tools/dsrl_port/LICENSE_stable-baselines3-dsrl",
+   "sha256": "2d8fbeee75e0acd13e75b30470b3521b12fb55c26c90c2060c6bd525345870a9",
+   "edited": false
+  },
+  "code/tools/dsrl_port/DIFF.md": {
+   "source": "tools/dsrl_port/DIFF.md",
+   "sha256": "a3d2202f878e835c9b850305d2ec054c735804965c0d9bf8f378bad1adf24b84",
+   "edited": true,
+   "edit": "paths of our machines and of our internal run records removed from the text; the copyright line is referred to the licence file"
+  },
+  "code/protocols/mano-1111-p1.json": {
+   "source": "protocols/mano-1111-p1.json",
+   "sha256": "2c5f8ef56257f6992d676b7c27c0b98746763e9a96d6dd0fbb9226f5e840e6b8",
+   "edited": true,
+   "digest": "854767bca05682bdeddd5afb1404dd75beacce0e66d7623fdb2beb4a2649635b",
+   "edit": "`hosts` table removed and machine names / paths in provenance text replaced (no digest covers them); the sha256 of its edited digest-pinned code files and the base digests re-pinned, hence a new digest"
+  },
+  "code/protocols/mano-1111-p2.json": {
+   "source": "protocols/mano-1111-p2.json",
+   "sha256": "4ce73b5d45caefdf6ef636eabd27d6be2d075dcbcd04cb8513419f3c5dbdeec1",
+   "edited": true,
+   "digest": "387d90ffe1bdd2871f96e82b5b99142e676836ae16de70cfb60e3a8d99bded68",
+   "edit": "`hosts` table removed and machine names / paths in provenance text replaced (no digest covers them); the sha256 of its edited digest-pinned code files and the base digests re-pinned, hence a new digest"
+  },
+  "code/protocols/mano-1111-p2s-dzm1.json": {
+   "source": "protocols/mano-1111-p2s-dzm1.json",
+   "sha256": "8d47f3f3203dedef761097515132fa87186f769b568e6b6357859a21a49f2a4a",
+   "edited": true,
+   "digest": "70534d6fd56da8ce6d1c7577cc5fd3e2dcbf59ab21bc3f07fefbf9ae5c2317bf",
+   "edit": "`hosts` table removed and machine names / paths in provenance text replaced (no digest covers them); the sha256 of its edited digest-pinned code files and the base digests re-pinned, hence a new digest"
+  },
+  "code/protocols/mano-1111-p2-dzm1.json": {
+   "source": "protocols/mano-1111-p2-dzm1.json",
+   "sha256": "5775d14e2228acacd52de792a728850b7e64593b821032e6f83f7afcc75a704e",
+   "edited": true,
+   "digest": "ba6a1b8e87ef49f73c8d3875146bfc2cf1a15241e6aad801f4531b84c6190714",
+   "edit": "`hosts` table removed and machine names / paths in provenance text replaced (no digest covers them); the sha256 of its edited digest-pinned code files and the base digests re-pinned, hence a new digest"
+  },
+  "code/protocols/mano-1111-p2-dzm2.json": {
+   "source": "protocols/mano-1111-p2-dzm2.json",
+   "sha256": "71e900ee1ec53c0685c75a7a8393faccb1ab16ec55a3ca836f515480b4b9f466",
+   "edited": true,
+   "digest": "17c6b793e51c2524d6e28b877e8ee1f9098d35aca2a307c042761910fe325369",
+   "edit": "`hosts` table removed and machine names / paths in provenance text replaced (no digest covers them); the sha256 of its edited digest-pinned code files and the base digests re-pinned, hence a new digest"
+  },
+  "code/protocols/mano-1111-p2-dzp1.json": {
+   "source": "protocols/mano-1111-p2-dzp1.json",
+   "sha256": "c759fbc7a566294faebb93e098ba2a2932921c08b9b7d70737f901db2c4b88cc",
+   "edited": true,
+   "digest": "598994eb7fae2bd622b7fca256d9f6c16d35e7d61d11e178287b8a8a8c00a6cd",
+   "edit": "`hosts` table removed and machine names / paths in provenance text replaced (no digest covers them); the sha256 of its edited digest-pinned code files and the base digests re-pinned, hence a new digest"
+  },
+  "code/protocols/sharpa-float-p1.json": {
+   "source": "protocols/sharpa-float-p1.json",
+   "sha256": "067fa2e4f0648242844059f6a7c05872c7d4fcf6e4c46d3c91ccef6051d1a45d",
+   "edited": true,
+   "digest": "9103bf1f41dac1637192679646d2aef6de04561de0b38bb5095c980ccef96d56",
+   "edit": "`hosts` table removed and machine names / paths in provenance text replaced (no digest covers them); the sha256 of its edited digest-pinned code files and the base digests re-pinned, hence a new digest"
+  },
+  "code/protocols/sharpa-float-p2.json": {
+   "source": "protocols/sharpa-float-p2.json",
+   "sha256": "d7f694d808ce698010a59abbd36375453f9a00446b7626ec76781c3082fa400d",
+   "edited": true,
+   "digest": "86d80ad632b72732c6469a315f09289b79dbef48b4b27515a1f0aa1ca18cfad8",
+   "edit": "`hosts` table removed and machine names / paths in provenance text replaced (no digest covers them); the sha256 of its edited digest-pinned code files and the base digests re-pinned, hence a new digest"
+  },
+  "code/protocols/wuji1hr-float-p1.json": {
+   "source": "protocols/wuji1hr-float-p1.json",
+   "sha256": "af3a657b8e673bc7924a0751229f251bdc5689714d6e3a434b6014f315126dfb",
+   "edited": true,
+   "digest": "bbb66c23e105de12d2941e2a32581ed736dd55731cec84505fb21c6a978e517e",
+   "edit": "`hosts` table removed and machine names / paths in provenance text replaced (no digest covers them); the sha256 of its edited digest-pinned code files and the base digests re-pinned, hence a new digest"
+  },
+  "code/protocols/wuji1hr-float-p2.json": {
+   "source": "protocols/wuji1hr-float-p2.json",
+   "sha256": "56c2b7e75c1a5983374d2f6d6c0be882fbed472170df9804f8d8ee5cea0cee8a",
+   "edited": true,
+   "digest": "6c3f70e3d7c282932fc6eb2e458ea0693a0179a5afc8a8335589c5709f526ff1",
+   "edit": "`hosts` table removed and machine names / paths in provenance text replaced (no digest covers them); the sha256 of its edited digest-pinned code files and the base digests re-pinned, hence a new digest"
+  },
+  "code/protocols/wuji1-float-p1.json": {
+   "source": "protocols/wuji1-float-p1.json",
+   "sha256": "2a87a84272618c753a979e687f1566ab3f7f09138d92e089005ef3ddb1528d25",
+   "edited": true,
+   "digest": "7dd5fdbe4dd7369a54641f7d44b57c9554e91c01037869f15833251fdd88997d",
+   "edit": "`hosts` table removed and machine names / paths in provenance text replaced (no digest covers them); the sha256 of its edited digest-pinned code files and the base digests re-pinned, hence a new digest"
+  }
+ },
+ "pinned_files_with_inert_private_strings": []
+}

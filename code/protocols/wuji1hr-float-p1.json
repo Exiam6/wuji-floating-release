@@ -1,0 +1,174 @@
+{
+ "schema": 1,
+ "name": "wuji1hr-float-p1",
+ "hand_name": "wuji1",
+ "summary": "Floating Wuji Hand 1 (through the multihand retargeter path) (existing stack; spec is descriptive only) on the official 6-DoF floating wrist, no arm: HUG's wrist pose executed by protocol mano-1111-p1's evaluator with the MANO capsule hand replaced; fingers and the hand-root mount from rl/sim/multihand/retarget.HandRetargeter (the retargeter of the table-arm results on this hand) fitted on HUG's predicted landmarks. New benchmark version (2026-11-19).",
+ "base": {
+  "name": "mano-1111-p1",
+  "digest": "854767bca05682bdeddd5afb1404dd75beacce0e66d7623fdb2beb4a2649635b",
+  "note": "scene, table plane, wrist trajectory (GraspPlanConfig defaults), lift and final-frame table-contact test are the base protocol's; handoff A2 as tools/float/collab_native.Harness.bench_handoff"
+ },
+ "source": {
+  "port": "tools/ex210_1112/hbport210.py at commit db7ee7177 (EX210 harness port v2, 2026-11-12), itself the frozen October Wuji evaluator (tools/float_wuji/wuji_eval.py) with the hand generalised",
+  "changes": "tools/float_hands/hand_eval.py: the composed scene cached per object and compiled per grasp with the mount (a fresh compile, because dampratio is fixed into kv at compile time and mj_setConst does not update it); handoff A2 on the compiled table height; the frozen evaluator's keyframe order; no hull-vertex cap; host paths from the environment or the base protocol; diagnostics; tools/float_hands/rollout_hand.py: handoff A2, validity, stages, pool (as tools/float_wuji/rollout_wuji.py). With hand = Wuji 1, the frozen glove fit and the frozen mount, this code reproduces EX292's 200 reference labels and final object heights bit for bit (2026-11-19 20:4x, reference host A)",
+  "hand_model": {
+   "upstream_url": null,
+   "upstream_commit": null,
+   "license": null,
+   "mjcf": "assets/robot_description/hands/wuji_right_mjlab/mjcf/right_mjlab.xml"
+  }
+ },
+ "code": {
+  "tools/float_hands/hand_eval.py": "87f5281e3872f854f0b130fe2f044fb339086be7a576af9558d68492cad8cc20",
+  "tools/float_hands/rollout_hand.py": "2527afaf0656458953ebf7b2e62893e41672fdab0f0305d7310851f472655e44",
+  "tools/float_hands/fit4r.py": "94d29c9adf36eb571d433b72b4c6d6f627f68e4522ea8bba454a9e0d5312ade1"
+ },
+ "hand": {
+  "assets/robot_description/hands/wuji_right_mjlab/PROVENANCE.md": "b1a0fd9fda8e9358f5ed14f5b1ecbae56d7824f8edfc704997f96214926436af",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger1_link1.STL": "eea2c85844ee945ab732cd40a6ed0558aa2493439186bf31c405dbe5f7f1eb3f",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger1_link2.STL": "b88c4f617b42edb66ffb6a4bea17a8186c4f44c289d19dd950d6f515ae127773",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger1_link2_softbody.STL": "50b3dec11285a279b7920e1c19abd4ef6b47ca88118e5d3dbec01917c674c69f",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger1_link2_softbody_simplified.STL": "bbd16cf73a292c9f2bdf54ab12a351991e31b60a1226dda2be5a42c8c824d82d",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger1_link3.STL": "ff11ee83841affaca12471ba328ccd7f55d66d500df7148c23196e3b1777071d",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger1_link4.STL": "08f86a63ba803e994f56c3f6237df9ecd5344790f9019a892e5db5b82de8c9c5",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger1_link4_simplified.STL": "1d07df887372b05fa21eff5f53956f437e19c5c9e2f22390296d6494241458b6",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger1_tip_link.STL": "079e5604eb96c4474aeb2462859ec4129c11515b58f79745f2d1b0995aaa377f",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger2_link1.STL": "b6dd467b88056d3fb03c93d33d2bc3849c492e8268934db4d66e437eefa91408",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger2_link2.STL": "7d3fc87fc0488ed5dd26e8117b31640c74e1f8a5ae8fc96fae028496927a3d6c",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger2_link3.STL": "0a6885e7a1cafaabeaae677245171cdaac651b3e81692ac3efaf27d57bbbefe9",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger2_link4.STL": "d60eaa1a034816ca303043021de897c8af5aeb390e378cdd4e7acec8914c7e0a",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger2_link4_simplified.STL": "a9057641a06eb596e528fd0520ce82105b8347e53cd4bad9ec41e38054a052d9",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger2_tip_link.STL": "e0659a4a9861d5f2a77a0e119eaf90cd4ec4ab9f6a413bc4e8498f1290d74e00",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger3_link1.STL": "cb6947ad984717d01c721273f278f9b3936e5ace49618d1f334d363ece5caae6",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger3_link2.STL": "4d243229f6fab0d95dbe2b23929eee3d3590debb11866df9216349ce0430cc63",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger3_link3.STL": "4ad8025cd12b8d5014a2d1faa916d71c3121c95f1017a67c5c8d2b209e7ae17b",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger3_link4.STL": "2eaeec0d376b478bdd1c77f0bd8bd9233025b49c704482237f9d401c22ab8a32",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger3_link4_simplified.STL": "96794e5e75122133978e4b2f3476f93374adb111fa1216d62e8a09335e808b9f",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger3_tip_link.STL": "3d98a3df8bb7488a6976494b324730ff890b81d3523d3fc7c1a8b38980d82aa1",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger4_link1.STL": "40da6c4e56c1d2c5fbca71dc55dd7ff4c484668e36564be8645344278504d19a",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger4_link2.STL": "6f737625f472fb3ef598034de65a99aac528dd30b369edbc1234cfdf857a52c1",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger4_link3.STL": "77180c501eb61ee6360e362fd30c10afd71d40d04b26721b817cd342c4154e14",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger4_link4.STL": "14572cb8286e6a703ca89f0132681cc5d34c90b8a45ec463221f87053d1fd355",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger4_link4_simplified.STL": "90009af393dadb8079c9f1c339de7ac00681f52c6e322958b1c13710e1b59426",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger4_tip_link.STL": "70d0aa351e87efebff4d6591823086105fcf01a661e7d09e1904fdd3f92c427c",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger5_link1.STL": "7ee1d949a14509bab3825e47c6483eda39f903cc8299b73ce7f9f8424a6095c0",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger5_link2.STL": "bc3b468439a6fbfc2b75846878fbcddd47f7d3d45c230784b4d819e6c6fcac64",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger5_link3.STL": "18f5795ca144ad99fdbfb4a570e41ef41f537a672dfc69de285adde9c15be5bc",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger5_link4.STL": "2b1cb3b57968bdfa6ac86628e6cd37cd273541e69fc9db172bb203d65a0924b2",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger5_link4_simplified.STL": "5fb80ef474a5d120262985ffe6198b218ea863dd1b258af63e823db9c0b97fd1",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_finger5_tip_link.STL": "c30782cfa15847fda2d461bd40b2cc003aeda68f44fba63fe8cc716d5665156d",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_palm_link.STL": "5fe2d111265b1fb269d23bba7c7438ada3228319363d6a793e70eed3e6ce6583",
+  "assets/robot_description/hands/wuji_right_mjlab/meshes/right/right_palm_link_simplified.STL": "a3e045ac634aa7cdd225e59cc6f7a063ea4eef854b2fa5630ee92e06514222bb",
+  "assets/robot_description/hands/wuji_right_mjlab/mjcf/right_mjlab.xml": "891243d31a963edafa5727b40af14104138ce239530f46646da972b9a4b56458",
+  "assets/robot_description/hands/wuji_right_mjlab/urdf/right_hand.urdf": "aafb6a328278af893e5757b44ed8626a617ff2fd04cb49c5ca9bd6c57e9ed820"
+ },
+ "retargeter": {
+  "files": {
+   "rl/sim/multihand/retarget.py": "c3d9743f78e65fb3064215a44a16ccc8c5ae4964b7bbfa69c7c4d0ab7dea70f1",
+   "rl/sim/multihand/specs.py": "2bbdf00d6cc3a1a84d7eca7f6896d2b4395af2fc4b60fa01fb8ebe8f32c0b65c",
+   "rl/sim/multihand/handspec_build.py": "0b15f498538f1e4b4092f9f10875057ee6aa68112e7ad931de6a74145d4ea8ec"
+  },
+  "method": "the table-arm pipeline's 4r retarget gate (tools/float_hands/fit4r.py = tools/ex207_1111/s4r207 fit207, bit-equal by test): rl/sim/multihand/retarget.HandRetargeter.fit, root pose (6) and every actuator target solved jointly by least squares on the 21 MANO keypoint positions in the evaluator world (scipy least_squares, bounds = the compiled joint ranges, max_nfev 400, tolerances 1e-10); when its fingertip RMS error exceeds 10 mm, a refit from 5 starts (rotation offsets 0 and +-30 deg about the palm z and x axes) keeping the lowest cost; a final fingertip error above 10 mm = 'not retargetable', a failure not rolled out (stage invalid_input, not_retargetable = 1)",
+  "weights": {
+   "fingertips": 1.0,
+   "other_finger_keypoints": 0.25,
+   "wrist": 0.0,
+   "orientation_prior_per_rad": 0.05,
+   "joint_mid_range_prior_per_rad": 0.001
+  },
+  "palm_init_rotation": [
+   [
+    0.06071180793475611,
+    -0.14549507182139032,
+    -0.987494435656719
+   ],
+   [
+    -0.975817217618471,
+    0.19947728757500646,
+    -0.08938439204393288
+   ],
+   [
+    0.20998770006035733,
+    0.969040760658398,
+    -0.12986596939134878
+   ]
+  ],
+  "palm_init_note": "the fit's initial root orientation and orientation prior = the MANO wrist rotation times this matrix (the frozen Wuji evaluator's fixed MANO-wrist -> Wuji-palm rotation R_c @ OPERATOR2MANO_RIGHT @ Rrot^T; wuji-retargeting e3636d6 glove config; computed on reference host A 2026-11-19)",
+  "open_pose": "the fit of the official MANO start pose (flat hand, thumb base pre-bend 1.0 rad on x and y), root at identity with the palm init rotation",
+  "closing_direction": "HandRetargeter.closing_sign: +1 when increasing the actuator moves its fingertip toward the palm normal at the open pose"
+ },
+ "physics": {
+  "wrist": {
+   "joints": "3 slides + ball, damping 5, ball armature 0.01",
+   "actuators": "position kp 300 (translation, dampratio 1), kp 50 (rotation, dampratio 1.5)",
+   "gravity_compensation": false,
+   "note": "the official wrist of the evaluator; gravity acts on the hand (no compensation)"
+  },
+  "finger_actuators": {
+   "type": "position",
+   "kp": 30.0,
+   "dampratio": 1.0,
+   "ctrlrange": "the hand's compiled joint ranges",
+   "force_limit": "none"
+  },
+  "hand_joints": {
+   "damping": 0.01,
+   "armature": 0.001,
+   "frictionloss": 0.0
+  },
+  "hand_contact": {
+   "friction": [
+    1.5,
+    0.05,
+    0.005
+   ],
+   "condim": 6,
+   "solref": [
+    0.04,
+    1.0
+   ],
+   "solimp": [
+    0.5,
+    0.95,
+    0.001,
+    0.5,
+    2.0
+   ],
+   "priority": 0,
+   "palm_bodies": [
+    "right_palm_link"
+   ],
+   "palm_priority": 1,
+   "palm_solimp": [
+    0.005,
+    0.9,
+    0.025,
+    0.5,
+    2.0
+   ],
+   "note": "the frozen Wuji evaluator's mapping of the MANO capsule hand's contact values; vendor per-geom contact values are replaced"
+  },
+  "hand_model_edits": "rl/sim/multihand/handspec_build.load_hand_spec with its hull-vertex cap undone (maxhullvert -1: hulls as MuJoCo computes them, as the frozen Wuji evaluator; the cap changes qhull's output even where it does not bind); deleted joints [], deleted actuators []; vendor actuators, keyframes and force limits not used",
+  "close_rule": "lerp endpoint = fit backed off <= 0.2 rad toward the open pose on the flexion actuators of fingers 2-5 (closing direction per actuator) and on each thumb actuator; goal = fit + 0.1 rad on the same flexion actuators; abduction / rotation actuators keep the fit; targets clipped to the ranges (GraspPlanConfig finger_pre_curl_rad / finger_extra_curl_rad)",
+  "mount": "T_wrist_root = T_world_wrist^-1 T_world_root of the fit, set per grasp as the root body's pos / quat inside the wrist body, with a fresh compile per grasp (dampratio becomes the actuator damping kv at compile time and mj_setConst does not update it); the wrist plan (pre-grasp offset, lift) moves the hand rigidly as MANO's wrist",
+  "handoff_table_height": "handoff A2 places the object on the compiled scene's table plane (compose_scene writes its height with 6 significant digits), as the frozen evaluator's harness",
+  "object_contact": "the object's collision geoms take the hand default solref 0.04 1 / solimp 0.5 0.95 0.001, as the include of the hand file gives them in the MANO and frozen Wuji scenes (fixed 2026-11-19, 595b88704, after EX327's dry reproduction check found 90 % agreement without it)",
+  "close_rule_order": "the back-off is computed from the unclipped targets and every keyframe is clipped at the end, as tools/float_wuji/wuji_eval.finger_keyframes",
+  "scene_mask": "object and table geoms accept the hand's contype bits"
+ },
+ "labels": {
+  "success_native": "no contact between the table plane and any object geom at the final frame (t = 4.0 s, after the 0.5 m lift) and a valid simulation (finite state, no BADQACC warning during the rollout); as mano-1111-p1",
+  "success_strict_v1": "native success AND the final-frame hand-object contact includes the thumb (finger 1 of rl/sim/multihand/specs: bodies ['right_finger1_']*) and at least one other finger AND final object rise >= 400 mm; the mano-1111-p1 definition with the fingers mapped by the spec's body prefixes (1 thumb, 2 index, 3 middle, 4 ring, 5 little; palm = ['right_palm_link'] and the wrist body)",
+  "october_rule": "the evaluator's own flag (not on the ground at the final frame, no validity check); diagnostic only"
+ },
+ "stages": [
+  "invalid_input",
+  "sim_invalid",
+  "no_prelift_contact",
+  "not_lifted",
+  "dropped",
+  "success"
+ ],
+ "digest_rule": "sha256 of the canonical JSON (sorted keys, separators ',' ':') of {name, base_digest, hand_name, code, hand, retargeter{files}}",
+ "digest": "bbb66c23e105de12d2941e2a32581ed736dd55731cec84505fb21c6a978e517e"
+}

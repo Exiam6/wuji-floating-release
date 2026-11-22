@@ -1,0 +1,169 @@
+{
+ "jobs_ref200.npz": {
+  "source": "gate bundle 20261119 (base): reference/jobs_ref200.npz",
+  "source_sha256": "39d3ddef1b13c12f07969034ce077c5fd1cdbc8644d679cdbc320568a400604e",
+  "sha256": "1e97fefe9512b07effc8ad860cb687751c1e248ebe42d2de5671a457744c2c39",
+  "bytes": 61781,
+  "rows": 200
+ },
+ "expected_ref200_mano-1111-p1.npz": {
+  "source": "gate bundle 20261119 (base): reference/expected_ref200.npz",
+  "source_sha256": "f6bdd5f52c7e65007b68804fd830c5678811dd534c24bcba7251a72a0c2cca7c",
+  "sha256": "5c87315576565ae9d08a104f438745eb696ed11c0f14cc2b57217d9acb2e342b",
+  "bytes": 24070,
+  "rows": 200
+ },
+ "jobs_bench2000.npz": {
+  "source": "gate bundle 20261119 (base): reference/jobs_g3_2000.npz",
+  "source_sha256": "b39eecd913ed7b7b4b6867aa3c76f1b02d79beb0f5d177d2aeee3c153ec4f4a8",
+  "sha256": "33a5f9640c16df95643077d8b21817a9f6361b7fd84f91c289c53e86c2b70e09",
+  "bytes": 537209,
+  "rows": 2000
+ },
+ "expected_bench2000_mano-1111-p1.npz": {
+  "source": "gate bundle 20261119 (base): reference/expected_g3_2000.npz",
+  "source_sha256": "e51d04b25efff79b51fc8bea3a5fe2a85565566c1d18d671fd80358433263ec2",
+  "sha256": "0b665c5207aaa29d91c84a910b9e5476367ea059cc1e145f535fd93a2efd25b4",
+  "bytes": 160223,
+  "rows": 2000
+ },
+ "jobs_w3_220.npz": {
+  "source": "gate bundle 20261120 (MANO variants): reference/jobs_w3_220.npz",
+  "source_sha256": "66f421e3c687aa8c7ec24053b979baf72d51719c5f551993b94bb599362dc879",
+  "sha256": "886e8301877b3bf4cddf99854054ec05f264f56b6f4c5dc5918fdc26eee87f24",
+  "bytes": 123699,
+  "rows": 220
+ },
+ "expected_w3_mano-1111-p1.npz": {
+  "source": "gate bundle 20261120 (MANO variants): reference/expected_w3_mano-1111-p1.npz",
+  "source_sha256": "fe11dd7dde0062846d91a1c5cb91eac82a47b16d010b7d7a915ba3547644ca5e",
+  "sha256": "a6c038edc0b6b555312f2d2254fb3ab99a677fe7cc0a726003ec190c22262eb1",
+  "bytes": 27033,
+  "rows": 220
+ },
+ "expected_w3_mano-1111-p2.npz": {
+  "source": "gate bundle 20261120 (MANO variants): reference/expected_w3_mano-1111-p2.npz",
+  "source_sha256": "ef7172f7ee9948a2fbf065d8cc984bdab164568d438d674ea483d56664dd7c16",
+  "sha256": "900cc54789e21c0300acee82c67d1a2cf9e5779b5e3760054332173c316a6415",
+  "bytes": 26953,
+  "rows": 220
+ },
+ "expected_w3_mano-1111-p2s-dzm1.npz": {
+  "source": "gate bundle 20261120 (MANO variants): reference/expected_w3_mano-1111-p2s-dzm1.npz",
+  "source_sha256": "03b5629f8de89ed8b2d9da7fb0b48ec0836c18caec2e2171bc8dc3adaaca0cc7",
+  "sha256": "76d4d3fa906510cd327cfb5781f73f6fda1b716237273d38075c1420a27cf56b",
+  "bytes": 27065,
+  "rows": 220
+ },
+ "expected_w3_mano-1111-p2-dzm1.npz": {
+  "source": "gate bundle 20261120 (MANO variants): reference/expected_w3_mano-1111-p2-dzm1.npz",
+  "source_sha256": "dc01201268b2eded8b422f3f49c73d77141bacb82634a8a3b08d6fa812ccb8e7",
+  "sha256": "6de5ccbd90afb206e68b94288643f4ff9612780549a1633615ac538037e0e600",
+  "bytes": 27083,
+  "rows": 220
+ },
+ "expected_w3_mano-1111-p2-dzm2.npz": {
+  "source": "gate bundle 20261120 (MANO variants): reference/expected_w3_mano-1111-p2-dzm2.npz",
+  "source_sha256": "478e3a1ca9ced82b66ddf49d9b9f2a4603b69d83397e28a8c460a7481b9410a5",
+  "sha256": "d4dd9456693ff9d0aa6a0e51ca435f47f6d18e5f1288112b88c6344726952e78",
+  "bytes": 27207,
+  "rows": 220
+ },
+ "expected_w3_mano-1111-p2-dzp1.npz": {
+  "source": "gate bundle 20261120 (MANO variants): reference/expected_w3_mano-1111-p2-dzp1.npz",
+  "source_sha256": "3b803e56dd7a7e56cd77008cf71bc90678f476a232d8c3b23e9a874722ff5b71",
+  "sha256": "553d48535d9ef80224eba8555769e29ea993fe58f828b59c8802a3a379ca288f",
+  "bytes": 26654,
+  "rows": 220
+ },
+ "hands/jobs_ref200_hands.npz": {
+  "source": "gate bundle 20261120 (robot hands): reference/jobs_ref200_sharpa.npz",
+  "source_sha256": "5aac1d5821d37c2723fbe61ccd5ab5b1388d4749111fd954912520e3830b7f11",
+  "sha256": "a3c6c9476a7ecb5b04c3006a4a22dbc745fd1e6eebe6bd1e7c719321c5e7c76b",
+  "bytes": 112914,
+  "rows": 200
+ },
+ "hands/jobs_pilot64_hands.npz": {
+  "source": "gate bundle 20261120 (robot hands): reference/jobs_pilot64_sharpa.npz",
+  "source_sha256": "9899408b70c352cd013265f2593206d7b99f3cb9c3969de5b7637dafbc014b49",
+  "sha256": "b44ef86b06d873d108a78a7618c9dfce37c0e152245478bc63183682ebe66bfb",
+  "bytes": 35431,
+  "rows": 64
+ },
+ "hands/expected_ref200_sharpa-float-p1.npz": {
+  "source": "gate bundle 20261120 (robot hands): reference/expected_ref200_sharpa-float-p1.npz",
+  "source_sha256": "a4804960f30e6f017eefa0dcb87fc994488fad978fbdab3cb3d868097e29dd1a",
+  "sha256": "b5f05808123dad7524dacf562a0e2fa3bfd0ded76a37d096b0d404c2da5a1445",
+  "bytes": 34727,
+  "rows": 200
+ },
+ "hands/expected_pilot64_sharpa-float-p1.npz": {
+  "source": "gate bundle 20261120 (robot hands): reference/expected_pilot64_sharpa-float-p1.npz",
+  "source_sha256": "f5aca7faf7ca5f308818e52a6ebfd1f9c337dc012cfbcb86eca3f6bbcdf26468",
+  "sha256": "dc2089e75933789a842c447f28b579be2f942fe3cc5a08693455af605fa4d04b",
+  "bytes": 16112,
+  "rows": 64
+ },
+ "hands/expected_ref200_sharpa-float-p2.npz": {
+  "source": "gate bundle 20261120 (robot hands): reference/expected_ref200_sharpa-float-p2.npz",
+  "source_sha256": "4991dc4093acbccccaa927d852827b46cc448f93a29b890a8abddad7c674562c",
+  "sha256": "4f3452e8bcf85ba386dcf03a07b36ae5d64a712ebbda851041b52ba8163a7285",
+  "bytes": 34097,
+  "rows": 200
+ },
+ "hands/expected_pilot64_sharpa-float-p2.npz": {
+  "source": "gate bundle 20261120 (robot hands): reference/expected_pilot64_sharpa-float-p2.npz",
+  "source_sha256": "70ff2de31360816c553b4ba01d00c41f71b093098c2cc2346289f62ada017d60",
+  "sha256": "699de4d4d0e0768f9ade0a904d66daccccfac21dac2bedc10d5f281e2b9a5eb5",
+  "bytes": 16830,
+  "rows": 64
+ },
+ "hands/expected_ref200_wuji1hr-float-p1.npz": {
+  "source": "gate bundle 20261120 (robot hands): reference/expected_ref200_wuji1hr-float-p1.npz",
+  "source_sha256": "5e20c66fc032c796e4d7b42db65fea1f2cedd043e2e80f4489b3b5823a339159",
+  "sha256": "60fb8c5dd3df2c3e79d14f7333a8803df1719a72b68b4e360d73fc6feb945b2a",
+  "bytes": 34377,
+  "rows": 200
+ },
+ "hands/expected_pilot64_wuji1hr-float-p1.npz": {
+  "source": "gate bundle 20261120 (robot hands): reference/expected_pilot64_wuji1hr-float-p1.npz",
+  "source_sha256": "7abdd6f3b736ed5d138fe9012790e4cc1da1907bd92601123289e92518951e02",
+  "sha256": "937c2702fd51003ae3d225f0dd3ae3dcc47738ad432e4f2d2f6ba03459f3db23",
+  "bytes": 16667,
+  "rows": 64
+ },
+ "hands/expected_ref200_wuji1hr-float-p2.npz": {
+  "source": "gate bundle 20261120 (robot hands): reference/expected_ref200_wuji1hr-float-p2.npz",
+  "source_sha256": "513e7874ead13716def5d159e1630572c00b782ac17ec087f41f9adbd21d4c67",
+  "sha256": "2e32cd8bf317a4fd22fd24e2820e6ead067b69b48fd6f18d9a6010a8056b1f6f",
+  "bytes": 33819,
+  "rows": 200
+ },
+ "hands/expected_pilot64_wuji1hr-float-p2.npz": {
+  "source": "gate bundle 20261120 (robot hands): reference/expected_pilot64_wuji1hr-float-p2.npz",
+  "source_sha256": "646e611055726dbb03fdfce83fedcb55d6d770fa69d308fdd8ec4a13d5c9cc8b",
+  "sha256": "2870d0157545d3638d34c6063265bf911235f1f0ec6c9c354d75092b460757e2",
+  "bytes": 16662,
+  "rows": 64
+ },
+ "wuji1/jobs_ref200_wuji1.npz": {
+  "source": "gate bundle 20261119 (Wuji Hand 1): reference/jobs_ref200_wuji.npz",
+  "source_sha256": "5aac1d5821d37c2723fbe61ccd5ab5b1388d4749111fd954912520e3830b7f11",
+  "sha256": "a3c6c9476a7ecb5b04c3006a4a22dbc745fd1e6eebe6bd1e7c719321c5e7c76b",
+  "bytes": 112914,
+  "rows": 200
+ },
+ "wuji1/expected_ref200_wuji1-float-p1.npz": {
+  "source": "gate bundle 20261119 (Wuji Hand 1): reference/expected_ref200_wuji.npz",
+  "source_sha256": "cf2e0f67e846894ce2c75aea9509a942303595d1c3c071803b405e07fd207c1f",
+  "sha256": "5e0baec23cfb32a48c12266ad26a9bc45ea5680b895b495ef4c134aac3a333e0",
+  "bytes": 21859,
+  "rows": 200
+ },
+ "expected_ref200_mano-1111-p2.npz": {
+  "source": "rolled by this release's runner on one host (see the `source` field inside the file)",
+  "sha256": "1ff237394162bc6d698650caa489f29e032d67475dcdb0ed119471529e404a85",
+  "bytes": 23128,
+  "rows": 200
+ }
+}

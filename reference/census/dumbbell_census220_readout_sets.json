@@ -1,0 +1,1767 @@
+{
+ "schema": "wf-input-set-1",
+ "name": "dumbbell_census220_readout_sets",
+ "note": "The dumbbell census input set (220 views, the order of inputs/input_sets/dumbbell_census220.json, every field of every unit unchanged) with a readout_set per unit: 0 = the 56 training views, 1 = the 164 held-out views (56 of views-v1 at azimuths 30, 90, ..., 330, and 108 new views 15 degrees away from the training views). Source: the `heldout` flags of runs/ex330_1120/jobs/census_meta.json (sha256 of the 164 held-out ids sorted and joined by newlines: 0ed597b43b1bfee449e3c325c4e33e84603e6271690036a303850f9042506985). `dsrl readout --sets 1` reads out the held-out views only; `decode run --units` takes any subset.",
+ "units": [
+  {
+   "unit": "c_a000",
+   "cluster": "a000",
+   "unit_key": "40713610f04a3506acecc63ca4e83e0b17fb3ed92725c57d7b1db715634220ab",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "c_a030",
+   "cluster": "a030",
+   "unit_key": "9e683d2b2f553263b71cab9b2715a32108262d4f0c114e1fcda063a5cfbdc09c",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "c_a060",
+   "cluster": "a060",
+   "unit_key": "25270d1b35f8dabdc47f5caf90e05e45c57ccd2cab1c22db750dcd9a1459f1e5",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "c_a090",
+   "cluster": "a090",
+   "unit_key": "a5862de8a2cc30359c076fa1c62dcbaaa533c93e3a82bdaa382f8ac7cb73ca70",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "c_a120",
+   "cluster": "a120",
+   "unit_key": "0a89c71798e70335bde92f83f3d7c28b62ef346c70e6586566a90c8e90064a43",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "c_a150",
+   "cluster": "a150",
+   "unit_key": "3e9ff7d166d0a018d931940793f158cf2b7c9d45d0a24682c559e17eaf79d19f",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "c_a180",
+   "cluster": "a180",
+   "unit_key": "f79d0a9dea63cd096ba51ac88d637ef6637b3d4e40d5f6aadf0ef07f815c73a4",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "c_a210",
+   "cluster": "a210",
+   "unit_key": "1cee9c11732864e2c95984f25b83fd625d04934903d3b3d02a28fce5f2d5fef2",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "c_a240",
+   "cluster": "a240",
+   "unit_key": "48ebaecad5d10869e14461ec95e827d9b99b8736e14ba38bc2bbbd7e2df629e1",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "c_a270",
+   "cluster": "a270",
+   "unit_key": "3511778958e8ae3f266e7a6c3d4eb6f749757b04c75d6c46121d19f67a853b70",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "c_a300",
+   "cluster": "a300",
+   "unit_key": "4f73caf0be65099360ddf8a0301dfea5cea4c123f79312533e16c93aaa8efd62",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "c_a330",
+   "cluster": "a330",
+   "unit_key": "9dddf60ef69a4de7b15a7c1bb4ca9b2827a0c8cdc760ffb482e2eb5a54474c46",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "n_a000",
+   "cluster": "a000",
+   "unit_key": "708501db92fb52da3bb630dee925c070dc63e51ca0325c1c59c1579c66e0682f",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "n_a030",
+   "cluster": "a030",
+   "unit_key": "3b9afdb682c8f69d7d72d24481ee5f7e7cc828e866ec4bb017fe9b267bae1ced",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "n_a060",
+   "cluster": "a060",
+   "unit_key": "92f001d3364c90d4898960c33ef2b9315fce283ed12dbfaced7bc0ea150b31ba",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "n_a090",
+   "cluster": "a090",
+   "unit_key": "7502b674b2a2af7a17a61ce5fb09b710fda7892b870ee3771a7ceae1211eb6b9",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "n_a120",
+   "cluster": "a120",
+   "unit_key": "60bec8f9619412dae95ba9b582fbfcd8f7cc379070329611de005d34c45de914",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "n_a150",
+   "cluster": "a150",
+   "unit_key": "ea9a17c14d5b028909b980a9c7fede3f9334d4a51d2767107348fd42a05612b7",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "n_a180",
+   "cluster": "a180",
+   "unit_key": "8f1689e4c5ee2b32dcd0e829736dff4934ab91a7c24ebe40017a2b61a8c959b2",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "n_a210",
+   "cluster": "a210",
+   "unit_key": "1293817006907cc9dc58b558f0fec13c4c5e051beea176944a0622a9c00fb754",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "n_a240",
+   "cluster": "a240",
+   "unit_key": "3700bb5442a080b53fc5797c97b8b0ee7dc65153362757cebe5e96ce842df70f",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "n_a270",
+   "cluster": "a270",
+   "unit_key": "ac53cc04150a276371ac1214c0767765efece8da484ad6f243e094c3c896c7eb",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "n_a300",
+   "cluster": "a300",
+   "unit_key": "a3e4f55532073a225ed3af4d8f1df1aee5d50aa1ad3e7ce46c362953dc951e15",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "n_a330",
+   "cluster": "a330",
+   "unit_key": "f9c38e7a7a583bd36014e1812a4d235b968a211d87412aca9711f75abf7e1258",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "f_a000",
+   "cluster": "a000",
+   "unit_key": "d2dcd9b69f2dc91ca6206fb867740f6e557c46a5d94f483534fcb1ac44796e3f",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "f_a030",
+   "cluster": "a030",
+   "unit_key": "72a7cb7dc718b40837ab2b41f42cfbbff294b62b9f3f922ab02c7a7e9578a956",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "f_a060",
+   "cluster": "a060",
+   "unit_key": "d0eb9ec4bbf0f4bd17b87f22f8e76ca4a9481138038002a449795337ea26168d",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "f_a090",
+   "cluster": "a090",
+   "unit_key": "3f777e40f8655b9d3fc29efe80496ca220d041fb4c248cf1877fb79cb0b7e0ed",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "f_a120",
+   "cluster": "a120",
+   "unit_key": "8b8ae9b41592c36b08eec32774362c854b0944f40ca0b78b5dbfeb95f766faf2",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "f_a150",
+   "cluster": "a150",
+   "unit_key": "0d32bfa36e213aa81109ee055384bba0a955a71cc5d4ed1bb34277a90dbbe7e9",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "f_a180",
+   "cluster": "a180",
+   "unit_key": "500580f03fb3c4f3c155d280470e399fc89ce54e703ce164592846f38bd12c82",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "f_a210",
+   "cluster": "a210",
+   "unit_key": "deec438339738cbe24ff0f79515396a12e04f746e8abd52d7dd5824105609a86",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "f_a240",
+   "cluster": "a240",
+   "unit_key": "811fee2eceba9b5f372903dbb226d433d37d5280adc21bf161e300999fad7cb0",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "f_a270",
+   "cluster": "a270",
+   "unit_key": "bac6781e5468d687a0d7b8e3caaaeff3e8f757d593c79e9dae60d9b137a14c03",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "f_a300",
+   "cluster": "a300",
+   "unit_key": "3457cb9bde42336ecde586f0a9fbb877d0eee4089e2405dc4b8f79919517f158",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "f_a330",
+   "cluster": "a330",
+   "unit_key": "4cb69ed3d817a16342c0eaf3f7ba4446526b4c050279526861973afe346f5a73",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "l_a000",
+   "cluster": "a000",
+   "unit_key": "10015555471bcc3b77ce8cf1ed971cae1d3ba58588603ed0d603892bcae06a42",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "l_a030",
+   "cluster": "a030",
+   "unit_key": "bf0dd3052a198325366e99842347daf7ca092e822d96401afacf06f7ab6aeda4",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "l_a060",
+   "cluster": "a060",
+   "unit_key": "096d2296131b0307393e049dbbedcf30f123d52a9f7740cd42bcafd949b9a5e7",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "l_a090",
+   "cluster": "a090",
+   "unit_key": "2f800512231f7140061330135eff6c5d231272ebb6c3b3fa57162baade6909fe",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "l_a120",
+   "cluster": "a120",
+   "unit_key": "72370e9f966d0be3f4985b54838750d0c4505fb12e5dd216d311878d4823ac0c",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "l_a150",
+   "cluster": "a150",
+   "unit_key": "3da2e5828d9bfea48e13e553702c94acb442acf6cba49f31c75033d58127a948",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "l_a180",
+   "cluster": "a180",
+   "unit_key": "e31b2dd0e79d3b7a8195f66d5ff339b2e6af40c6833a595a7d570abeb096cdb7",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "l_a210",
+   "cluster": "a210",
+   "unit_key": "bdb0ed0791eb30d05a2ce5a809f3c23009b501abdde1301a034fead02d4a2172",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "l_a240",
+   "cluster": "a240",
+   "unit_key": "1e64e0ac031224163fcbe8cc93b171c542678d1d997cf52fc2543eb44ee7dce2",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "l_a270",
+   "cluster": "a270",
+   "unit_key": "b5ededbf97bec6378a1bc54100d252e94d8d2e90e0fb781eed8681ed4a44acbb",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "l_a300",
+   "cluster": "a300",
+   "unit_key": "046d09b84e59f464a653ec5e0800d42086e72ae39fc2b7d9c5388926819504e8",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "l_a330",
+   "cluster": "a330",
+   "unit_key": "42310a998fdc822254d3ddfd08a43d5bb436685c5b1122d415e911d007d55910",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "h_a000",
+   "cluster": "a000",
+   "unit_key": "21e9eb4038b39dcc1671211141870e6063643fd749694f71235a0d71375c0063",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "h_a030",
+   "cluster": "a030",
+   "unit_key": "1b3387d37328c083983eeea01ec7f7be79f900b7ff9a866b22a0e44f8836598f",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "h_a060",
+   "cluster": "a060",
+   "unit_key": "ddb1d42b15e99eb639ba7459714727c018d231808530231c9dbb80826ebc37fe",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "h_a090",
+   "cluster": "a090",
+   "unit_key": "5943ee5639eafcee7f387467b3f06197a62335dd8399f227f1f43787587dd18b",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "h_a120",
+   "cluster": "a120",
+   "unit_key": "b01f14cbddad2b40fd75ba5f24222580e81413cc616e9b5d0118c46826a7c168",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "h_a150",
+   "cluster": "a150",
+   "unit_key": "26b21bc012856eec576f0321bd3772db47e81bd24e5060087da33ae3da74531d",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "h_a180",
+   "cluster": "a180",
+   "unit_key": "be7cd51c40637d689d39d60133af10e6fd6b110d3a4464d7bd7a73d74c40f234",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "h_a210",
+   "cluster": "a210",
+   "unit_key": "70faaae19927ce4d54c955edeaf701b35b07801e4bad2b79c4db0acb7c232a85",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "h_a240",
+   "cluster": "a240",
+   "unit_key": "33244e71c7b132bd722fd37a6320966d42fdff4a4354526913dab023d080ca28",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "h_a270",
+   "cluster": "a270",
+   "unit_key": "23b32b91f1bbdb5c875c251b10b9373c5bec2448c87f4d9fcb14856ffcbb7d79",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "h_a300",
+   "cluster": "a300",
+   "unit_key": "eab1597488943c26ee654405a3622507844a65317e6c2db07778376e7c92fd4d",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "h_a330",
+   "cluster": "a330",
+   "unit_key": "18a63e99a4fa5d4d80a52b54af9cd1ba45323f5b317c516c20fea6fbf8972e80",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "s_a000",
+   "cluster": "a000",
+   "unit_key": "c212d80fcef383a5071ba6b206810d80fbc45ffb5ef010749e631c120c4e627d",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "s_a030",
+   "cluster": "a030",
+   "unit_key": "5ffc5386c0734ab42f675c058b41035c3da107b85668f87fc104943e7b3645bc",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "s_a060",
+   "cluster": "a060",
+   "unit_key": "bcc3d251375ab813bb1beb84331f6f3f40cba772078b489e5e1d478bc42de586",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "s_a090",
+   "cluster": "a090",
+   "unit_key": "6fa10ff0f3c1f6934556dfd3130596c523418022e747b37e9fde116931a982e1",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "s_a120",
+   "cluster": "a120",
+   "unit_key": "06e2f735f39fe1ab4d2c79dcc38d99bab296e6a64af2cb90f2fa18a6a51c2295",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "s_a150",
+   "cluster": "a150",
+   "unit_key": "9fc1d7f415fb28279a5e8425847d6ac434f64762cf2e8e1e0ff9d97bb44a13ce",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "s_a180",
+   "cluster": "a180",
+   "unit_key": "5da7df3433253f50b07dd093b9f0e0a155c89e2f9fd0e8e43844ce8ff6518561",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "s_a210",
+   "cluster": "a210",
+   "unit_key": "aa6f49907630104d61f7e4a466cb38d13adec2d14934f38d1e95062662d695dd",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "s_a240",
+   "cluster": "a240",
+   "unit_key": "a76fb55a79511798d69b107d2f1f3713041b0be059883afa37bd91514331649c",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "s_a270",
+   "cluster": "a270",
+   "unit_key": "1dbef24cc0bf02608c3f9673cc1067e3090a7e40877d2b40a4e9055cbe7ded92",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "s_a300",
+   "cluster": "a300",
+   "unit_key": "5ae279e0397bfd98222d99592447aad476574c065f0560e517c06f7789a7b508",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "s_a330",
+   "cluster": "a330",
+   "unit_key": "2e43eeb433064acd867509c9b93baf2988270f5954f4e0aeff4f66ad659338ba",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "t_a000",
+   "cluster": "a000",
+   "unit_key": "331ce9f2fcd63580c09c642e2d53720238a53012d176021ba57bdc80dd63ea39",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "t_a090",
+   "cluster": "a090",
+   "unit_key": "cf424911f9a0f39041e4ec174cc308f83c40576a7ffbacaf06b2058ae1eca0fc",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "t_a180",
+   "cluster": "a180",
+   "unit_key": "e8812779439e537caf8332778b046b355304ed5ec2f54ed4e23e1aaca7de6a03",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "t_a270",
+   "cluster": "a270",
+   "unit_key": "d994841b616cc8950a79700d09dea2b362ebcb6cd57f397bdf34393669b86674",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y090_a000",
+   "cluster": "a000",
+   "unit_key": "76fb2369a99355c8f7d7a1cd47da2d398fafddb5359df61c62e1746ceae47434",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "y090_a030",
+   "cluster": "a030",
+   "unit_key": "38537e52baa36bf711745c49168ba128e8b9bb0cd133342a550338d8c8b3ef5e",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y090_a060",
+   "cluster": "a060",
+   "unit_key": "80baf2631e7abf9546553fe272658dd229c9bbbe5cb8d2ba57182bc7d35dad81",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "y090_a090",
+   "cluster": "a090",
+   "unit_key": "21391dec80eeaa8f1bbd7e3a5ea93c8392249edfc47f0ecb97850a7869312d2b",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y090_a120",
+   "cluster": "a120",
+   "unit_key": "961eb9380ee69647497d3c5d2fed7442fa81cb1af3f7964710a6b67a0c5b6ef0",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "y090_a150",
+   "cluster": "a150",
+   "unit_key": "664cc8511291c9f2bc0ea3039f9d93a879b888faa82e83d9ef8599485b8e9779",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y090_a180",
+   "cluster": "a180",
+   "unit_key": "403a32d53d31534cd68b93bd31ae1bf9ef76fccae9fe41f4b3d54bee02393ea7",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "y090_a210",
+   "cluster": "a210",
+   "unit_key": "f1a4b68baebd285381f41a61228beb577cd6a6aa06065324dc5ec77fafc0a60a",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y090_a240",
+   "cluster": "a240",
+   "unit_key": "8f56a307689e8fecea456590f80ab8401feddf10bf3c25f60423ecdfb95891a6",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "y090_a270",
+   "cluster": "a270",
+   "unit_key": "f0362ed4bb99879532e7cb4c64248b94d5355f07c4663aa602d6952ef05560a2",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y090_a300",
+   "cluster": "a300",
+   "unit_key": "a3e37fc244155ef87df514a032d72ef316d4cad209d521255e2895ef5e552905",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "y090_a330",
+   "cluster": "a330",
+   "unit_key": "70d0e3a7bfdab12eff0092e680bc9a3c0e1388bc87373b3305d1dae7742beac5",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y180_a000",
+   "cluster": "a000",
+   "unit_key": "5c2e866242361ce974b7462b3f95957ba9f151aab9d9a6e10323122522a43830",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "y180_a030",
+   "cluster": "a030",
+   "unit_key": "610bf519a489b33ab8fc5987b782140cea19edcbf469065ad5c6ea640d427340",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y180_a060",
+   "cluster": "a060",
+   "unit_key": "8a8ed8673cdecc7cafc910ca13c6edd7d0f822e198370386ad73ffd86b558d87",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "y180_a090",
+   "cluster": "a090",
+   "unit_key": "c63e87d14da8dec4b8b9c456b10ea352dda2f84ed225ee6b3ab093c615e0f033",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y180_a120",
+   "cluster": "a120",
+   "unit_key": "42b72453e598e03b0058f7e07718a1d477809c0038a629f5218b36d05b01ffb0",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "y180_a150",
+   "cluster": "a150",
+   "unit_key": "3925ea0667e116cabfddff8954e9ab44dc774506a69cb114cf8c42a3961236fb",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y180_a180",
+   "cluster": "a180",
+   "unit_key": "82ea211ff16e85be29cbebe681450ab28eed7eabd54f53660ebc685970595ac3",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "y180_a210",
+   "cluster": "a210",
+   "unit_key": "cb5bda8f8bbfb0d37d281041b7e78d86e951ce14347b0aa6b88089632e96efab",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y180_a240",
+   "cluster": "a240",
+   "unit_key": "8b0a667848d89e994fe374024a39a44a08d09ba24bfa0e425da39ebcd66f568e",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "y180_a270",
+   "cluster": "a270",
+   "unit_key": "41fc463b01326392a8802b79a0ab079e9675ac1097293d14b0ce0c2b3c1d019a",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y180_a300",
+   "cluster": "a300",
+   "unit_key": "3af3da7e787e2d61bb7732d51316931a89b428c2df470dfebf56b829527be687",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "y180_a330",
+   "cluster": "a330",
+   "unit_key": "3530f3ac5ff8d9fd0d20d5eb4471c2f4adbc1ec049dd5402a234e84d6cfc8d30",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y270_a000",
+   "cluster": "a000",
+   "unit_key": "afc9b862467d469aaf09ca83fb4bd2d7762bbf5bbeef48afc9738b879e223a02",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "y270_a030",
+   "cluster": "a030",
+   "unit_key": "6dab9e97b7980370839d3151285a80d187201344b206175bd312097539bf2186",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y270_a060",
+   "cluster": "a060",
+   "unit_key": "33e71e8ecc1d76b52782173c7233ef8c46dfaa5b0bc2bf7403503ac516f7cebc",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "y270_a090",
+   "cluster": "a090",
+   "unit_key": "9b9cfe7a2d99625908696fe070bf2b34e19331682d62cdd60d012668b2925092",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y270_a120",
+   "cluster": "a120",
+   "unit_key": "4f1747148e568b56eed9626443abeb1fff5528a5f844cc459fe75ad22f15488d",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "y270_a150",
+   "cluster": "a150",
+   "unit_key": "cf1dd886158ca5a93bf0c2567c7f18b02a4a8e82cedc5d3bed5548b029580a28",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y270_a180",
+   "cluster": "a180",
+   "unit_key": "bdd9e6326b34c5de8c2ade19930901e88d731102267541680459f8aed14db0d6",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "y270_a210",
+   "cluster": "a210",
+   "unit_key": "0c0b4b53af8addafe610d7e2e542127ce68dac8f6f6ede0205dc0839bf5a5ac8",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y270_a240",
+   "cluster": "a240",
+   "unit_key": "0474744ff7d58ba9d3a295ffa1d024825d37ef1bcb3f5bdf499ea7b2f400489c",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "y270_a270",
+   "cluster": "a270",
+   "unit_key": "ee7343e004ad2e2de539e043f457eccba590c445d03e4d919b2acefdb9674454",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y270_a300",
+   "cluster": "a300",
+   "unit_key": "e45556972616c49432722e6135b6419ee37160ade946fb7f9bcdab43ad9dd8fe",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 0
+  },
+  {
+   "unit": "y270_a330",
+   "cluster": "a330",
+   "unit_key": "25ca1df20f4544c2cc5350c8b1e29a737e486fa8669acbd76986758bb5167f5a",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "c_a015",
+   "cluster": "a015",
+   "unit_key": "4b797a015c6e1eb0d0e840a412f91c17d98598447406953bf082ef1c630104a1",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "c_a045",
+   "cluster": "a045",
+   "unit_key": "1409a2cf921b04fde183efa4d10ab46dad190d5f1bf14111bde6b599659d50c5",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "c_a075",
+   "cluster": "a075",
+   "unit_key": "9ddf46415b81d0f1f8173e0b3b2cfff6d3a6a9a4f9398e7c94a3d8c7fd7ce89c",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "c_a105",
+   "cluster": "a105",
+   "unit_key": "2e8b46ab312bf6fab1dfc6161530f2b42e569c92d14e70d3b908446078cba8ff",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "c_a135",
+   "cluster": "a135",
+   "unit_key": "92dd40f8381b35401a6a81e8b7334044a620fa400d2c216493b8dc5f342afca4",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "c_a165",
+   "cluster": "a165",
+   "unit_key": "55a7240a2e70d2a263f5f48c9e6fa9c2d68286f75992e2f4cabf5e679e023873",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "c_a195",
+   "cluster": "a195",
+   "unit_key": "7d4fdba6f2f105deff4dfd5cbf5337783dd9cfbf6b7b6cfe4246dfcfb3606649",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "c_a225",
+   "cluster": "a225",
+   "unit_key": "3cafa41adcb44ed65f1aa9803b650e929b43bca8014213a10a4fa36ba0388210",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "c_a255",
+   "cluster": "a255",
+   "unit_key": "1bd73f20e20ddc4cedee3b770a59eb3073ddcc0cc616d5485c5f17437f7f5972",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "c_a285",
+   "cluster": "a285",
+   "unit_key": "18a4a90008a21a17c64a13462e70177c67ba17e21f2a7423643bcb21cc8c1bd3",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "c_a315",
+   "cluster": "a315",
+   "unit_key": "f34de598dc2af100d568165caabd6982562c16b4699104ae380b5f62f5593fbc",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "c_a345",
+   "cluster": "a345",
+   "unit_key": "7776b8ede7956a1027ef5047de03ae5a85c5e145bc6577ef2cabb6b8b0a3f8b5",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "n_a015",
+   "cluster": "a015",
+   "unit_key": "6ef98fe133dc02fa658c0074117758dfafd561814b24a0ec3a1549fee9d690a6",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "n_a045",
+   "cluster": "a045",
+   "unit_key": "bc7e776441c199b253359205f795339d010dc23f2eedcb38d7f7ba0d8323311e",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "n_a075",
+   "cluster": "a075",
+   "unit_key": "84d462f63ac913ff6965d3a071cc71e9fe5d2dacadd6351495400773f7f76c35",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "n_a105",
+   "cluster": "a105",
+   "unit_key": "1ab0734ca9eb839fa44d4e9e5d64e7d9b7fd02d4e0b364a817a7b7d766dd63ad",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "n_a135",
+   "cluster": "a135",
+   "unit_key": "6f4bc69702829b933cd80aa7b359450f4e996e0ce6c6e03d00234d388aac11dc",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "n_a165",
+   "cluster": "a165",
+   "unit_key": "c18ef8207a0b394e27f73c9602c5b597078926fb965be1f3e25b9354a3f1b737",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "n_a195",
+   "cluster": "a195",
+   "unit_key": "fed082e89843be201cdc35cecebc1395d9a1ace266dc78e0bf29eaf70617586c",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "n_a225",
+   "cluster": "a225",
+   "unit_key": "cc064aa58a69fcbdd6424ca73a67fd83fd377a8ec8f55d00b30daa2db4c5388b",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "n_a255",
+   "cluster": "a255",
+   "unit_key": "2871bb79ea04a33bdd6544bae9a3e0cd8208c059cf619f70be1d228b392d3b65",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "n_a285",
+   "cluster": "a285",
+   "unit_key": "f3952f354a5ee1fd1c2e39c204934ade62a8a897d927516bb6060ce45865aeaf",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "n_a315",
+   "cluster": "a315",
+   "unit_key": "f61324bc9d0ae4715540968421ef039108a49e6b12caf955f0a22c3ca77c80e1",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "n_a345",
+   "cluster": "a345",
+   "unit_key": "51ae18f2a8ab46958d7a721c1ce9b10b07aec6321377219255301e9c9e548e57",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "f_a015",
+   "cluster": "a015",
+   "unit_key": "f13296583ef487fa7962cf9bf5b64df9d91affc47cd21edcaa1354409f5381e6",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "f_a045",
+   "cluster": "a045",
+   "unit_key": "5f05b1b220a0451d41fcda6299ba4a08f885f1604ac78e1e687630ad14751ed8",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "f_a075",
+   "cluster": "a075",
+   "unit_key": "8713e29e54e5d93bc6f0349f98effeed4b800599d326baca783493ca3eb3fadf",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "f_a105",
+   "cluster": "a105",
+   "unit_key": "461b2e449bdf8744bb1274f9a10bc5816022b2b2019beb98eeaa250c5dc19d15",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "f_a135",
+   "cluster": "a135",
+   "unit_key": "c564a41298dee3514916ebfb08e45c31968ee154a789b9bc6b2a4bf38bf454d9",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "f_a165",
+   "cluster": "a165",
+   "unit_key": "16e22a1beb1a00029fa13c39602a18d2ea16e9ca15bdf7d56322098e8f8235be",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "f_a195",
+   "cluster": "a195",
+   "unit_key": "6415537ef02009f33ff10a288f0b98ad5527a50838b0006df59d0cee3e4561bb",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "f_a225",
+   "cluster": "a225",
+   "unit_key": "9b6143af223910f3ac49b6e9329a6788382e2ec91a85651178397a63593d43d4",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "f_a255",
+   "cluster": "a255",
+   "unit_key": "dc0de57763d729586d77a31af23d98e6bbe94268a04caed0dc164b439faa9d72",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "f_a285",
+   "cluster": "a285",
+   "unit_key": "45c5ae745757b74e06858c40315d8d8292731701caedf7985825a8c79f70c9ed",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "f_a315",
+   "cluster": "a315",
+   "unit_key": "a450851543c537f20b3901b3b4b45b61cef8bb47aa3e8a7aea000465f517b99e",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "f_a345",
+   "cluster": "a345",
+   "unit_key": "8399b56108e13e009ac5fff0c4b1af2a4f39ae37016d1881b0643465f824b428",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "l_a015",
+   "cluster": "a015",
+   "unit_key": "85bcf3242b92e52c4d6480703909911a73a8a6e80d76d07c1ad8a06797a9d95c",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "l_a045",
+   "cluster": "a045",
+   "unit_key": "b9b3c40f1ca6b8d710c4b99048b7651078bb928e3f17f509d2528cea57903809",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "l_a075",
+   "cluster": "a075",
+   "unit_key": "4d0ca354ed130dc251753221339b7934c03ac33e13e239710377f51d5b736082",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "l_a105",
+   "cluster": "a105",
+   "unit_key": "9dda114132b05b775a8b4afa616e210c4c3fc4b670ca6b876d0582dcbf0f0075",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "l_a135",
+   "cluster": "a135",
+   "unit_key": "409a0a5b5fa865acbdb9111ca92932e8acfd9027263ba75e8b9c6eb495acb868",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "l_a165",
+   "cluster": "a165",
+   "unit_key": "23ada29eb02f150e4bc7c7e940effaf2933fcf9e8ea80ba452d108fa1a55737e",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "l_a195",
+   "cluster": "a195",
+   "unit_key": "5fb358bb6fddd20030bf570e38617dfdd8e6c751cd653e424994423bada2bffd",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "l_a225",
+   "cluster": "a225",
+   "unit_key": "57f4b28d6fa375632e1961d74a202399e1df92b1ec5358352c2db785b63ea503",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "l_a255",
+   "cluster": "a255",
+   "unit_key": "7686e53fa750a18534590e24607813ae82d7faf862378a324852caa8751bfa55",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "l_a285",
+   "cluster": "a285",
+   "unit_key": "fdf0e5477370d830e42391cfcf315bcdb1f15b85db4113705bf3b0acdbbd3e8c",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "l_a315",
+   "cluster": "a315",
+   "unit_key": "8e827ff445a0ce04705e252e3505bf755ca64ec7bc655a100cf4f3e91a8b74b8",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "l_a345",
+   "cluster": "a345",
+   "unit_key": "2c295f457214d2cbccca9eef49c2b16f4676ec25525edb753e2409603331c31f",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "h_a015",
+   "cluster": "a015",
+   "unit_key": "f6945be75522431dcbd55f88010e4cd145ca0a7b829c74ae750f01243822b246",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "h_a045",
+   "cluster": "a045",
+   "unit_key": "42fcb251618c761772661321695ff8205b3644933d32ad2ff6cf2b3ae9530644",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "h_a075",
+   "cluster": "a075",
+   "unit_key": "cc8a2f5bf118375bb090e5efc16da99d8a48f7fcab675451e491b0b51ebabaed",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "h_a105",
+   "cluster": "a105",
+   "unit_key": "0aa315a09e460f40fb43539330b5447894b0279fe4850bb81c245706e2ca27e9",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "h_a135",
+   "cluster": "a135",
+   "unit_key": "e76e1a5031c5abf8d436a133290fd7c7e018c387b463eff298c49fbbec8c45f4",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "h_a165",
+   "cluster": "a165",
+   "unit_key": "ca26c492564e2bb522979551794e924ae848c1495c76957db67f67f300a9d989",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "h_a195",
+   "cluster": "a195",
+   "unit_key": "6d0c59acd0afd7972c3a34b10ef50b9134e7377df7440ba6d4eacf2df2bc82ff",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "h_a225",
+   "cluster": "a225",
+   "unit_key": "aa3e64c9f2e4ea6ba9132904c60744be6511dbf96a37b1b3b11c840c159abfee",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "h_a255",
+   "cluster": "a255",
+   "unit_key": "cc3ba8cd783b28bbdffa48dc55ee0de0b5c6e1f11f101248bc405fbb89eb9317",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "h_a285",
+   "cluster": "a285",
+   "unit_key": "4c22068002108d9ac0842777c87363a8f855e234c6880369cee8f8a18e783d68",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "h_a315",
+   "cluster": "a315",
+   "unit_key": "2485ada5cd3cae173b9c276d186b4c5d4a1059905aaec37f1de88ff8b7a4c0ca",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "h_a345",
+   "cluster": "a345",
+   "unit_key": "7459c76937e949554595a642e554686937572a0ecfece09f8c499a3355ca1324",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "s_a015",
+   "cluster": "a015",
+   "unit_key": "3095d4457c351fbe15e920976fa0f7231adc54b4789a194cf90b95ff028a18b7",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "s_a045",
+   "cluster": "a045",
+   "unit_key": "b51f577c5aaef5ae787241a1b8f62c55f1dddb411977435235e5d54f386201fc",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "s_a075",
+   "cluster": "a075",
+   "unit_key": "595e1f2cbfe5ab3b8ab269bbfca1a1fdebc2ada620326f04804d6c4e91ef3432",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "s_a105",
+   "cluster": "a105",
+   "unit_key": "8b87a7c33a969063146c5befc4d37c71e29567ef3d847739b61ed370a8658d1e",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "s_a135",
+   "cluster": "a135",
+   "unit_key": "4998b507f06129c6de13c0d1e8e9f16f4efa936a04708e016db32724195f6769",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "s_a165",
+   "cluster": "a165",
+   "unit_key": "3398f06d77634001e9d21b1e2aac5ebaa21d6642ace734f3a439aaea0b62b63e",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "s_a195",
+   "cluster": "a195",
+   "unit_key": "ba3e50aa8060133c20fe93cc1ea70a8cca839055ec8359968662c56a1014c00e",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "s_a225",
+   "cluster": "a225",
+   "unit_key": "471e2403ffb65f4c2ac7a6117a6e508af238321d6529e397c7841af80726d508",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "s_a255",
+   "cluster": "a255",
+   "unit_key": "0fc9cdf5378ebf2b785fd951aa5ffd61f5bd33aacac5ed1b27496a65f80854ce",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "s_a285",
+   "cluster": "a285",
+   "unit_key": "c1eb3b3dbd9290bcb30afc8815da10a5e49c4435437904d45c5f7a18766f9200",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "s_a315",
+   "cluster": "a315",
+   "unit_key": "ab9a0a9aed508be46abdcf39907b4c0481e570141c64ace9e6f9914b60b78998",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "s_a345",
+   "cluster": "a345",
+   "unit_key": "f142d052c117505d3f853c5fe33d8e7c832fd25448786510b6b2e8e76e59ec3b",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y090_a015",
+   "cluster": "a015",
+   "unit_key": "1ba5467bcd98e823336e313d0adceb267b2ac5f53aa9847a4e354d43ac431c99",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y090_a045",
+   "cluster": "a045",
+   "unit_key": "ba348a0e52641519ef86f047f88b703829e6ad501758e5e34e17efc47d1890a3",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y090_a075",
+   "cluster": "a075",
+   "unit_key": "5ce2a89e7cb36f40f5f6f12f8d792b3d0f518665b3ee2db006c3c1f2268822b5",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y090_a105",
+   "cluster": "a105",
+   "unit_key": "141d852f829d2a026e4bf1c63b4dd55f266abade1c83c1e96e22a1e800cdc537",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y090_a135",
+   "cluster": "a135",
+   "unit_key": "a7c1eb6ec9c5979e3ccc25893f3059cebe0a6b227dcb7ee8f3650a62793fe83e",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y090_a165",
+   "cluster": "a165",
+   "unit_key": "6af75dba60f77bea9e1ba7014d0e86cc205a7ad01f57427df3793f1869cc0a3f",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y090_a195",
+   "cluster": "a195",
+   "unit_key": "7fa9f1ef84ec8924716c4b7b47b346e3e32a4e723394d8896006c49f9ad6aa65",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y090_a225",
+   "cluster": "a225",
+   "unit_key": "042afa02db5c756698105080938e56d61aad18e7d9fcff3f4e841e5b1e2f1193",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y090_a255",
+   "cluster": "a255",
+   "unit_key": "5cc584421203dc1cf964610ffdf6fd44d196e89f292eb8bad6b584df2028ea12",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y090_a285",
+   "cluster": "a285",
+   "unit_key": "355fdeecb1ebbff7722e479d90e97340c878f1c3775d3a8bacd895a5c6d3e5b9",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y090_a315",
+   "cluster": "a315",
+   "unit_key": "bd50a8a7c979bafd1458a15c627c34dec7de027012cff62cbec3433bd3235112",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y090_a345",
+   "cluster": "a345",
+   "unit_key": "eac0c26f695a5f4eb026311f9f3e24235351e63ebc49b08202d681d868f2f2b1",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y180_a015",
+   "cluster": "a015",
+   "unit_key": "43307818f659528a7518735862ea98beebfb5b41c2ff8ee524f8ad17bd3232ce",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y180_a045",
+   "cluster": "a045",
+   "unit_key": "be45835b656f450780c6705a12fd5e5dba50091aa94e39d1f11680477652ed0c",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y180_a075",
+   "cluster": "a075",
+   "unit_key": "474e798447befa7d96f50db451e01f43e4c035c754ac3c8a1a82394744e26734",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y180_a105",
+   "cluster": "a105",
+   "unit_key": "8ec27f7e7660e494dde4d579cca1e5f691c715bf2a481dc0e236c42421070149",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y180_a135",
+   "cluster": "a135",
+   "unit_key": "b56b6281106eca10dfe0f3825a9f52c7396168696b7f6159cf985837b871c72e",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y180_a165",
+   "cluster": "a165",
+   "unit_key": "c01040e7a276e761a602adfd4d99fbcff9a2c3f6fcec29b52e095488e3c4c218",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y180_a195",
+   "cluster": "a195",
+   "unit_key": "9d7dbc3703ac93458cbd49264c517b4284bb155eff160ac496f703636df005a0",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y180_a225",
+   "cluster": "a225",
+   "unit_key": "918a6a47c15f788ff7bfd34794c3603e7282de1790410d5af2ca52784635816b",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y180_a255",
+   "cluster": "a255",
+   "unit_key": "513961872bc78b7069fd9554968edc5d1073d82867d61c135f0bd09646fc713d",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y180_a285",
+   "cluster": "a285",
+   "unit_key": "afac60c620859feeb07c64f607e716396f4ad3ae53c0d0b4d741baf21ef77927",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y180_a315",
+   "cluster": "a315",
+   "unit_key": "8b800b35b0a40a0244ac83b10d7cb85b98e844c5518fd0443f65ebb867ce528d",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y180_a345",
+   "cluster": "a345",
+   "unit_key": "1eac3b8b399ec849daf7e7f2aa2e0851ecb3f8875457b8af4c120423a7111883",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y270_a015",
+   "cluster": "a015",
+   "unit_key": "f1303d9d6c8594c78cbcb31bc619577f4fbc4fe27b5f9e80bb56182395ce0288",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y270_a045",
+   "cluster": "a045",
+   "unit_key": "e13e346a77ba6e7432e661b09da42ada64767649e12735bd5c42c309d124ab88",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y270_a075",
+   "cluster": "a075",
+   "unit_key": "2af250aaa21c41ec8a5a7e092169f875f58a65a49dcbd0314eef2997547e7493",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y270_a105",
+   "cluster": "a105",
+   "unit_key": "fad9419fe0ab096382f500c2a056509c71e37b9fe2c5856d8621336cf4b6942e",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y270_a135",
+   "cluster": "a135",
+   "unit_key": "4385ff1d24dbcb02bbc8f124883c50e1f3f7dd679544b814450c9c697430e35f",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y270_a165",
+   "cluster": "a165",
+   "unit_key": "bf1572477d0df5f0932eaaf853973a2242179fc66efcee39c8d05641303307f7",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y270_a195",
+   "cluster": "a195",
+   "unit_key": "00998adb989c2223d7a9095f54a8dc50c72f543a75ca4f14f885c5a657cccb45",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y270_a225",
+   "cluster": "a225",
+   "unit_key": "b13b9238fc6706c6aea5d9116649ed840b2b0bb931b1ca9216ec42e6435c3e06",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y270_a255",
+   "cluster": "a255",
+   "unit_key": "1a538813e055ae813f15afe68cd65b6ab3cff2de854857d54f0fc386913122a2",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y270_a285",
+   "cluster": "a285",
+   "unit_key": "bf34526da7ed71f738e7dc15770689b91a352c4175ca8d495bb6d15f8e26ded9",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y270_a315",
+   "cluster": "a315",
+   "unit_key": "a82056dc74739cacdb32222b92c495a6fd1c5cd0cb7611c6ffac0e93bcd08cde",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  },
+  {
+   "unit": "y270_a345",
+   "cluster": "a345",
+   "unit_key": "450000203c6367ec94e1c7aa5ffe1bf452421260137b1dab9909d6f5ffdc3fe8",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook",
+   "readout_set": 1
+  }
+ ]
+}

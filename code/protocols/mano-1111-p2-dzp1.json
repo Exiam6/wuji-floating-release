@@ -1,0 +1,197 @@
+{
+ "schema": 1,
+ "source": {
+  "document": "docs/experiments/mano-1111-protocol.md",
+  "branch": "the mano-1111 task branch of the shared research repository",
+  "commit": "02aeadccc26cdaa66d07e0e7652e13c8da505de7",
+  "document_sha256": "b60e192a473166365a321cf0d2d096deb09fd6a6e647e70117ebbf6a00d9bad5"
+ },
+ "evaluator": {
+  "repository": "aria2mesh-private",
+  "branch": "hug",
+  "commit": "ab262f8de9f039539475454a2bebf802c04ad448",
+  "route": "metrics.eval_pred.score_predicted_pkl -> metrics.scoring.build_eval_scene (capsule_hand.xml) -> utils.sim_plan.plan_from_world_wrist -> reset_to_plan / write_ctrl / mj_step -> final-frame table-contact test",
+  "mujoco": "3.10.0",
+  "trajectory": "GraspPlanConfig() defaults: pre-grasp offset (0.03, 0.03, 0) m wrist-local, lerp 1.0 s, curl 0.5 s, settle 0.5 s, lift 0.5 m over 2.0 s; horizon 4.0 s"
+ },
+ "files_note": "sha256 digests copied by script from the 'Profile file digests' list of the source document; SOURCE_COMMIT is the file of the evaluator's source archive (commit id + newline), models/MANO_RIGHT.pkl is relative to the MANO assets folder, every other path is relative to the evaluator checkout.",
+ "files": {
+  "SOURCE_COMMIT": "d1bbd89e70dcb3cb6d40a802131de5c3eeb7f862648145ff23e17935f3cab66e",
+  "hug/utils/sim_compose.py": "bd498e41e4ab841fe4d563011f7d29ab8393e0394a8ddb289c725100c2c6e02d",
+  "hug/utils/sim_plan.py": "e4126db7f6ee6698633187ea4cfdad93152dce353a87918fc29a43ea4efa721e",
+  "hug/metrics/scoring.py": "e511f117646e300a9f52cc5d2e2ce240d411e7252878f215c31282071d0fbcd6",
+  "hug/metrics/eval_pred.py": "fc13a81673d95ccc197f51446187639810a6202184201cb00893adba4e65cffe",
+  "src/utils/data_keys.py": "9995aa4e6c726b671852d180b4fd14e342dcea5ce417e8acd596ced667a070ef",
+  "assets/mano_rhand/capsule_hand.xml": "b9c446df6018bbe7ff9b938f2c5243bc220609df4931efd3d20189bbbe9b5880",
+  "assets/mano_rhand_shape.npy": "3e9a85085ae67f36745ce647b904acb4e3620e8ac46378755498291fcf010ddf",
+  "models/MANO_RIGHT.pkl": "45d60aa3b27ef9107a7afd4e00808f307fd91111e1cfa35afd5c4a62de264767"
+ },
+ "adapter": {
+  "path": "tools/float/collab_native.py",
+  "origin": "campaigns/mano1111/native.py",
+  "origin_commit": "02aeadccc26cdaa66d07e0e7652e13c8da505de7",
+  "sha256": "fdb9345517e1f41792423089aafa429a24f4784db7c2c9fe2925c778835e236d",
+  "adaptations": {
+   "A1": "MANO_RIGHT.pkl read from a separate folder (same file)",
+   "A2": "object pose handoff: bench world mapped into the evaluator world by a pure translation (xy to properties.json world_position, bench table z = 0 onto the evaluator table plane); object starts at its settled pose; wrist moved by the same translation",
+   "A3": "rollout replicates run_grasp_sim_headless to record diagnostics; official_check asserts equality with the official function (identity initialisation only)"
+  }
+ },
+ "labels": {
+  "success_native": "no contact between the table plane and any object geom at the final frame (t = 4.0 s, after the 0.5 m lift) and a valid simulation",
+  "sim_valid": "finite state and no MuJoCo BADQACC warning; invalid simulations stay in denominators as failures",
+  "success_strict": null,
+  "success_strict_note": "v1 is the only strict label of this protocol (no v2, decision 2026-11-16 after EX244 row ex244-e_meshpen_1116)",
+  "success_strict_v1": "native success AND the final-frame hand-object contact includes the thumb and at least one other finger AND final object rise >= 400 mm (fixed 2026-11-16 from EX244 row ex244-d_strictlabel_1116); field success_strict_v1 of tools/float/records.py"
+ },
+ "stages": [
+  "invalid_input",
+  "sim_invalid",
+  "no_prelift_contact",
+  "not_lifted",
+  "dropped",
+  "success"
+ ],
+ "sampling": {
+  "hug1": {
+   "checkpoint_sha256": "515b5c3bc7987739aec019e754c15df5fbf3eff9daefb93924da098ae4bd1eae",
+   "euler_steps": 50
+  },
+  "hug2": {
+   "checkpoint_sha256": "3c714b76a61ba3cdb93bec198c98fa9ecb4807c1fa20cce08870d0aaf092180d",
+   "euler_steps": 10
+  },
+  "draws_per_input": 16,
+  "noise_rule": "row i = torch.randn((1, 99), generator=torch.Generator('cpu').manual_seed(derived_seed(base_seed, 'fresh_hug_benchmark_noise', case_id, i)), dtype=float32)",
+  "noise_dim": 99,
+  "hug_source_commit": "8d1c52d4c24bfae5a369e32e3f134f5601a02630",
+  "request_seed": 0,
+  "decoder": "in process (tools/float/decode.py): the service preprocessing, frozen_encoding(request seed), flow_from_noise, mano_params_to_grasp_dict; HUG's own wrist rotation"
+ },
+ "rerun_noise": {
+  "measured": true,
+  "host": "reference host B",
+  "label_flips": 0,
+  "rollouts": 256,
+  "final_height_bit_identical": 256,
+  "source": "runs/ex244_1116/c/gates/L1.json (the 256 gate rollouts run twice with handoff A2, 4 and 3 workers)",
+  "note": "same host, same inputs: the evaluator is deterministic here. Across hosts, and under perturbations of 1e-16 in the wrist matrix, final heights move by up to 0.2 mm without label flips on the 100-grasp check (runs/ex244_1116/c/gates/L0_cpu.json); a cross-host flip rate has not been measured. Rerunning stored inputs is deterministic; re-rendering them is not (see render_noise)."
+ },
+ "local_priors": {
+  "note": "priors that are not part of the mano-1111 campaign's protocol; listed here so that a run can verify the checkpoint it decodes",
+  "dumbbell50k": {
+   "checkpoint_sha256": "cacad83b6dc40b1b20673863e174f95e39fb58e015e1310af500ef911e97ef5b",
+   "euler_steps": 10,
+   "what": "our fine-tune of released HUG2 on the dumbbell human dataset, 50k steps (hug_dumbbell_50k.pt)"
+  },
+  "dumbbell30k": {
+   "checkpoint_sha256": "91d2703b1d612eb7c111f9b978b8b4b86f53266c286498a5f248a606825c2b68",
+   "euler_steps": 10,
+   "what": "our fine-tune of released HUG2 on the dumbbell human dataset, 30k steps (hug_dumbbell_30k.pt); added 2026-11-18 for EX275 (the digest does not cover local priors)"
+  }
+ },
+ "render_noise": {
+  "what": "The multisampled (anti-aliased) colour render of the input picture is not bit-deterministic on reference host B's GPU: rendering the same configuration again changes one intensity level on 0 to 26 of 307,200 pixels; depth, object mask, camera and condition pixel stay bit-identical. With multisampling off the repeats are identical.",
+  "consequence": "At fixed noise rows HUG's grasp changes with such an imperceptible input change: a fresh re-render of an input flips about 1 % of native labels. Inputs are therefore rendered once and stored with digests; equality claims read the stored files and never re-render (decision 2026-11-16).",
+  "measurements": [
+   {
+    "what": "8 EX244 gate inputs rendered twice before row c (two L1 gates), same noise rows",
+    "label_flips": 0,
+    "samples": 256,
+    "sources": [
+     "runs/ex244_1116/c/l1/roll/results.jsonl",
+     "runs/ex244_1116/c/gates_xp/L1/20261116T030510/roll/results.jsonl"
+    ]
+   },
+   {
+    "what": "the same 8 inputs, gate render against EX244 row c's render",
+    "label_flips": 2,
+    "samples": 256,
+    "sources": [
+     "runs/ex244_1116/c/gates_xp/L1/20261116T030510/roll/results.jsonl",
+     "runs/ex244/ex244-c_regenhb60_1116/20261116T030841-s0/results.jsonl"
+    ]
+   },
+   {
+    "what": "pixel-level repeats (same renderer twice, a new renderer, multisampling off)",
+    "source": "runs/ex245_1116/diag/render_determinism.json"
+   },
+   {
+    "what": "EX245 row ex245-b0_benchscene_1116: a fresh render of all 112 inputs of EX244 row c, same noise rows, against row c",
+    "label_flips": 10,
+    "samples": 3584,
+    "per_model": {
+     "hug1": {
+      "label_flips": 6,
+      "samples": 1792,
+      "difference_pp": 0.0
+     },
+     "hug2": {
+      "label_flips": 4,
+      "samples": 1792,
+      "difference_pp": -0.11160714285714286
+     }
+    },
+    "sources": [
+     "runs/ex245/ex245-b0_benchscene_1116/20261116T061507-s0/results.jsonl",
+     "runs/ex244/ex244-c_regenhb60_1116/20261116T030841-s0/results.jsonl",
+     "experiments/ex245/checks/B0.json"
+    ]
+   }
+  ]
+ },
+ "cross_host_noise": {
+  "what": "The same readout (EX246 wide seed 1's endpoint loop, its readout eps rows and stored inputs) run on reference host A (A6000) and on reference host B differs: the GPU decode of the prior is not bit-identical across the two GPUs (hand poses up to 1.7e-4, critic values up to 0.019 apart), and contact chaos amplifies it in the rollouts.",
+  "measurement": {
+   "records": 39600,
+   "native_label_flips": 70,
+   "strict_label_flips": 76,
+   "native_flip_share": 0.0018,
+   "critic_picks_changed": 0,
+   "max_pick_level_rate_change_pp": 0.33,
+   "final_rise_differing": 35714,
+   "decode": "not bit-identical: T_camera_wrist up to 7.8e-05, mano_pose_aa up to 1.7e-04, q up to 0.019; argmax(q) unchanged for every unit",
+   "sources": [
+    "reference host A checkout 669f111c3296: runs/ex263_1117/gates/R0/20261117T204717 (gate R0 of EX263, failed)",
+    "runs/ex246/ex246-w_wide_1116/20261116T104739-s1 (reference host B)"
+   ]
+  },
+  "consequence": "Paired comparisons are made on one host unless an R0 shows that the hosts give equal records. Earlier verdicts are not affected: in EX246 and EX247 both rows of every seed ran on the same host (seeds 1-2 reference host B, seed 3 reference host A, from their launch records), EX248 ran entirely on reference host B, and EX261 / EX262 analyse stored records without re-running them. Inputs are rendered on one host (reference host B) and read from the store everywhere.",
+  "date": "2026-11-17",
+  "render": {
+   "what": "The input render on reference host A against reference host B's stored inputs (EX245 level p1, 2 objects, EX263 gate L1 on reference host A, 2026-11-17): depth, object mask, camera matrix, camera pose, condition pixel and object pose bit-identical; the anti-aliased colour differs on 297 and 125 of 307,200 pixels by one intensity level, against 0-26 pixels for a reference host B repeat (render_noise).",
+   "source": "runs/ex263_1117/gates/L1_host_A/L1_20261117T214103.json"
+  },
+  "summary": "Across the two hosts the GPU paths differ (the prior's decode, and the anti-aliased colour of the input render); the CPU paths are identical (render geometry bit-identical; the rollout physics gives identical records from identical poses). So a readout decoded on one host may be rolled out on any host; decodes and renders must come from one host.",
+  "physics": {
+   "what": "The reference host B's decoded poses of the same readout (EX246 wide seed 1, 39,600 samples incl. picks) rolled out on reference host A's CPU with the same rollout code (run246 roroll, 6 workers): every record equals reference host B's in every field (labels, rise, penetration, steps, critic pick): 0 differences.",
+   "source": "reference host A checkout d8db96dc4765: runs/ex263_1117/physics_check/attempt (results.jsonl), against runs/ex246/ex246-w_wide_1116/20261116T104739-s1",
+   "date": "2026-11-17"
+  }
+ },
+ "penetration": {
+  "what": "Typical evaluator successes hold the object with the capsule hand about 1 cm inside the object's scan: lift-maximum depth against the visual mesh, median 10.5 mm (HUG1) and 11.8 mm (HUG2) over EX244 row c's native successes; against the convex collision parts 13.0 and 14.5 mm (correlation 0.91-0.92).",
+  "decision": "2026-11-16: no penetration bound in any label of this protocol (strict v2 = none); a physically tighter evaluator would be a new protocol version. Tables report the convex lift-maximum penetration as a diagnostic (median, share <= 10 mm, share <= 14 mm).",
+  "source": "runs/ex244/ex244-e_meshpen_1116/20261116T051403-s0/meshpen_table.json"
+ },
+ "name": "mano-1111-p2-dzp1",
+ "summary": "mano-1111-p1's evaluator with the commanded wrist trajectory offset by +1 x the hand's free sag (m_hand g / kp_z, 13.08 mm for the MANO capsule hand) and the load rule 'full' (full = the hand's weight carried on the six wrist dofs as mano-1111-p2; slides = on the three slides only; none = p1). Benchmark variant for EX331 (2026-11-19).",
+ "wrist_offset": {
+  "path": "tools/float/wristoffset.py",
+  "sha256": "8ff7f6b9c5fd4d535d3063685ab82fb1fd4ca29d8fbd54a6386d30c36d1a150f",
+  "rule": "wrist_offset",
+  "parameters": {
+   "load": "full",
+   "k": 1,
+   "offset": "dz = k x free sag; free sag = m_hand g / kp_z from the compiled model (hand root mano_body_0, actuator wrist_motor_tz)",
+   "applied": "added to the vertical wrist target after the adapter's write_ctrl, before every mj_step of the official loop; the initial pose is the evaluator's",
+   "loads": "full = mano-1111-p2's rule on the six wrist dofs; slides = the hand's weight on the three slides only; none = p1",
+   "wristload": {
+    "path": "tools/float/wristload.py",
+    "sha256": "c2f06050194e8764976577c03f5ede9fed6e11c23527875beb026f5667507160"
+   }
+  }
+ },
+ "digest_rule": "sha256 of the canonical JSON (sorted keys, separators ',' ':') of {name, evaluator_commit, mujoco, files, adapter_sha256} plus `wrist_offset` {path, sha256, rule, parameters}",
+ "digest": "598994eb7fae2bd622b7fca256d9f6c16d35e7d61d11e178287b8a8a8c00a6cd"
+}

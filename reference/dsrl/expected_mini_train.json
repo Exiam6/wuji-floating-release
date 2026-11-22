@@ -1,0 +1,279 @@
+{
+ "diagnostics": {
+  "transitions": 256,
+  "label_mean": 0.6640625,
+  "calls": 20,
+  "n_updates": 400,
+  "secs": 6.4,
+  "qa_data_mean_success": 0.7766075730323792,
+  "qa_data_mean_failure": 0.46137893199920654,
+  "aliasing_pool": {
+   "mean_abs_diff": 0.041645392775535583,
+   "pearson": 0.959281319261408,
+   "qa_std": 0.2379837930202484
+  },
+  "q_noise_at_wstar_mean": 0.5114760398864746,
+  "q_action_pool_mean": 0.689766526222229,
+  "wstar_norm_median": 0.7264095782497233,
+  "wstar_abs_mean": 0.06604984317819824,
+  "wstar_frac_at_bound": 0.0,
+  "ent_coef_final": 0.8853229880332947,
+  "noise_source": "pool",
+  "prep_manifest_sha256": "ca111b6fb7e3127c69a5c75bdf09707dd16197cf6465a80e9f22a83974a86305",
+  "device": "NVIDIA RTX A6000",
+  "torch": "2.9.1+cu128"
+ },
+ "log": [
+  {
+   "n_updates": 20,
+   "ent_coef": 0.9971626341342926,
+   "actor_loss": -59.308801078796385,
+   "critic_loss": 3.783155161142349,
+   "noise_critic_loss": 8.199639582633973,
+   "ent_coef_loss": -0.18156543001532555,
+   "call": 0,
+   "transitions": 256,
+   "secs": 0.6
+  },
+  {
+   "n_updates": 40,
+   "ent_coef": 0.9909935712814331,
+   "actor_loss": -65.42821426391602,
+   "critic_loss": 0.27384870797395705,
+   "noise_critic_loss": 0.729414901137352,
+   "ent_coef_loss": -0.5988549441099167,
+   "call": 1,
+   "transitions": 256,
+   "secs": 0.9
+  },
+  {
+   "n_updates": 60,
+   "ent_coef": 0.9848338186740875,
+   "actor_loss": -66.11493797302246,
+   "critic_loss": 0.1659449055790901,
+   "noise_critic_loss": 0.19938041642308235,
+   "ent_coef_loss": -1.016823598742485,
+   "call": 2,
+   "transitions": 256,
+   "secs": 1.2
+  },
+  {
+   "n_updates": 80,
+   "ent_coef": 0.9787596046924592,
+   "actor_loss": -65.62236061096192,
+   "critic_loss": 0.15271674245595931,
+   "noise_critic_loss": 0.07122972439974547,
+   "ent_coef_loss": -1.4301912605762481,
+   "call": 3,
+   "transitions": 256,
+   "secs": 1.4
+  },
+  {
+   "n_updates": 100,
+   "ent_coef": 0.972764128446579,
+   "actor_loss": -65.22205772399903,
+   "critic_loss": 0.151078150421381,
+   "noise_critic_loss": 0.031879885401576755,
+   "ent_coef_loss": -1.8381865799427033,
+   "call": 4,
+   "transitions": 256,
+   "secs": 1.7
+  },
+  {
+   "n_updates": 120,
+   "ent_coef": 0.9668363571166992,
+   "actor_loss": -65.05626602172852,
+   "critic_loss": 0.14752472639083863,
+   "noise_critic_loss": 0.013876261096447707,
+   "ent_coef_loss": -2.245497453212738,
+   "call": 5,
+   "transitions": 256,
+   "secs": 2.0
+  },
+  {
+   "n_updates": 140,
+   "ent_coef": 0.9609629362821579,
+   "actor_loss": -64.69816131591797,
+   "critic_loss": 0.15340988710522652,
+   "noise_critic_loss": 0.006820723088458181,
+   "ent_coef_loss": -2.65320405960083,
+   "call": 6,
+   "transitions": 256,
+   "secs": 2.3
+  },
+  {
+   "n_updates": 160,
+   "ent_coef": 0.9551359057426453,
+   "actor_loss": -64.33611488342285,
+   "critic_loss": 0.15194786787033082,
+   "noise_critic_loss": 0.005766083602793515,
+   "ent_coef_loss": -3.0612085580825807,
+   "call": 7,
+   "transitions": 256,
+   "secs": 2.6
+  },
+  {
+   "n_updates": 180,
+   "ent_coef": 0.9493504136800766,
+   "actor_loss": -63.956069755554196,
+   "critic_loss": 0.15117791220545768,
+   "noise_critic_loss": 0.006354963197372854,
+   "ent_coef_loss": -3.4676960349082946,
+   "call": 8,
+   "transitions": 256,
+   "secs": 2.8
+  },
+  {
+   "n_updates": 200,
+   "ent_coef": 0.9436063379049301,
+   "actor_loss": -63.67862129211426,
+   "critic_loss": 0.14886612668633462,
+   "noise_critic_loss": 0.005058519472368061,
+   "ent_coef_loss": -3.8744941353797913,
+   "call": 9,
+   "transitions": 256,
+   "secs": 3.1
+  },
+  {
+   "n_updates": 220,
+   "ent_coef": 0.9379016816616058,
+   "actor_loss": -63.31698226928711,
+   "critic_loss": 0.14796474799513817,
+   "noise_critic_loss": 0.004079510923475027,
+   "ent_coef_loss": -4.2824080228805546,
+   "call": 10,
+   "transitions": 256,
+   "secs": 3.4
+  },
+  {
+   "n_updates": 240,
+   "ent_coef": 0.9322349220514298,
+   "actor_loss": -62.93155174255371,
+   "critic_loss": 0.14223850294947624,
+   "noise_critic_loss": 0.006491691572591662,
+   "ent_coef_loss": -4.688594508171081,
+   "call": 11,
+   "transitions": 256,
+   "secs": 3.7
+  },
+  {
+   "n_updates": 260,
+   "ent_coef": 0.9266035497188568,
+   "actor_loss": -62.63462390899658,
+   "critic_loss": 0.14420170411467553,
+   "noise_critic_loss": 0.0063502837903797625,
+   "ent_coef_loss": -5.100605821609497,
+   "call": 12,
+   "transitions": 256,
+   "secs": 3.9
+  },
+  {
+   "n_updates": 280,
+   "ent_coef": 0.9210070818662643,
+   "actor_loss": -62.30469245910645,
+   "critic_loss": 0.1480814926326275,
+   "noise_critic_loss": 0.005084130656905472,
+   "ent_coef_loss": -5.507734894752502,
+   "call": 13,
+   "transitions": 256,
+   "secs": 4.2
+  },
+  {
+   "n_updates": 300,
+   "ent_coef": 0.9154453277587891,
+   "actor_loss": -61.93563175201416,
+   "critic_loss": 0.1471569284796715,
+   "noise_critic_loss": 0.005013895686715841,
+   "ent_coef_loss": -5.916985082626343,
+   "call": 14,
+   "transitions": 256,
+   "secs": 4.5
+  },
+  {
+   "n_updates": 320,
+   "ent_coef": 0.9099185109138489,
+   "actor_loss": -61.626292610168456,
+   "critic_loss": 0.14492387138307095,
+   "noise_critic_loss": 0.005646412004716694,
+   "ent_coef_loss": -6.324519252777099,
+   "call": 15,
+   "transitions": 256,
+   "secs": 4.8
+  },
+  {
+   "n_updates": 340,
+   "ent_coef": 0.9044262081384659,
+   "actor_loss": -61.29662609100342,
+   "critic_loss": 0.14304931052029132,
+   "noise_critic_loss": 0.009718287084251643,
+   "ent_coef_loss": -6.736688828468322,
+   "call": 16,
+   "transitions": 256,
+   "secs": 5.1
+  },
+  {
+   "n_updates": 360,
+   "ent_coef": 0.8989673733711243,
+   "actor_loss": -60.93787860870361,
+   "critic_loss": 0.14348286911845207,
+   "noise_critic_loss": 0.0070165500044822695,
+   "ent_coef_loss": -7.14569833278656,
+   "call": 17,
+   "transitions": 256,
+   "secs": 5.3
+  },
+  {
+   "n_updates": 380,
+   "ent_coef": 0.8935402303934097,
+   "actor_loss": -60.69062461853027,
+   "critic_loss": 0.14248939268290997,
+   "noise_critic_loss": 0.006343401223421097,
+   "ent_coef_loss": -7.563245630264282,
+   "call": 18,
+   "transitions": 256,
+   "secs": 5.6
+  },
+  {
+   "n_updates": 400,
+   "ent_coef": 0.8881437748670578,
+   "actor_loss": -60.34014129638672,
+   "critic_loss": 0.14620568379759788,
+   "noise_critic_loss": 0.005580660980194807,
+   "ent_coef_loss": -7.969566679000854,
+   "call": 19,
+   "transitions": 256,
+   "secs": 5.9
+  }
+ ],
+ "provenance": {
+  "device": "NVIDIA RTX A6000",
+  "torch": "2.9.1+cu128",
+  "release": "wuji_floating_20261120",
+  "written": "2026-11-20T22:01:25Z",
+  "config": {
+   "prior": "hug1",
+   "algorithm": "DSRL-NA, the authors' train / update_noise_critic (code/tools/dsrl_port)",
+   "regime": "offline",
+   "data": [
+    "census"
+   ],
+   "bound": 1.0,
+   "offline_calls": 20,
+   "utd": 20,
+   "noise_critic_grad_steps": 10,
+   "batch": 256,
+   "layer_size": 2048,
+   "num_layers": 3,
+   "noise_source": "pool",
+   "pool_m": 512,
+   "state": "meanpool",
+   "action": "normalised_flow99",
+   "reward": "native",
+   "readout": "deterministic",
+   "prep": "reference/dsrl/mini_prep",
+   "seed": 1,
+   "note": "the offline row's configuration (utd 20, batch 256, 3 x 2048, 10 noise-critic steps) with 20 calls instead of 1,000"
+  },
+  "note": "written by `wf.py dsrl check --write-expected` on one NVIDIA RTX A6000 (CUDA 12.8, driver 570); the same GPU reproduces it bit for bit (3 runs); TF32 matrix products, a much larger perturbation than another GPU model, move the worst compared number by 0.19 %"
+ }
+}

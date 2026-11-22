@@ -1,0 +1,70 @@
+{
+ "batches": {
+  "files": 30,
+  "bytes": 147108068
+ },
+ "core": {
+  "files": 1707,
+  "bytes": 138796448
+ },
+ "dinov2": {
+  "files": 3,
+  "bytes": 346359338
+ },
+ "dumbbell50k": {
+  "files": 1,
+  "bytes": 241408777
+ },
+ "hands": {
+  "files": 100,
+  "bytes": 16556638
+ },
+ "hug1": {
+  "files": 1,
+  "bytes": 241359400
+ },
+ "hug2": {
+  "files": 1,
+  "bytes": 241408841
+ },
+ "inputs": {
+  "files": 2711,
+  "bytes": 81432976
+ },
+ "licences": {
+  "files": 7,
+  "bytes": 29240
+ },
+ "mano": {
+  "files": 1,
+  "bytes": 3821356
+ },
+ "prep_ex299_dumbbell50k": {
+  "files": 4,
+  "bytes": 195742298
+ },
+ "prep_ex299_hug1": {
+  "files": 4,
+  "bytes": 183365871
+ },
+ "prep_ex299_hug2": {
+  "files": 4,
+  "bytes": 183365860
+ },
+ "prep_ex315_hug2": {
+  "files": 6,
+  "bytes": 1394207452
+ },
+ "prep_ex324_a": {
+  "files": 4,
+  "bytes": 2430504599
+ },
+ "prep_ex324_b": {
+  "files": 4,
+  "bytes": 656876984
+ },
+ "prep_ex338_a_p2": {
+  "files": 5,
+  "bytes": 2430507893
+ }
+}

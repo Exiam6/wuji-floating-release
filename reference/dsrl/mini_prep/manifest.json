@@ -1,0 +1,17 @@
+{
+ "prior": "hug1",
+ "views": 8,
+ "pool_m": 512,
+ "files": {
+  "states.npz": "eb4ca4fefa3d5337583610bf7737c637448d38082cc74afc9721c56c95afc448",
+  "actions.npz": "867e83ea9aafcec1c316b1582e2c78df203a7906017225d6beb3ca78761a564a",
+  "pool.npz": "035f190bce36feef70c62498d671c21b5ec3734db1ab92891b0cfafcceb7b435"
+ },
+ "pass": true,
+ "source": "rows of the project's DSRL-NA offline prep for the public prior HUG1 (dumbbell census views): 8 training views ['c_a000', 'c_a060', 'c_a120', 'c_a180', 'n_a180', 'h_a180', 'f_a060', 'l_a120'], their 256 census executions, the first 512 pool draws of each, and the states of those views and of held-out views ['c_a090', 'f_a090', 'l_a270']",
+ "source_manifest_files": {
+  "states.npz": "3efe0e71d9751d7cbc1b0d244158b7dfb22214be1a86e6527be789ef4ed517dc",
+  "actions.npz": "961033c6c98d915b885cb7140031739f1cafd40f9dc7762ea944480e8ed9c52a",
+  "pool.npz": "9d366e3ccc5282b4d198c38865015c1c6999f915629b455d6d859a72260b3d9d"
+ }
+}

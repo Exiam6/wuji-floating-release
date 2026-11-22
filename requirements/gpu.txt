@@ -1,0 +1,30 @@
+# Python packages for the GPU stages (`wf.py decode`, `wf.py dsrl`, `wf.py verify --levels L2,L3`). Install into a venv of its own:
+#   python3.10 -m venv gpuenv && gpuenv/bin/pip install -r requirements/gpu.txt
+#   gpuenv/bin/pip install --no-build-isolation --no-deps "chumpy @ https://github.com/mattloper/chumpy/archive/580566eafc9ac68b2614b64d6f7aaa84eebb70da.zip"
+# (chumpy is a separate step because its setup.py imports pip; see requirements/cpu.txt and README 3.4.)
+#
+# The reference records were made with CPython 3.10.20, torch 2.9.1 built for CUDA 12.8, on NVIDIA GeForce RTX 3080 and RTX A6000
+# cards. Other CUDA builds work if torch and torch_cluster come from the same torch version; the CUDA builds pull about 3 GB of
+# libraries. HUG's farthest-point sampler (torch_cluster) and its encoder run on the GPU only (the decoder refuses to run on the CPU).
+# Pins are the versions of the environment that produced the reference records.
+--extra-index-url https://download.pytorch.org/whl/cu128
+--find-links https://data.pyg.org/whl/torch-2.9.1+cu128.html
+torch==2.9.1
+torchvision==0.24.1
+torch-cluster==1.6.3
+numpy==2.2.6
+scipy==1.15.3
+six==1.17.0
+opencv-python-headless==4.13.0.92
+pillow==12.2.0
+transformers==5.12.1
+huggingface_hub==1.19.0
+safetensors==0.8.0
+tokenizers==0.22.2
+omegaconf==2.3.1
+rich==14.3.4
+roma==1.5.6
+tyro==1.0.13
+mujoco==3.10.0
+trimesh==4.12.2
+manotorch @ https://github.com/lixiny/manotorch/archive/a2a70c591f91551078b7bb2af9b5d9f275b626e0.zip

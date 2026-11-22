@@ -1,0 +1,25 @@
+{
+ "prior": "dumbbell50k",
+ "algorithm": "DSRL-NA, the authors' train / update_noise_critic (tools/dsrl_port)",
+ "regime": "offline",
+ "data": [
+  "census"
+ ],
+ "bound": 1.0,
+ "offline_calls": 1000,
+ "utd": 20,
+ "noise_critic_grad_steps": 10,
+ "batch": 256,
+ "layer_size": 2048,
+ "num_layers": 3,
+ "noise_source": "pool",
+ "pool_m": 4096,
+ "state": "meanpool",
+ "action": "normalised_flow99",
+ "reward": "native",
+ "readout": "deterministic",
+ "prep": "prep/ex299_dumbbell50k",
+ "prep_manifest_sha256": "6f3e67b9096ced279fc68974fdf26de6f39369e23a056ab67e4345d2f85e8f62",
+ "seed": 1,
+ "note": "DSRL-NA offline on the dumbbell census views with the dumbbell 50k fine-tune of HUG2 (56 training views, 1,792 executions; the prep also holds the states of all 220 census views for the read-out), the project's row ex299-0c; seeds 1, 2, 3 were run"
+}

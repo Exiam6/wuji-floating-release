@@ -1,0 +1,25 @@
+{
+ "prior": "hug2",
+ "algorithm": "DSRL-NA, the authors' train / update_noise_critic (tools/dsrl_port)",
+ "regime": "offline",
+ "data": [
+  "census"
+ ],
+ "bound": 1.0,
+ "offline_calls": 1000,
+ "utd": 20,
+ "noise_critic_grad_steps": 10,
+ "batch": 256,
+ "layer_size": 2048,
+ "num_layers": 3,
+ "noise_source": "pool",
+ "pool_m": 4096,
+ "state": "meanpool",
+ "action": "normalised_flow99",
+ "reward": "native",
+ "readout": "deterministic",
+ "prep": "prep/ex315_hug2",
+ "prep_manifest_sha256": "d3429df5796e73f13d71d4ae46f298cbc1d1e36f524650657670241a1134210b",
+ "seed": 1,
+ "note": "DSRL-NA offline on HUG2's census of the 40 training objects at the 5 training camera levels (200 inputs, 6,400 executions), the project's row ex315-a; seeds 1-3 were run (EX333 added 4-7)"
+}

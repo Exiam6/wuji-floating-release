@@ -1,0 +1,26 @@
+{
+ "prior": "hug2",
+ "algorithm": "DSRL-NA, the authors' train / update_noise_critic (tools/dsrl_port)",
+ "regime": "offline",
+ "data": [
+  "census"
+ ],
+ "bound": 1.0,
+ "offline_calls": 1000,
+ "utd": 20,
+ "noise_critic_grad_steps": 10,
+ "batch": 256,
+ "layer_size": 2048,
+ "num_layers": 3,
+ "noise_source": "pool",
+ "pool_m": 4096,
+ "state": "meanpool",
+ "action": "normalised_flow99",
+ "reward": "native",
+ "readout": "deterministic",
+ "prep": "prep/ex338_a_p2",
+ "prep_manifest_sha256": "eaa611e1db33133cb50f5d2c9ec1b97e4f86055b2fdd676923179e96b0152bec",
+ "seed": 1,
+ "note": "EX338 row b: DSRL-NA offline on HUG2's census of the 40 training objects at all 19 camera levels (741 inputs, 23,712 executions) with the labels re-rolled under mano-1111-p2; identical to configs/dsrl_ex324_a.json except prep, prep_manifest_sha256, label_protocol and this note; seeds 4-8",
+ "label_protocol": "mano-1111-p2"
+}

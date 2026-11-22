@@ -1,0 +1,181 @@
+{
+ "schema": 1,
+ "name": "sharpa-float-p2",
+ "hand_name": "sharpa",
+ "summary": "Floating Sharpa Wave (Sharpa Wave right, with flange (Apache-2.0)) on the official 6-DoF floating wrist, no arm: HUG's wrist pose executed by protocol mano-1111-p1's evaluator with the MANO capsule hand replaced; fingers and the hand-root mount from rl/sim/multihand/retarget.HandRetargeter (the retargeter of the table-arm results on this hand) fitted on HUG's predicted landmarks. New benchmark version (2026-11-19).",
+ "base": {
+  "name": "mano-1111-p1",
+  "digest": "854767bca05682bdeddd5afb1404dd75beacce0e66d7623fdb2beb4a2649635b",
+  "note": "scene, table plane, wrist trajectory (GraspPlanConfig defaults), lift and final-frame table-contact test are the base protocol's; handoff A2 as tools/float/collab_native.Harness.bench_handoff"
+ },
+ "source": {
+  "port": "tools/ex210_1112/hbport210.py at commit db7ee7177 (EX210 harness port v2, 2026-11-12), itself the frozen October Wuji evaluator (tools/float_wuji/wuji_eval.py) with the hand generalised",
+  "changes": "tools/float_hands/hand_eval.py: the composed scene cached per object and compiled per grasp with the mount (a fresh compile, because dampratio is fixed into kv at compile time and mj_setConst does not update it); handoff A2 on the compiled table height; the frozen evaluator's keyframe order; no hull-vertex cap; host paths from the environment or the base protocol; diagnostics; tools/float_hands/rollout_hand.py: handoff A2, validity, stages, pool (as tools/float_wuji/rollout_wuji.py). With hand = Wuji 1, the frozen glove fit and the frozen mount, this code reproduces EX292's 200 reference labels and final object heights bit for bit (2026-11-19 20:4x, reference host A)",
+  "hand_model": {
+   "upstream_url": "https://github.com/sharpa-robotics/sharpa-urdf-usd-xml",
+   "upstream_commit": "0d19cac602f46456b819e4b6a2c09a74982c9a3e",
+   "license": "Apache-2.0",
+   "mjcf": "wave_01/right_sharpa_wave/right_sharpa_wave_with_flange.xml"
+  }
+ },
+ "code": {
+  "tools/float_hands/hand_eval.py": "87f5281e3872f854f0b130fe2f044fb339086be7a576af9558d68492cad8cc20",
+  "tools/float_hands/rollout_hand.py": "2527afaf0656458953ebf7b2e62893e41672fdab0f0305d7310851f472655e44",
+  "tools/float_hands/fit4r.py": "94d29c9adf36eb571d433b72b4c6d6f627f68e4522ea8bba454a9e0d5312ade1"
+ },
+ "hand": {
+  "assets/robot_description/hands/multihand/sharpa/LICENSE.txt": "f6a348fca3d77ddf60e66a3288b060e09b12afdebeabc6fc490b272ecfa10e43",
+  "assets/robot_description/hands/multihand/sharpa/NOTICE.txt": "bee17b99ba47b327197e75f2d62e3fadbff246f6e4b84e15550afe12fbd2f3d6",
+  "assets/robot_description/hands/multihand/sharpa/SOURCE.json": "cf702739566e95948d934eb6bc32169e492c6db40718accd85e4ab387ac27be7",
+  "assets/robot_description/hands/multihand/sharpa/embodiment_spec.json": "e7dac98774903c0bcca39f898a18be2339d1212213b0427f81dfb89bccc9653e",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/DP_HB1_4F.STL": "b28a529aadb4a084912f3697b117ba43fd13c6f3136e48166b5dd1616d9f3eef",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/DP_HB1_TH.STL": "df2dcfc770ecf81e893a65d28994ff608556156f4e9a0b447086ab6de485cd75",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/DP_Visual_HB1_TH.STL": "db4e895306f51b7cc369b01b705d276b6d69c773033d7e01c8bafbf2d1ecd7e8",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/DP_visual_HB1_4F.STL": "5123fd1776cfc82895f9f0b6ba4098522baaad9ebaaa3110ff1246775cfbd737",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/MCP_VL.STL": "350f66d656fef760a7f4f0c4a026951e9d831ca65a9c5e4e34825b694ed6b11a",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/elastomer_HB1_4F.STL": "88b214c5c614b4b5f0c7cf195a90825b41e20745b1b65442854b371ff065e858",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/elastomer_HB1_TH.STL": "437f363ca7a40b6e9b9152ebb81db249c51de71565cdb44b7df6e2cdf0da3312",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/flange_B.STL": "c5051bf5e1ee87cdecc061326d4413b9e6232fe07777e5b3437f4a459a9280bc",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/right_MCP_VL_visual.STL": "ec48548aaafa6589112e9b609ed58f1b5e7ec0157ca15e0e4e8c93bff706a9d0",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/right_MP.STL": "98ad7e6e990f61857d6ad28860bba7e0dcba78761a513d60fdc527e9d56bbe8e",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/right_MP_visual.STL": "af867d754ae0f3d5c38610f72cf4699789c82bb0391c2a406e6924f76e850ec6",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/right_PP.STL": "ed975b59e2569759ff28a397dab71d84667161d3b90b41d625bc5e1f5ac6536c",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/right_PP_visual.STL": "aa8b0ac6b6a7769033daa149416035712b23b79af0a7ddeb83d62142f8ff8a14",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/right_hand_C_MC.STL": "8c52941db271e9331f0b32ec581c078af7f8cb372fb97f021d5b1dec2d2426ae",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/right_hand_C_MC_visual_.STL": "9234e513974246de38de76ce5f2a48078ebb014e890083219e2bd93caef55b60",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/right_pinky_MC.STL": "1f8207aff0f2f6ca2f1de1a8bbbbcd4183300bc3778d55821c2aae9b490b7dd3",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/right_pinky_MC_visual.STL": "5ae38bab4f573bd147e5a5e231eb399e2396575884cd36e574235258a048e53b",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/right_thumb_CMC_VL_visual.STL": "ebaf499965a51e4b539b7ec5481efbddaf2003b69d0e5e72425a430cecd187b0",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/right_thumb_MC.STL": "deb6d97eb2d7223d72c23ebb32f874644dcf78848389f14dcabe3016aae5dd6c",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/right_thumb_MCP_VL_visual.STL": "30d656738130093b7023100c73fac065a173aaba2e4314034c050c984005d634",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/right_thumb_MC_visual.STL": "81f4bf8c39117b7bf7a4f0fdeb577948056139a84927adc55e9b049434a41a3b",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/right_thumb_PP.STL": "795b35f943c4272314d5e72497aaea2ef998458b0259a6609577d3694aeff869",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/right_thumb_PP_visual.STL": "1024905f9af3ad14160ce55d2e1d98fb7028274f7b267bee8b057754eb165faa",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/wrist_B.STL": "ce978dda8bbfb8ad59cb2f5decf647882d1be67fd758329d40c7c4cefacbf771",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/meshes/wrist_collision.STL": "147da80c56a334d83b1ac882f3110b29401d5806c94b993e77e9d763bdca2b54",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/right_sharpa_wave_with_flange.urdf": "261c1a5284e04bc9690e0f5ac39d7a7cace0a16d335d663a1d3c7fcf4e4daf31",
+  "assets/robot_description/hands/multihand/sharpa/wave_01/right_sharpa_wave/right_sharpa_wave_with_flange.xml": "8b1dd21a7ab1217b7fd78789b455f3f03029b21bfdee25b5fa9381c8e5b5e643"
+ },
+ "retargeter": {
+  "files": {
+   "rl/sim/multihand/retarget.py": "c3d9743f78e65fb3064215a44a16ccc8c5ae4964b7bbfa69c7c4d0ab7dea70f1",
+   "rl/sim/multihand/specs.py": "2bbdf00d6cc3a1a84d7eca7f6896d2b4395af2fc4b60fa01fb8ebe8f32c0b65c",
+   "rl/sim/multihand/handspec_build.py": "0b15f498538f1e4b4092f9f10875057ee6aa68112e7ad931de6a74145d4ea8ec"
+  },
+  "method": "the table-arm pipeline's 4r retarget gate (tools/float_hands/fit4r.py = tools/ex207_1111/s4r207 fit207, bit-equal by test): rl/sim/multihand/retarget.HandRetargeter.fit, root pose (6) and every actuator target solved jointly by least squares on the 21 MANO keypoint positions in the evaluator world (scipy least_squares, bounds = the compiled joint ranges, max_nfev 400, tolerances 1e-10); when its fingertip RMS error exceeds 10 mm, a refit from 5 starts (rotation offsets 0 and +-30 deg about the palm z and x axes) keeping the lowest cost; a final fingertip error above 10 mm = 'not retargetable', a failure not rolled out (stage invalid_input, not_retargetable = 1)",
+  "weights": {
+   "fingertips": 1.0,
+   "other_finger_keypoints": 0.25,
+   "wrist": 0.0,
+   "orientation_prior_per_rad": 0.05,
+   "joint_mid_range_prior_per_rad": 0.001
+  },
+  "palm_init_rotation": [
+   [
+    0.06071180793475611,
+    -0.14549507182139032,
+    -0.987494435656719
+   ],
+   [
+    -0.975817217618471,
+    0.19947728757500646,
+    -0.08938439204393288
+   ],
+   [
+    0.20998770006035733,
+    0.969040760658398,
+    -0.12986596939134878
+   ]
+  ],
+  "palm_init_note": "the fit's initial root orientation and orientation prior = the MANO wrist rotation times this matrix (the frozen Wuji evaluator's fixed MANO-wrist -> Wuji-palm rotation R_c @ OPERATOR2MANO_RIGHT @ Rrot^T; wuji-retargeting e3636d6 glove config; computed on reference host A 2026-11-19)",
+  "open_pose": "the fit of the official MANO start pose (flat hand, thumb base pre-bend 1.0 rad on x and y), root at identity with the palm init rotation",
+  "closing_direction": "HandRetargeter.closing_sign: +1 when increasing the actuator moves its fingertip toward the palm normal at the open pose"
+ },
+ "physics": {
+  "wrist": {
+   "joints": "3 slides + ball, damping 5, ball armature 0.01",
+   "actuators": "position kp 300 (translation, dampratio 1), kp 50 (rotation, dampratio 1.5)",
+   "gravity_compensation": false,
+   "note": "the wrist carries the hand's weight (mano-1111-p2's rule): before every physics step the generalized gravity force of the whole hand subtree (rooted at the hand's root body) is written to qfrc_applied on the six wrist dofs; the fingers keep their gravity (tools/float_hands/hand_eval.HandWristLoad = tools/float/wristload.WristLoad with the hand's root)"
+  },
+  "finger_actuators": {
+   "type": "position",
+   "kp": 30.0,
+   "dampratio": 1.0,
+   "ctrlrange": "the hand's compiled joint ranges",
+   "force_limit": "none"
+  },
+  "hand_joints": {
+   "damping": 0.01,
+   "armature": 0.001,
+   "frictionloss": 0.0
+  },
+  "hand_contact": {
+   "friction": [
+    1.5,
+    0.05,
+    0.005
+   ],
+   "condim": 6,
+   "solref": [
+    0.04,
+    1.0
+   ],
+   "solimp": [
+    0.5,
+    0.95,
+    0.001,
+    0.5,
+    2.0
+   ],
+   "priority": 0,
+   "palm_bodies": [
+    "right_hand_C_MC"
+   ],
+   "palm_priority": 1,
+   "palm_solimp": [
+    0.005,
+    0.9,
+    0.025,
+    0.5,
+    2.0
+   ],
+   "note": "the frozen Wuji evaluator's mapping of the MANO capsule hand's contact values; vendor per-geom contact values are replaced"
+  },
+  "hand_model_edits": "rl/sim/multihand/handspec_build.load_hand_spec with its hull-vertex cap undone (maxhullvert -1: hulls as MuJoCo computes them, as the frozen Wuji evaluator; the cap changes qhull's output even where it does not bind); deleted joints [], deleted actuators []; vendor actuators, keyframes and force limits not used",
+  "close_rule": "lerp endpoint = fit backed off <= 0.2 rad toward the open pose on the flexion actuators of fingers 2-5 (closing direction per actuator) and on each thumb actuator; goal = fit + 0.1 rad on the same flexion actuators; abduction / rotation actuators keep the fit; targets clipped to the ranges (GraspPlanConfig finger_pre_curl_rad / finger_extra_curl_rad)",
+  "mount": "T_wrist_root = T_world_wrist^-1 T_world_root of the fit, set per grasp as the root body's pos / quat inside the wrist body, with a fresh compile per grasp (dampratio becomes the actuator damping kv at compile time and mj_setConst does not update it); the wrist plan (pre-grasp offset, lift) moves the hand rigidly as MANO's wrist",
+  "handoff_table_height": "handoff A2 places the object on the compiled scene's table plane (compose_scene writes its height with 6 significant digits), as the frozen evaluator's harness",
+  "object_contact": "the object's collision geoms take the hand default solref 0.04 1 / solimp 0.5 0.95 0.001, as the include of the hand file gives them in the MANO and frozen Wuji scenes (fixed 2026-11-19, 595b88704, after EX327's dry reproduction check found 90 % agreement without it)",
+  "close_rule_order": "the back-off is computed from the unclipped targets and every keyframe is clipped at the end, as tools/float_wuji/wuji_eval.finger_keyframes",
+  "scene_mask": "object and table geoms accept the hand's contype bits"
+ },
+ "labels": {
+  "success_native": "no contact between the table plane and any object geom at the final frame (t = 4.0 s, after the 0.5 m lift) and a valid simulation (finite state, no BADQACC warning during the rollout); as mano-1111-p1",
+  "success_strict_v1": "native success AND the final-frame hand-object contact includes the thumb (finger 1 of rl/sim/multihand/specs: bodies ['right_thumb_']*) and at least one other finger AND final object rise >= 400 mm; the mano-1111-p1 definition with the fingers mapped by the spec's body prefixes (1 thumb, 2 index, 3 middle, 4 ring, 5 little; palm = ['right_hand_C_MC'] and the wrist body)",
+  "october_rule": "the evaluator's own flag (not on the ground at the final frame, no validity check); diagnostic only"
+ },
+ "stages": [
+  "invalid_input",
+  "sim_invalid",
+  "no_prelift_contact",
+  "not_lifted",
+  "dropped",
+  "success"
+ ],
+ "digest_rule": "sha256 of the canonical JSON (sorted keys, separators ',' ':') of {name, base_digest, hand_name, code, hand, retargeter{files}} plus `wrist` {path, sha256, rule, parameters}",
+ "wrist": {
+  "path": "tools/float/wristload.py",
+  "sha256": "c2f06050194e8764976577c03f5ede9fed6e11c23527875beb026f5667507160",
+  "rule": "wrist_total_weight",
+  "parameters": {
+   "compensated_dofs": "wrist_tx, wrist_ty, wrist_tz (slides) and wrist_rot (ball, 3 dofs)",
+   "force": "F = J_com^T (M_hand * (-gravity)) with J_com = mj_jacSubtreeCom(mano_body_0) and M_hand = body_subtreemass[mano_body_0], recomputed and written to qfrc_applied on the wrist dofs before every mj_step of the official loop",
+   "fingers": "no compensation: the finger joints' gravity load stays with the finger actuators",
+   "applies_to": "every physics step of tools/float_hands/hand_eval.rollout (approach, curl, settle, lift)",
+   "hand_root": "the attached hand's root body (right_hand_C_MC), instead of mano_body_0; the force, the joints and the step order are WristLoad's"
+  },
+  "same_rule_as": "mano-1111-p2"
+ },
+ "digest": "86d80ad632b72732c6469a315f09289b79dbef48b4b27515a1f0aa1ca18cfad8"
+}

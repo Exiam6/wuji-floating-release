@@ -1,0 +1,45 @@
+ASSET LICENCES AND ATTRIBUTION (wuji_floating_assets_20261120)
+
+Each asset part keeps the licence of its source. This project's own parts (inputs, batches, prep_ex299_hug1, dumbbell50k, prep_ex299_dumbbell50k, prep_ex299_hug2, prep_ex315_hug2, prep_ex324_a, prep_ex324_b, prep_ex338_a_p2) are MIT,
+Copyright (c) 2026 the wuji-floating authors (licences/wuji-floating-LICENSE.txt, the same text as LICENSE.txt of the code release);
+where they are made from third-party material, that material's licence and attribution still apply.
+
+Part licences:
+  core                    evaluator: MIT, copyright notice in evaluator/LICENSE (text: evaluator/LICENSE)
+  core                    HUG-Bench simulation assets: CC-BY-4.0, adapted from HUG-Bench and Google Scanned Objects, both CC-BY-4.0 (attribution: section Attribution); changes: converted to MuJoCo MJCF with convex collision parts, visual mesh and properties (text: CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/legalcode))
+  mano                    MANO right-hand model: MANO licence of the Max Planck Institute for Intelligent Systems (non-commercial research use): each user accepts it when registering; this release does not distribute the file
+  hands                   Wuji Hand 1 model: Apache-2.0, Copyright 2026 Wuji Technology Co., Ltd. (text: licences/wuji-mjlab-LICENSE.txt and licences/wuji-mjlab-NOTICE.txt)
+  hands                   Sharpa Wave model: Apache-2.0, Copyright 2025 Sharpa Group (text: LICENSE.txt and NOTICE.txt in the same folder)
+  hands                   wuji-retargeting: MIT, Copyright (c) 2025 WujiHand Technologies (text: licences/wuji-retargeting-LICENSE.txt)
+  hug1                    HUG1: MIT, the HUG authors' copyright notice in licences/hug-LICENSE.txt (text: licences/hug-LICENSE.txt)
+  dinov2                  facebook/dinov2-with-registers-base: Apache-2.0, as stated on the Hugging Face model card (text: licences/Apache-2.0.txt)
+  hug2                    HUG2 hug_100k.pt: MIT, the HUG authors' copyright notice, as in licences/hug-LICENSE.txt (text: licences/hug-LICENSE.txt)
+  dumbbell50k             hug_dumbbell_50k.pt: MIT, this project's work (Copyright (c) 2026 the wuji-floating authors) on HUG2 (MIT, the HUG authors' copyright notice, as in licences/hug-LICENSE.txt) (text: licences/wuji-floating-LICENSE.txt and licences/hug-LICENSE.txt)
+  inputs                  input store: MIT, Copyright (c) 2026 the wuji-floating authors (text: licences/wuji-floating-LICENSE.txt)
+  licences                licence texts: the licence texts, copied unchanged
+  batches                 batches: MIT, Copyright (c) 2026 the wuji-floating authors (text: licences/wuji-floating-LICENSE.txt)
+  prep_ex299_hug1         prep ex299_hug1: MIT, Copyright (c) 2026 the wuji-floating authors (text: licences/wuji-floating-LICENSE.txt)
+  prep_ex299_dumbbell50k  prep ex299_dumbbell50k: MIT, this project's work (Copyright (c) 2026 the wuji-floating authors) on HUG2 (MIT, the HUG authors' copyright notice, as in licences/hug-LICENSE.txt) (text: licences/wuji-floating-LICENSE.txt and licences/hug-LICENSE.txt)
+  prep_ex299_hug2         prep ex299_hug2: MIT, this project's work (Copyright (c) 2026 the wuji-floating authors) on HUG2 (MIT, the HUG authors' copyright notice, as in licences/hug-LICENSE.txt) (text: licences/wuji-floating-LICENSE.txt and licences/hug-LICENSE.txt)
+  prep_ex315_hug2         prep ex315_hug2: MIT, this project's work (Copyright (c) 2026 the wuji-floating authors) on HUG2 (MIT, the HUG authors' copyright notice, as in licences/hug-LICENSE.txt) (text: licences/wuji-floating-LICENSE.txt and licences/hug-LICENSE.txt)
+  prep_ex324_a            prep ex324_a: MIT, this project's work (Copyright (c) 2026 the wuji-floating authors) on HUG2 (MIT, the HUG authors' copyright notice, as in licences/hug-LICENSE.txt) (text: licences/wuji-floating-LICENSE.txt and licences/hug-LICENSE.txt)
+  prep_ex324_b            prep ex324_b: MIT, this project's work (Copyright (c) 2026 the wuji-floating authors) on HUG2 (MIT, the HUG authors' copyright notice, as in licences/hug-LICENSE.txt) (text: licences/wuji-floating-LICENSE.txt and licences/hug-LICENSE.txt)
+  prep_ex338_a_p2         prep ex338_a_p2: MIT, this project's work (Copyright (c) 2026 the wuji-floating authors) on HUG2 (MIT, the HUG authors' copyright notice, as in licences/hug-LICENSE.txt) (text: licences/wuji-floating-LICENSE.txt and licences/hug-LICENSE.txt)
+
+HUG2 and the parts derived from it (hug2, dumbbell50k, prep_ex299_dumbbell50k, prep_ex299_hug2, prep_ex315_hug2, prep_ex324_a, prep_ex324_b, prep_ex338_a_p2): MIT: the HUG authors permitted the public release of HUG2 under MIT (2026-11-21); the 50k fine-tune and the HUG2-derived training sets are this project's work on that MIT base, also MIT.
+
+MANO model: not in the tarballs. Register at https://mano.is.tue.mpg.de, accept the MANO licence of the Max Planck Institute for Intelligent Systems
+(non-commercial research use) and download it yourself (README.md section 3.0 of the code release).
+HUG1 weights: not in the tarballs. `python code/wf.py assets fetch-hug1` downloads them from their public source and checks their sha256.
+
+Attribution (required by the licences above):
+- HUG-Bench: the HUG-Bench dataset by the HUG authors, https://huggingface.co/datasets/kevinywu/hug-bench, licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/legalcode). The simulation assets of part `core` are adapted from it (converted to MuJoCo MJCF with convex collision parts, visual mesh and properties); the pictures of part `inputs` are renderings of those assets.
+- Google Scanned Objects: Google Research, "Google Scanned Objects: A High-Quality Dataset of 3D Scanned Household Items" (ICRA 2022), licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/legalcode). Two of the 62 objects of part `core` (the dollhouse objects) are adapted from it in the same way, from its MuJoCo conversion mujoco_scanned_objects (commit 6ff8d275).
+- HUG-Bench evaluator by its authors (part `core`, folder evaluator/): MIT License; the licence text with its copyright notice is evaluator/LICENSE (the same text is LICENSES/HUG-Bench-evaluator-MIT.txt of the code release, for its robot-hand evaluators derived from the evaluator harness).
+- HUG source, HUG1 and HUG2 weights by the HUG authors (https://github.com/KevinyWu/hug, https://huggingface.co/kevinywu/hug; HUG2 given to the project by its authors and released under MIT with their permission): MIT License; the licence text with its copyright notice is licences/hug-LICENSE.txt.
+- DINOv2 with registers (facebook/dinov2-with-registers-base, https://huggingface.co/facebook/dinov2-with-registers-base): Apache License 2.0 as stated on its model card; the licence text is licences/Apache-2.0.txt.
+- Wuji Hand 1 model (https://github.com/wuji-technology/wuji-mjlab, commit 4e438c0): Apache License 2.0, Copyright 2026 Wuji Technology Co., Ltd.; licence and NOTICE: licences/wuji-mjlab-LICENSE.txt, licences/wuji-mjlab-NOTICE.txt.
+- Sharpa Wave model (https://github.com/sharpa-robotics/sharpa-urdf-usd-xml, commit 0d19cac): Apache License 2.0, Copyright 2025 Sharpa Group; licence and NOTICE: LICENSE.txt and NOTICE.txt in its folder of part `hands`.
+- wuji-retargeting (https://github.com/wuji-technology/wuji-retargeting, release v2026.6.15): MIT License, Copyright (c) 2025 WujiHand Technologies; the licence text is licences/wuji-retargeting-LICENSE.txt.
+
+The full table, with what each part holds: ASSETS.md and assets.json in the code release.

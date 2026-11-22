@@ -1,0 +1,611 @@
+{
+ "schema": "wf-assets-2",
+ "release": "wuji_floating_20261120",
+ "our_licence": {
+  "spdx": "MIT",
+  "notice": "Copyright (c) 2026 the wuji-floating authors",
+  "file": "LICENSE.txt (code release)",
+  "covers": "this project's own code and records in the code release and this project's own data parts in the asset tarballs; third-party parts keep their own licences (THIRD_PARTY.md, the table below)"
+ },
+ "hug2_public_licence": {
+  "value": "MIT",
+  "meaning": "MIT: the HUG authors permitted the public release of HUG2 under MIT (2026-11-21); the 50k fine-tune and the HUG2-derived training sets are this project's work on that MIT base, also MIT",
+  "parts": [
+   "hug2",
+   "dumbbell50k",
+   "prep_ex299_dumbbell50k",
+   "prep_ex299_hug2",
+   "prep_ex315_hug2",
+   "prep_ex324_a",
+   "prep_ex324_b",
+   "prep_ex338_a_p2"
+  ],
+  "choices": [
+   "pending",
+   "MIT",
+   "excluded"
+  ],
+  "if_excluded": {
+   "parts_dropped": [
+    "hug2",
+    "dumbbell50k",
+    "prep_ex299_dumbbell50k",
+    "prep_ex299_hug2",
+    "prep_ex315_hug2",
+    "prep_ex324_a",
+    "prep_ex324_b",
+    "prep_ex338_a_p2"
+   ],
+   "jobs_that_cannot_run": [
+    "decode with --prior hug2 or --prior dumbbell50k (job type 2), and level L2 for those two priors (verify skips a prior whose checkpoint is absent)",
+    "DSRL training and read-out (job type 1) through configs/dsrl_ex299_dumbbell50k.json, configs/dsrl_ex299_hug2.json, configs/dsrl_ex315_hug2.json, configs/dsrl_ex324_a.json, configs/dsrl_ex324_b.json, configs/dsrl_ex338_b_p2.json, configs/dsrl_ex338_c_p2.json, configs/dsrl_ex339_b_p2.json (their pinned prep parts are dropped)",
+    "every batch group that decodes with hug2 or dumbbell50k or trains on a dropped prep (for example groups A1_hug2 and A1_dumbbell50k of verification_batch_1a)"
+   ],
+   "still_runs": [
+    "CPU rollouts (job type 3) of every protocol, levels L0, L1, L1h, L1b (the batches part is kept)",
+    "decode, DSRL training and read-out with HUG1 and prep_ex299_hug1",
+    "levels L2 (hug1) and L3"
+   ],
+   "to_decide_with_the_hug_authors": "the batches part and the code release's reference files (reference/decode/expected_hug2.npz, expected_dumbbell50k.npz, the census reference grasps) hold grasps decoded by HUG2 and the 50k fine-tune; this table treats them as this project's records (MIT) and does not drop them"
+  }
+ },
+ "bundle": {
+  "folder": "wuji_floating_assets_20261120",
+  "sha256sums_file": "SHA256SUMS",
+  "sha256sums_sha256": "337bf70148af1d82e73bb993d5b633f8b7ae85b160882318da856486bdecd2fc",
+  "files": 4591,
+  "bytes": 8687671283
+ },
+ "external_parts": {
+  "hug1": {
+   "files": 1,
+   "bytes": 241359400,
+   "manifest": "asset_manifests/hug1.sha256",
+   "expected_sha256": "515b5c3bc7987739aec019e754c15df5fbf3eff9daefb93924da098ae4bd1eae",
+   "path": "ckpt/hug1/hug_full.safetensors",
+   "how": "not delivered (revision r6): `wf.py assets fetch-hug1` downloads the public HUG1 weights from https://huggingface.co/kevinywu/hug into ckpt/hug1/ of the asset root and checks their sha256 (needs internet once)"
+  },
+  "mano": {
+   "files": 1,
+   "bytes": 3821356,
+   "manifest": "asset_manifests/mano.sha256",
+   "expected_sha256": "45d60aa3b27ef9107a7afd4e00808f307fd91111e1cfa35afd5c4a62de264767",
+   "path": "mano/models/MANO_RIGHT.pkl",
+   "how": "not delivered: every user registers at https://mano.is.tue.mpg.de, downloads the MANO models (version 1.2) and puts MANO_RIGHT.pkl at mano/models/MANO_RIGHT.pkl in the asset root; `wf.py assets verify --parts mano` checks its sha256 and says what is missing"
+  }
+ },
+ "not_delivered": [
+  "hug1",
+  "mano"
+ ],
+ "delivery": {
+  "code": "the public GitHub repository https://github.com/Exiam6/wuji-floating-release (anyone can clone it; it holds no assets)",
+  "assets": "tarballs, one per part (plain tar, no compression: a gzip sample of the large files saved only 7 % to 21 %), in a drive folder that the project shares (the assets do not go through GitHub): the folder `full` holds all of them with SHA256SUMS, ASSET_TERMS.txt and README.txt, and a sibling folder `rollout_only` repeats the manifest files of the CPU-only subset (its four tarballs are the same files as in `full`)",
+  "mano": "not delivered: every user registers at https://mano.is.tue.mpg.de, downloads the MANO models (version 1.2) and puts MANO_RIGHT.pkl at mano/models/MANO_RIGHT.pkl in the asset root; `wf.py assets verify --parts mano` checks its sha256 and says what is missing",
+  "hug1": "not delivered (revision r6): `wf.py assets fetch-hug1` downloads the public HUG1 weights from https://huggingface.co/kevinywu/hug into ckpt/hug1/ of the asset root and checks their sha256 (needs internet once)",
+  "unpacked": "all tarballs unpack into one folder, the asset bundle (wuji_floating_assets_<date>/ in our own build); its delivered files are listed in asset_manifests/SHA256SUMS.all",
+  "returns": "for an issued batch: one archive (tar of the folder `wf.py pack-results` prepares) uploaded to returns/<name>/<date>/ in the drive folder shared with you for returns, with its sha256 sent to the project",
+  "sets": {
+   "rollout_only": "core, hands, batches, licences, a subset of the same files (download only these four tarballs and SHA256SUMS from `full`, then `sha256sum -c --ignore-missing SHA256SUMS`); it runs the CPU rollouts (robot-hand protocols included) once the MANO file is in place, and holds no model weights",
+   "full": "every part but mano and hug1 (both obtained by the user); it also runs the GPU jobs (HUG2, the 50k fine-tune, DINOv2, the pictures and the seven training sets; HUG1 after `wf.py assets fetch-hug1`)"
+  }
+ },
+ "parts": {
+  "core": {
+   "title": "Evaluator and HUG-Bench simulation assets (CPU rollouts)",
+   "status": "openly licensed",
+   "delivered": true,
+   "files": 1707,
+   "bytes": 138796448,
+   "manifest": "asset_manifests/core.sha256",
+   "manifest_sha256": "e7332158e2d5ae39eea08190a93c27ad52f219d34cae664bf55524b392d59775",
+   "needed_for": [
+    "cpu_rollouts",
+    "dsrl_readout (rollouts of the read-out grasps)"
+   ],
+   "components": [
+    {
+     "name": "evaluator",
+     "path": "evaluator/",
+     "what": "the HUG-Bench evaluator: aria2mesh-private, branch hug, commit ab262f8de9f039539475454a2bebf802c04ad448 (74 files: its tracked files and SOURCE_COMMIT; revision r6 leaves out README.md, .gitignore, .gitmodules and assets/img/aria2mesh.gif, which no run reads)",
+     "source": "the HUG-Bench evaluator authors' repository (not public)",
+     "licence": "MIT",
+     "notice": "copyright notice in evaluator/LICENSE",
+     "licence_text": "evaluator/LICENSE"
+    },
+    {
+     "name": "HUG-Bench simulation assets",
+     "path": "assets/hugbench60_assets/val/",
+     "what": "62 objects (the 60 HUG-Bench objects and 2 Google Scanned Objects dollhouse objects): MJCF, convex collision parts, visual mesh, properties; the object the dumbbell census uses is val/large_3/dumbbell",
+     "source": "built with the evaluator's asset pipeline from HUG-Bench (Hugging Face dataset kevinywu/hug-bench) and Google Scanned Objects",
+     "licence": "CC-BY-4.0",
+     "notice": "adapted from HUG-Bench and Google Scanned Objects, both CC-BY-4.0 (attribution: section Attribution); changes: converted to MuJoCo MJCF with convex collision parts, visual mesh and properties",
+     "licence_text": "CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/legalcode)"
+    }
+   ]
+  },
+  "mano": {
+   "title": "MANO right-hand model",
+   "status": "not distributed",
+   "delivered": false,
+   "files": 1,
+   "bytes": 3821356,
+   "manifest": "asset_manifests/mano.sha256",
+   "manifest_sha256": "8b79b272e2adb2e4170c15bbace4c41cb13e2cbf6d4aaac3e49f1c8cd0498964",
+   "needed_for": [
+    "cpu_rollouts",
+    "decode",
+    "dsrl_readout"
+   ],
+   "components": [
+    {
+     "name": "MANO right-hand model",
+     "path": "mano/models/MANO_RIGHT.pkl",
+     "what": "MANO_RIGHT.pkl (version 1.2, in the Max Planck Institute's pickle format), expected sha256 45d60aa3b27ef9107a7afd4e00808f307fd91111e1cfa35afd5c4a62de264767; NOT delivered",
+     "source": "https://mano.is.tue.mpg.de (each user registers and downloads it)",
+     "licence": "MANO licence of the Max Planck Institute for Intelligent Systems (non-commercial research use): each user accepts it when registering; this release does not distribute the file"
+    }
+   ]
+  },
+  "hands": {
+   "title": "Robot-hand models and retargeter (Sharpa Wave, Wuji Hand 1)",
+   "status": "openly licensed",
+   "delivered": true,
+   "files": 100,
+   "bytes": 16556638,
+   "manifest": "asset_manifests/hands.sha256",
+   "manifest_sha256": "371e58905d19876995d25c4f692a1866afe689523ec338087bbc737db124e748",
+   "needed_for": [
+    "cpu_rollouts with sharpa-float-*, wuji1hr-float-*, wuji1-float-p1"
+   ],
+   "components": [
+    {
+     "name": "Wuji Hand 1 model",
+     "path": "hand_models/assets/robot_description/hands/wuji_right_mjlab/",
+     "what": "MJCF and 34 meshes of the right hand",
+     "source": "https://github.com/wuji-technology/wuji-mjlab commit 4e438c0",
+     "licence": "Apache-2.0",
+     "notice": "Copyright 2026 Wuji Technology Co., Ltd.",
+     "licence_text": "licences/wuji-mjlab-LICENSE.txt and licences/wuji-mjlab-NOTICE.txt"
+    },
+    {
+     "name": "Sharpa Wave model",
+     "path": "hand_models/assets/robot_description/hands/multihand/sharpa/",
+     "what": "MJCF and meshes of the right hand, LICENSE, NOTICE, SOURCE.json",
+     "source": "https://github.com/sharpa-robotics/sharpa-urdf-usd-xml commit 0d19cac602f46456b819e4b6a2c09a74982c9a3e",
+     "licence": "Apache-2.0",
+     "notice": "Copyright 2025 Sharpa Group",
+     "licence_text": "LICENSE.txt and NOTICE.txt in the same folder"
+    },
+    {
+     "name": "wuji-retargeting",
+     "path": "retargeter/",
+     "what": "the files of release v2026.6.15 (commit e3636d64c9b171195d90d1024a705f973ee3c5ed) the retargeter reads, and tree_manifest.txt (the 316-file tree the protocol digests)",
+     "source": "https://github.com/wuji-technology/wuji-retargeting",
+     "licence": "MIT",
+     "notice": "Copyright (c) 2025 WujiHand Technologies",
+     "licence_text": "licences/wuji-retargeting-LICENSE.txt"
+    }
+   ]
+  },
+  "hug1": {
+   "title": "HUG1 weights",
+   "status": "not distributed (fetched by `wf.py assets fetch-hug1`)",
+   "delivered": false,
+   "files": 1,
+   "bytes": 241359400,
+   "manifest": "asset_manifests/hug1.sha256",
+   "manifest_sha256": "1ed6c59797a79a80784f8dd63cdfa838393b8722afd10599920f5e789250624e",
+   "needed_for": [
+    "decode with hug1",
+    "dsrl_readout on the hug1 prep"
+   ],
+   "components": [
+    {
+     "name": "HUG1",
+     "path": "ckpt/hug1/hug_full.safetensors",
+     "what": "released HUG weights (the earlier single-mode grasp model), 50 Euler steps; NOT in the tarballs since revision r6: `wf.py assets fetch-hug1` downloads them from their public source",
+     "source": "https://huggingface.co/kevinywu/hug (`wf.py assets fetch-hug1` downloads it)",
+     "licence": "MIT",
+     "notice": "the HUG authors' copyright notice in licences/hug-LICENSE.txt",
+     "licence_text": "licences/hug-LICENSE.txt",
+     "public": true
+    }
+   ]
+  },
+  "dinov2": {
+   "title": "DINOv2 weights the HUG encoder loads",
+   "status": "openly licensed",
+   "delivered": true,
+   "files": 3,
+   "bytes": 346359338,
+   "manifest": "asset_manifests/dinov2.sha256",
+   "manifest_sha256": "e87cef463fe613e503108d61346ed490caaccedf361e55a3ca16817ad365d539",
+   "needed_for": [
+    "decode (every prior)",
+    "dsrl_readout"
+   ],
+   "components": [
+    {
+     "name": "facebook/dinov2-with-registers-base",
+     "path": "hf/hub/models--facebook--dinov2-with-registers-base/",
+     "what": "Hugging Face cache layout, revision a1d738ccfa7ae170945f210395d99dde8adb1805 (config.json, model.safetensors)",
+     "source": "https://huggingface.co/facebook/dinov2-with-registers-base (`wf.py assets fetch-dinov2` downloads it)",
+     "licence": "Apache-2.0",
+     "notice": "as stated on the Hugging Face model card",
+     "licence_text": "licences/Apache-2.0.txt",
+     "public": true
+    }
+   ]
+  },
+  "hug2": {
+   "title": "HUG2 weights",
+   "status": "openly licensed",
+   "delivered": true,
+   "files": 1,
+   "bytes": 241408841,
+   "manifest": "asset_manifests/hug2.sha256",
+   "manifest_sha256": "821dfd97bbf326f229f8379264ccfca84683b8c76d44ef3805b885a5b815ce59",
+   "needed_for": [
+    "decode with hug2",
+    "dsrl_readout on the hug2 preps"
+   ],
+   "components": [
+    {
+     "name": "HUG2 hug_100k.pt",
+     "path": "ckpt/hug2/hug_100k.pt",
+     "what": "the multimodal HUG model, 100k training steps (EMA weights only), 10 Euler steps; revision r6 replaces two training-config strings (save_dir, entity) by placeholders, every tensor unchanged",
+     "source": "given to the project by the HUG authors; not public",
+     "licence": "MIT",
+     "notice": "the HUG authors' copyright notice, as in licences/hug-LICENSE.txt",
+     "licence_text": "licences/hug-LICENSE.txt",
+     "derived_from_hug2": true
+    }
+   ]
+  },
+  "dumbbell50k": {
+   "title": "Dumbbell 50k fine-tune of HUG2",
+   "status": "openly licensed",
+   "delivered": true,
+   "files": 1,
+   "bytes": 241408777,
+   "manifest": "asset_manifests/dumbbell50k.sha256",
+   "manifest_sha256": "7cc8fd9c098d028844953ccfe7393ddad7ccafcec8b5f436e93f16069bc5eca7",
+   "needed_for": [
+    "decode with dumbbell50k"
+   ],
+   "components": [
+    {
+     "name": "hug_dumbbell_50k.pt",
+     "path": "ckpt/dumbbell50k/hug_dumbbell_50k.pt",
+     "what": "the project's fine-tune of HUG2 on annotated human dumbbell grasps, 50k steps; revision r6 replaces two training-config strings (save_dir, entity) by placeholders, every tensor unchanged",
+     "source": "this project (derived from HUG2)",
+     "licence": "MIT",
+     "notice": "this project's work (Copyright (c) 2026 the wuji-floating authors) on HUG2 (MIT, the HUG authors' copyright notice, as in licences/hug-LICENSE.txt)",
+     "licence_text": "licences/wuji-floating-LICENSE.txt and licences/hug-LICENSE.txt",
+     "derived_from_hug2": true
+    }
+   ]
+  },
+  "inputs": {
+   "title": "Stored input pictures",
+   "status": "openly licensed",
+   "delivered": true,
+   "files": 2711,
+   "bytes": 81432976,
+   "manifest": "asset_manifests/inputs.sha256",
+   "manifest_sha256": "b288454ebd65eed35dcc056877ac3a7022fded3384dadfe245b57a066f2f7480",
+   "needed_for": [
+    "decode",
+    "dsrl_readout"
+   ],
+   "components": [
+    {
+     "name": "input store",
+     "path": "inputs/input_store/, inputs/input_sets/",
+     "what": "1,109 RGB-D pictures of HUG-Bench objects at 19 camera levels (DSRL inputs) and the 220 dumbbell census views (1,329 pictures, each stored once with its sha256: rendering is not bit-reproducible across GPUs), 50 sidecar files of units whose object is not visible (no picture), and the input sets that name them (revision r4 adds ex315_hug2_1109_codebook.json: the same 1,109 units with `noise_key` \"codebook\" for every unit, so a decode draws the same noises for every input)",
+     "source": "this project, rendered in MuJoCo from the HUG-Bench simulation assets of part core",
+     "licence": "MIT",
+     "notice": "Copyright (c) 2026 the wuji-floating authors",
+     "licence_text": "licences/wuji-floating-LICENSE.txt",
+     "derived": "renderings of the simulation assets of part core, which are adapted from CC-BY-4.0 material: its attribution (section Attribution) applies"
+    }
+   ]
+  },
+  "licences": {
+   "title": "Licence texts of the upstreams",
+   "status": "openly licensed",
+   "delivered": true,
+   "files": 7,
+   "bytes": 29240,
+   "manifest": "asset_manifests/licences.sha256",
+   "manifest_sha256": "638bb58cc5976a87d363944fd250fa1cfa32cdebe4d224b0d0eaf4da280fa1c2",
+   "needed_for": [
+    "compliance (Apache-2.0 requires the licence and notice to travel with the hand model)"
+   ],
+   "components": [
+    {
+     "name": "licence texts",
+     "path": "licences/",
+     "what": "the licence texts the other parts need, and an index with the attribution (README.txt): Apache-2.0 and NOTICE of the Wuji Hand 1 model, the Apache-2.0 text for DINOv2, MIT of wuji-retargeting, MIT of the HUG source (HUG1, HUG2 and the evaluator carry the same text), and this project's MIT licence (its data parts)",
+     "source": "the upstream repositories; this project's LICENSE.txt",
+     "licence": "the licence texts, copied unchanged",
+     "public": true
+    }
+   ]
+  },
+  "batches": {
+   "title": "Production job files and our stored results",
+   "status": "openly licensed",
+   "delivered": true,
+   "files": 30,
+   "bytes": 147108068,
+   "manifest": "asset_manifests/batches.sha256",
+   "manifest_sha256": "10c83ff6026f302f92c2ec072345d17a44518e430277ae490b356b6ad5e5462a",
+   "needed_for": [
+    "cpu_rollouts (reproducing our experiments)"
+   ],
+   "components": [
+    {
+     "name": "batches",
+     "path": "batches/",
+     "what": "the jobs files of EX305, EX307, EX308, EX318 (Wuji Hand 1), EX327 (Sharpa Wave, Wuji 1 hr, MANO p2) and the dumbbell census of EX330 / EX331 (MANO, six protocols), each with our stored results to compare with, and INDEX.json",
+     "source": "this project: decoded grasps of the census and the evaluator's records",
+     "licence": "MIT",
+     "notice": "Copyright (c) 2026 the wuji-floating authors",
+     "licence_text": "licences/wuji-floating-LICENSE.txt",
+     "derived": "this project's records; the jobs files hold grasps decoded by HUG1, HUG2 and the dumbbell 50k fine-tune",
+     "contains_outputs_of": [
+      "hug1",
+      "hug2",
+      "dumbbell50k"
+     ]
+    }
+   ]
+  },
+  "prep_ex299_hug1": {
+   "title": "DSRL training data: dumbbell views, prior HUG1",
+   "status": "openly licensed",
+   "delivered": true,
+   "files": 4,
+   "bytes": 183365871,
+   "manifest": "asset_manifests/prep_ex299_hug1.sha256",
+   "manifest_sha256": "aec383f3aa65e919fea0a77475d04cf42435a0e400c5bc3a798a22184fc7f6b1",
+   "needed_for": [
+    "dsrl_train",
+    "dsrl_readout"
+   ],
+   "components": [
+    {
+     "name": "prep ex299_hug1",
+     "path": "prep/ex299_hug1/",
+     "what": "56 training views, 1,792 labelled executions, pool of 4,096 draws per view (manifest, states of all 220 census views, actions, pool)",
+     "source": "this project: HUG1 decodes and the evaluator's labels",
+     "licence": "MIT",
+     "notice": "Copyright (c) 2026 the wuji-floating authors",
+     "licence_text": "licences/wuji-floating-LICENSE.txt",
+     "derived": "HUG1 decodes (HUG1 is MIT) and the evaluator's labels"
+    }
+   ]
+  },
+  "prep_ex299_dumbbell50k": {
+   "title": "DSRL training data: dumbbell views, prior dumbbell 50k",
+   "status": "openly licensed",
+   "delivered": true,
+   "files": 4,
+   "bytes": 195742298,
+   "manifest": "asset_manifests/prep_ex299_dumbbell50k.sha256",
+   "manifest_sha256": "493b58f0f9a4d0eb9c908d980e2649d933c603ad54b36edce0421ed83e293ea7",
+   "needed_for": [
+    "dsrl_train",
+    "dsrl_readout"
+   ],
+   "components": [
+    {
+     "name": "prep ex299_dumbbell50k",
+     "path": "prep/ex299_dumbbell50k/",
+     "what": "56 training views, 1,792 labelled census executions (the file also holds the replay rows of EX280's three seeds, 4,704 each, which the census-only config does not read), pool of 4,096 draws per view, states of all 220 census views",
+     "source": "this project: dumbbell 50k decodes and the evaluator's labels (the 50k prior is derived from HUG2)",
+     "licence": "MIT",
+     "notice": "this project's work (Copyright (c) 2026 the wuji-floating authors) on HUG2 (MIT, the HUG authors' copyright notice, as in licences/hug-LICENSE.txt)",
+     "licence_text": "licences/wuji-floating-LICENSE.txt and licences/hug-LICENSE.txt",
+     "derived_from_hug2": true
+    }
+   ]
+  },
+  "prep_ex299_hug2": {
+   "title": "DSRL training data: dumbbell views, prior HUG2",
+   "status": "openly licensed",
+   "delivered": true,
+   "files": 4,
+   "bytes": 183365860,
+   "manifest": "asset_manifests/prep_ex299_hug2.sha256",
+   "manifest_sha256": "ec94eb71d05d99ac3054325f39bf535b058db4e6f478e6c9bfbef79036fc1543",
+   "needed_for": [
+    "dsrl_train",
+    "dsrl_readout"
+   ],
+   "components": [
+    {
+     "name": "prep ex299_hug2",
+     "path": "prep/ex299_hug2/",
+     "what": "56 training views, 1,792 labelled executions, pool of 4,096 draws per view, states of all 220 census views",
+     "source": "this project: HUG2 decodes and the evaluator's labels",
+     "licence": "MIT",
+     "notice": "this project's work (Copyright (c) 2026 the wuji-floating authors) on HUG2 (MIT, the HUG authors' copyright notice, as in licences/hug-LICENSE.txt)",
+     "licence_text": "licences/wuji-floating-LICENSE.txt and licences/hug-LICENSE.txt",
+     "derived_from_hug2": true
+    }
+   ]
+  },
+  "prep_ex315_hug2": {
+   "title": "DSRL training data: HUG-Bench objects, prior HUG2 (5 training levels)",
+   "status": "openly licensed",
+   "delivered": true,
+   "files": 6,
+   "bytes": 1394207452,
+   "manifest": "asset_manifests/prep_ex315_hug2.sha256",
+   "manifest_sha256": "613024bb0563c405e1b4c697d9e999bf755c1305899a23e88a10ddd99bf7237e",
+   "needed_for": [
+    "dsrl_train",
+    "dsrl_readout"
+   ],
+   "components": [
+    {
+     "name": "prep ex315_hug2",
+     "path": "prep/ex315_hug2/",
+     "what": "200 training inputs, 6,400 labelled executions, pool of 4,096 draws per input, and the evaluation pool",
+     "source": "this project: HUG2 decodes and the evaluator's labels",
+     "licence": "MIT",
+     "notice": "this project's work (Copyright (c) 2026 the wuji-floating authors) on HUG2 (MIT, the HUG authors' copyright notice, as in licences/hug-LICENSE.txt)",
+     "licence_text": "licences/wuji-floating-LICENSE.txt and licences/hug-LICENSE.txt",
+     "derived_from_hug2": true
+    }
+   ]
+  },
+  "prep_ex324_a": {
+   "title": "DSRL training data: HUG-Bench objects, prior HUG2 (all 19 levels)",
+   "status": "openly licensed",
+   "delivered": true,
+   "files": 4,
+   "bytes": 2430504599,
+   "manifest": "asset_manifests/prep_ex324_a.sha256",
+   "manifest_sha256": "20b698fc88be6eeb8a1a07be0d5484539b04c957e93706974859d9741d038c9e",
+   "needed_for": [
+    "dsrl_train",
+    "dsrl_readout"
+   ],
+   "components": [
+    {
+     "name": "prep ex324_a",
+     "path": "prep/ex324_a/",
+     "what": "741 training inputs, 23,712 labelled executions, pool of 4,096 draws per input",
+     "source": "this project: HUG2 decodes and the evaluator's labels",
+     "licence": "MIT",
+     "notice": "this project's work (Copyright (c) 2026 the wuji-floating authors) on HUG2 (MIT, the HUG authors' copyright notice, as in licences/hug-LICENSE.txt)",
+     "licence_text": "licences/wuji-floating-LICENSE.txt and licences/hug-LICENSE.txt",
+     "derived_from_hug2": true
+    }
+   ]
+  },
+  "prep_ex324_b": {
+   "title": "DSRL training data: HUG-Bench objects, prior HUG2 (200 inputs spread over 19 levels)",
+   "status": "openly licensed",
+   "delivered": true,
+   "files": 4,
+   "bytes": 656876984,
+   "manifest": "asset_manifests/prep_ex324_b.sha256",
+   "manifest_sha256": "71cab33bfb62268807d91ee072acaf8ce9f673d2c2455b7fe1d092e758260b8c",
+   "needed_for": [
+    "dsrl_train",
+    "dsrl_readout"
+   ],
+   "components": [
+    {
+     "name": "prep ex324_b",
+     "path": "prep/ex324_b/",
+     "what": "200 training inputs spread over the 19 levels",
+     "source": "this project: HUG2 decodes and the evaluator's labels",
+     "licence": "MIT",
+     "notice": "this project's work (Copyright (c) 2026 the wuji-floating authors) on HUG2 (MIT, the HUG authors' copyright notice, as in licences/hug-LICENSE.txt)",
+     "licence_text": "licences/wuji-floating-LICENSE.txt and licences/hug-LICENSE.txt",
+     "derived_from_hug2": true
+    }
+   ]
+  },
+  "prep_ex338_a_p2": {
+   "title": "DSRL training data: HUG-Bench objects, prior HUG2 (all 19 levels), labels under mano-1111-p2 (revision r4)",
+   "status": "openly licensed",
+   "delivered": true,
+   "files": 5,
+   "bytes": 2430507893,
+   "manifest": "asset_manifests/prep_ex338_a_p2.sha256",
+   "manifest_sha256": "e0a08bbcf726b7a0600a5d63d2a82f615cde15d7542820a658fd678506d8ec61",
+   "needed_for": [
+    "dsrl_train",
+    "dsrl_readout"
+   ],
+   "components": [
+    {
+     "name": "prep ex338_a_p2",
+     "path": "prep/ex338_a_p2/",
+     "what": "prep ex324_a with the `label` array of actions.npz replaced by the label of the same stored grasp under mano-1111-p2 (741 training inputs, 23,712 labelled executions); states.npz and pool.npz are byte-identical to prep ex324_a's, so unpacking this part after prep_ex324_a duplicates 2.4 GB of data",
+     "source": "this project: HUG2 decodes and the evaluator's labels under p2",
+     "licence": "MIT",
+     "notice": "this project's work (Copyright (c) 2026 the wuji-floating authors) on HUG2 (MIT, the HUG authors' copyright notice, as in licences/hug-LICENSE.txt)",
+     "licence_text": "licences/wuji-floating-LICENSE.txt and licences/hug-LICENSE.txt",
+     "derived_from_hug2": true
+    }
+   ]
+  }
+ },
+ "attribution": [
+  "HUG-Bench: the HUG-Bench dataset by the HUG authors, https://huggingface.co/datasets/kevinywu/hug-bench, licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/legalcode). The simulation assets of part `core` are adapted from it (converted to MuJoCo MJCF with convex collision parts, visual mesh and properties); the pictures of part `inputs` are renderings of those assets.",
+  "Google Scanned Objects: Google Research, \"Google Scanned Objects: A High-Quality Dataset of 3D Scanned Household Items\" (ICRA 2022), licensed under CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/legalcode). Two of the 62 objects of part `core` (the dollhouse objects) are adapted from it in the same way, from its MuJoCo conversion mujoco_scanned_objects (commit 6ff8d275).",
+  "HUG-Bench evaluator by its authors (part `core`, folder evaluator/): MIT License; the licence text with its copyright notice is evaluator/LICENSE (the same text is LICENSES/HUG-Bench-evaluator-MIT.txt of the code release, for its robot-hand evaluators derived from the evaluator harness).",
+  "HUG source, HUG1 and HUG2 weights by the HUG authors (https://github.com/KevinyWu/hug, https://huggingface.co/kevinywu/hug; HUG2 given to the project by its authors and released under MIT with their permission): MIT License; the licence text with its copyright notice is licences/hug-LICENSE.txt.",
+  "DINOv2 with registers (facebook/dinov2-with-registers-base, https://huggingface.co/facebook/dinov2-with-registers-base): Apache License 2.0 as stated on its model card; the licence text is licences/Apache-2.0.txt.",
+  "Wuji Hand 1 model (https://github.com/wuji-technology/wuji-mjlab, commit 4e438c0): Apache License 2.0, Copyright 2026 Wuji Technology Co., Ltd.; licence and NOTICE: licences/wuji-mjlab-LICENSE.txt, licences/wuji-mjlab-NOTICE.txt.",
+  "Sharpa Wave model (https://github.com/sharpa-robotics/sharpa-urdf-usd-xml, commit 0d19cac): Apache License 2.0, Copyright 2025 Sharpa Group; licence and NOTICE: LICENSE.txt and NOTICE.txt in its folder of part `hands`.",
+  "wuji-retargeting (https://github.com/wuji-technology/wuji-retargeting, release v2026.6.15): MIT License, Copyright (c) 2025 WujiHand Technologies; the licence text is licences/wuji-retargeting-LICENSE.txt."
+ ],
+ "fetched_separately": [
+  {
+   "name": "HUG source",
+   "what": "git checkout of the public HUG repository at the pinned commit; `wf.py assets fetch-hug-source` clones it and links the MANO model into its assets",
+   "source": "https://github.com/KevinyWu/hug commit 8d1c52d4c24bfae5a369e32e3f134f5601a02630",
+   "licence": "MIT (the HUG authors' copyright notice is in the repository's LICENSE and in licences/hug-LICENSE.txt)",
+   "public": true
+  },
+  {
+   "name": "Python packages",
+   "what": "requirements/cpu.txt, cpu_hands.txt, gpu.txt (pinned); manotorch (a2a70c5) and chumpy (580566e) come from GitHub archives",
+   "licence": "MuJoCo Apache-2.0; torch BSD-style; chumpy MIT; manotorch GPL (per its package metadata; installed from its public repository, never redistributed here)",
+   "public": true
+  }
+ ],
+ "job_types": {
+  "cpu_rollouts": {
+   "parts": [
+    "core",
+    "mano"
+   ],
+   "plus_for_robot_hands": [
+    "hands"
+   ],
+   "runs_with_openly_licensed_parts": "yes (core: MIT evaluator and CC-BY-4.0 simulation assets; hands: Apache-2.0 and MIT; the MANO model: your own download under the MPI licence)"
+  },
+  "decode": {
+   "parts": [
+    "dinov2",
+    "inputs",
+    "mano"
+   ],
+   "plus_one_prior": [
+    "hug1",
+    "hug2",
+    "dumbbell50k"
+   ],
+   "also_needs": [
+    "HUG source (git)"
+   ],
+   "runs_with_openly_licensed_parts": "with hug1: yes (HUG source, HUG1, DINOv2 and the pictures are openly licensed; the MANO model is your own download from the Max Planck Institute, placed at mano/models/MANO_RIGHT.pkl; for new objects you supply your own RGB-D pictures, since rendering is not shipped). With hug2 or dumbbell50k: yes"
+  },
+  "dsrl_train": {
+   "parts": [
+    "a prep part"
+   ],
+   "runs_with_openly_licensed_parts": "with prep_ex299_hug1: yes (MIT, data derived from the public HUG1 prior); with the HUG2-derived preps: yes"
+  },
+  "dsrl_readout": {
+   "parts": [
+    "dinov2",
+    "inputs",
+    "mano",
+    "a prep part",
+    "the prior's weights"
+   ],
+   "runs_with_openly_licensed_parts": "with the hug1 prep and HUG1: yes; with a HUG2-derived prep: yes"
+  }
+ }
+}

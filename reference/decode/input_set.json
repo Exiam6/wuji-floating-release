@@ -1,0 +1,48 @@
+{
+ "schema": "wf-input-set-1",
+ "name": "decode-reference-6 (dumbbell census views)",
+ "units": [
+  {
+   "unit": "c_a000",
+   "cluster": "a000",
+   "unit_key": "40713610f04a3506acecc63ca4e83e0b17fb3ed92725c57d7b1db715634220ab",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook"
+  },
+  {
+   "unit": "c_a090",
+   "cluster": "a090",
+   "unit_key": "a5862de8a2cc30359c076fa1c62dcbaaa533c93e3a82bdaa382f8ac7cb73ca70",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook"
+  },
+  {
+   "unit": "n_a180",
+   "cluster": "a180",
+   "unit_key": "8f1689e4c5ee2b32dcd0e829736dff4934ab91a7c24ebe40017a2b61a8c959b2",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook"
+  },
+  {
+   "unit": "f_a090",
+   "cluster": "a090",
+   "unit_key": "3f777e40f8655b9d3fc29efe80496ca220d041fb4c248cf1877fb79cb0b7e0ed",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook"
+  },
+  {
+   "unit": "l_a270",
+   "cluster": "a270",
+   "unit_key": "b5ededbf97bec6378a1bc54100d252e94d8d2e90e0fb781eed8681ed4a44acbb",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook"
+  },
+  {
+   "unit": "h_a180",
+   "cluster": "a180",
+   "unit_key": "be7cd51c40637d689d39d60133af10e6fd6b110d3a4464d7bd7a73d74c40f234",
+   "asset": "hugbench60_assets/val/large_3/dumbbell/sim_assets",
+   "noise_key": "codebook"
+  }
+ ]
+}
