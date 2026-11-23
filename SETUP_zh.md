@@ -10,8 +10,8 @@
 
 | 我们提供 | 内容 |
 |---|---|
-| 代码 | 公开的 GitHub 仓库 https://github.com/Exiam6/wuji-floating-release （约 8 MB，不需要账号）。发布标签：`wf-20261122-r6` |
-| 一个网盘链接 | 资源 tar 包（不经过 GitHub）：文件夹 `full` 里有 15 个 tar，8.69 GB，除 MANO 和 HUG1（这两样你自己下载）之外的全部资源，另有 `SHA256SUMS`、`ASSET_TERMS.txt`、`README.txt`；只跑 CPU 的子集 `rollout_only` 是其中 4 个 tar（0.32 GB），同级的一个文件夹重复放了它的清单文件；如果你运行项目发给你的批次，另有网盘文件夹 `returns/<你的名字>/<日期>/`，用来上传你的结果 |
+| 代码 | 公开的 GitHub 仓库 https://github.com/Exiam6/wuji-floating-release （约 8 MB，不需要账号）。发布标签：`wf-20261123-r7a` |
+| 一个网盘链接 | 资源 tar 包（不经过 GitHub）：文件夹 `full` 里有 18 个 tar，23.30 GB，除 MANO 和 HUG1（这两样你自己下载）之外的全部资源，另有 `SHA256SUMS`、`ASSET_TERMS.txt`、`README.txt`；只跑 CPU 的子集 `rollout_only` 是其中 4 个 tar（0.32 GB），同级的一个文件夹重复放了它的清单文件；如果你运行项目发给你的批次，另有网盘文件夹 `returns/<你的名字>/<日期>/`，用来上传你的结果 |
 | 已发布的批次文件夹 | 要做的工作：第一个是 **verification batch 1**（分几部分，先发 1a），在第 8 步之后以压缩包形式发给你 |
 
 | 你自己需要 | |
@@ -19,7 +19,7 @@
 | 机器 | Linux x86-64（测试过 Ubuntu 22.04 和 24.04）：带 GPU 的工作站，或带登录节点和 GPU 节点的集群 |
 | NVIDIA 驱动 | 支持 CUDA 12.8 的驱动（570 或更新）：`nvidia-smi` 可以看到。固定的软件栈是为 CUDA 12.8 编译的 torch 2.9.1；其他 CUDA 版本没有测试过 |
 | Python | 3.10（两个环境都测试过）。3.12 只测试过 CPU 环境 |
-| 磁盘 | 解包期间约 27 GB 空闲（tar 包 8.7 GB、解包后的资源 8.7 GB、环境 9 GB），删掉 tar 包之后约 18 GB，再加上你的结果。请用快速的本地盘或 scratch 盘（见"故障排除"） |
+| 磁盘 | 解包期间约 58 GB 空闲（tar 包 23.3 GB、解包后的资源 23.2 GB、环境 9 GB；其中 r7a 新增的三个部分共 14.6 GB，只在需要时才下载），删掉 tar 包之后约 34 GB，再加上你的结果。请用快速的本地盘或 scratch 盘（见"故障排除"） |
 | 网络 | 只在安装阶段需要（PyPI、download.pytorch.org、data.pyg.org、github.com、huggingface.co）：登录节点即可。跑批次时不需要联网 |
 | MANO 账号 | 免费，在 https://mano.is.tue.mpg.de 注册（第 5 步） |
 
@@ -42,7 +42,10 @@ prep_ex315_hug2.tar           1,394,216,960   4476a37008d666a0c97696196e42ef6bc3
 prep_ex324_a.tar              2,430,515,200   954227086d067cf421fc6ab46f399bf784e8a0789c2b53f5a3efe975ab252943
 prep_ex324_b.tar                656,885,760   56c8114ab7ece578e670b5f057c7a14ab1542bd0fba262a877d83f320613b688
 prep_ex338_a_p2.tar           2,430,515,200   93f4af5af53ca6e99eea95137c102ae5a10be467450a54079a34ae71cb2a9f82
-Total 8,691,578,880 bytes (15 tarballs). The folder rollout_only holds core, hands, batches and licences (303,964,160 bytes).
+prep_ex365_union200_p2.tar    12,147,179,520   d9736182eaf766ebcb7eef55e6ebdfe4d67ac2e047339302db34feb389ab2312
+dgn200_objects.tar              411,064,320   6822a4b982812d032fad1b172f6ff90dca011bab7bb2aee88f6f56d67cf0b8a1
+dgn1126_objects.tar           2,047,969,280   58e1e6d02c557d0a4d93bb0bcc5f5dbc068e57191bb7dfca903890f97637b593
+Total 23,297,792,000 bytes (18 tarballs). The folder rollout_only holds core, hands, batches and licences (303,964,160 bytes).
 ```
 
 ## 第 0 步：选一个文件夹，检查机器
@@ -76,7 +79,7 @@ df -h "$BASE" | tail -n 1
 
 ```bash
 source "$BASE/env.sh"
-git clone -c advice.detachedHead=false --branch wf-20261122-r6 https://github.com/Exiam6/wuji-floating-release.git "$RELEASE"
+git clone -c advice.detachedHead=false --branch wf-20261123-r7a https://github.com/Exiam6/wuji-floating-release.git "$RELEASE"
 cd "$RELEASE" && git log -1 --format='%H %s' && sha256sum -c --quiet SHA256SUMS && echo "release intact"
 ```
 

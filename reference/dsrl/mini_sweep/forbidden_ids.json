@@ -1,0 +1,25 @@
+{
+ "objects": [
+  "almonds",
+  "apple",
+  "backpack",
+  "battery",
+  "bear_figure",
+  "bell_pepper",
+  "broccoli",
+  "cereal_box",
+  "chips",
+  "coffee_cup",
+  "dumbbell",
+  "earmuffs",
+  "french_vanilla",
+  "frying_pan",
+  "glue_tube",
+  "hammer",
+  "milk_carton",
+  "toothpaste",
+  "turtle_toy",
+  "wrench"
+ ],
+ "note": "the 20 held-out test objects of the read-out set 2 (public object names): no list of a training or search run may name one"
+}

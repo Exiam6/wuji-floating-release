@@ -42,7 +42,7 @@ Expect: `x86_64`, and a line `Python 3.10.<N>`.
 |---|---|---|
 | architecture | `x86_64` | **STOP**: no other architecture is supported |
 | operating system | Linux (Ubuntu 22.04 and 24.04 were tested) | other glibc distributions usually work: say so in the report |
-| `df`: available | at least 30 GB while you unpack (about 18 GB afterwards, plus your results) | choose another `BASE` on a bigger disk |
+| `df`: available | at least 59 GB while you unpack (about 34 GB afterwards, plus your results) | choose another `BASE` on a bigger disk |
 | file system type | a local disk (`ext4`, `xfs`, `tmpfs`, `btrfs`) | on `nfs`, `nfs4`, `lustre`, `gpfs`, `beegfs`, `cephfs` the environments and assets must go on node-local or scratch disk instead (imports take 10 to 40 minutes on NFS): change `BASE` |
 | Python | CPython 3.10.x | find one (`module avail python`, conda, pyenv), then `export PY310=/full/path/to/python3.10` before section 2 |
 | driver and CUDA | driver 570 or newer, and `CUDA Version: 12.8` or higher in the `nvidia-smi` header (the pinned stack is torch 2.9.1 built for CUDA 12.8 and brings its own CUDA libraries: only the driver matters, no CUDA toolkit or module is needed) | **STOP**: ask the human for a node with a newer driver |
@@ -87,7 +87,7 @@ The repository is public: `git clone` needs no account and no credentials.
 
 ```bash
 source "$BASE/env.sh"
-git clone -c advice.detachedHead=false --branch wf-20261122-r6 https://github.com/Exiam6/wuji-floating-release.git "$RELEASE"
+git clone -c advice.detachedHead=false --branch wf-20261123-r7a https://github.com/Exiam6/wuji-floating-release.git "$RELEASE"
 cd "$RELEASE" && git log -1 --format='%H %s' && sha256sum -c --quiet SHA256SUMS && echo "release intact"
 ```
 
@@ -119,7 +119,7 @@ core.tar: OK
 prep_ex324_b.tar: OK
 ```
 
-All 15 tarballs must end in `OK`. A `FAILED` line: that file is damaged, download it again (never unpack it). Then read `ASSET_TERMS.txt` in `$DOWNLOADS` (rule 7) and unpack:
+All 18 tarballs must end in `OK`. A `FAILED` line: that file is damaged, download it again (never unpack it). Then read `ASSET_TERMS.txt` in `$DOWNLOADS` (rule 7) and unpack:
 
 ```bash
 source "$BASE/env.sh"
@@ -327,7 +327,7 @@ Batch verification_batch_1a: <N> groups, issued for release wuji_floating_202611
 "release_ok": true
 ```
 
-The printed `sha256` must equal the one in our message (a transfer error otherwise: download the archive again). `"release_ok": false`, or an error saying `this batch cannot run on this copy of the release` or `the batch folder differs from its SHA256SUMS`: **STOP** (your checkout is not the release the batch was issued for, or the archive is damaged: `git fetch --tags && git checkout wf-20261122-r6`, unpack the archive again, repeat; if it persists, report). `INSTRUCTIONS.txt` lists the groups: one group is one experiment (for this batch: three grasp priors decoded on your GPU for 164 held-out views and rolled under five wrist conditions, plus a replay of 3,936 of our stored jobs). Our projection for all groups: about 0.1 GPU-hours and 13 CPU core-hours. `--dry` runs nothing.
+The printed `sha256` must equal the one in our message (a transfer error otherwise: download the archive again). `"release_ok": false`, or an error saying `this batch cannot run on this copy of the release` or `the batch folder differs from its SHA256SUMS`: **STOP** (your checkout is not the release the batch was issued for, or the archive is damaged: `git fetch --tags && git checkout wf-20261123-r7a`, unpack the archive again, repeat; if it persists, report). `INSTRUCTIONS.txt` lists the groups: one group is one experiment (for this batch: three grasp priors decoded on your GPU for 164 held-out views and rolled under five wrist conditions, plus a replay of 3,936 of our stored jobs). Our projection for all groups: about 0.1 GPU-hours and 13 CPU core-hours. `--dry` runs nothing.
 
 ## 11. Run the batch
 

@@ -204,7 +204,25 @@ def verify(name: str, layout: paths.Layout, release_check: bool = True) -> dict:
 
 
 # ------------------------------------------------------------------------------------------------ pools
+ARENA_MEMORY = "128M"       # MuJoCo's arena of one scene. The default (16 MB for these scenes) overflows on grasps of objects with about 120 or more collision pieces
+                            # ("mj_stackAlloc: out of memory"). The size does not enter the physics: the same jobs give bit-identical results with it (census_cmd README, arena).
+
+
+def _enlarge_arena() -> None:
+    # every scene compiled in a roll worker gets <size memory=ARENA_MEMORY/> unless its XML sets a size itself
+    import mujoco
+    orig = mujoco.MjModel.from_xml_string
+
+    def with_arena(xml, assets=None):
+        if "<size" not in xml and "<mujoco" in xml:
+            i = xml.index(">", xml.index("<mujoco")) + 1
+            xml = xml[:i] + f'<size memory="{ARENA_MEMORY}"/>' + xml[i:]
+        return orig(xml) if assets is None else orig(xml, assets)
+    mujoco.MjModel.from_xml_string = staticmethod(with_arena)
+
+
 def _init_mano_worker(shim, evaluator, mano, nice, trace, wrist, wrist_offset):
+    _enlarge_arena()
     rollout._init(shim, evaluator, mano, nice, trace, wrist, wrist_offset)
     root = Path(evaluator).resolve()
     for mod in (rollout._H.SP, rollout._H.SC, rollout._H.EP):

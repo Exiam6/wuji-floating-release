@@ -1,0 +1,19 @@
+{
+ "prior": "hug2",
+ "views": 55,
+ "pool_m": 4096,
+ "pool_rows_stored": 64,
+ "pool_tile": 64,
+ "files": {
+  "states.npz": "75f33b87ad9031100e961e25c7e33d60dc04d4554e40e275186752cd52eb847c",
+  "actions.npz": "27ee28aeaf2a88feeffc8d072a69abdad83477b8e65071ef1f0815b85b46c025",
+  "pool.npz": "cbdc200385bc26359e134eb7b14ff74bdacdbe27da7b67435147ab10fa7e318f"
+ },
+ "pass": true,
+ "source": "rows of the shipped prep/ex338_a_p2 (the 40-object census under mano-1111-p2): the 55 views and 1760 labelled executions of the objects ['ab_roller', 'anchovies', 'apricot'], the first 64 pool draws of each view (tiled by index to the registered pool_m 4096), and the states of those views and of 4 test views ['r/almonds', 'r/apple', 'r/backpack', 'r/battery']",
+ "source_manifest_files": {
+  "states.npz": "dd5548a5adcc7d22ee752afc64c4b564795c92ca4a993e943217db34ab18b06a",
+  "actions.npz": "2476722efab19ac01cf8c026588cba480f83caa19d68e24e42aabb848e6dfb66",
+  "pool.npz": "edcffdfdaad8bc8fdde4b12cd2080ef8d2c2257d8a2bcb83f943a08f5413f170"
+ }
+}

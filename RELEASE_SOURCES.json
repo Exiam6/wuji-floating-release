@@ -1,6 +1,6 @@
 {
  "release": "wuji_floating_20261120",
- "source_commit": "c223ac7768c2be2be3c6eab42f295e915814cd89",
+ "source_commit": "728bc9a44a1c1ed03c53065e68d3872fcb51ba07",
  "source_branch": "the project's working branch",
  "copied_files": {
   "code/tools/float/collab_native.py": {

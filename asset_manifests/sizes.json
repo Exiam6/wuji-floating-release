@@ -7,6 +7,14 @@
   "files": 1707,
   "bytes": 138796448
  },
+ "dgn1126_objects": {
+  "files": 64043,
+  "bytes": 1992765422
+ },
+ "dgn200_objects": {
+  "files": 12393,
+  "bytes": 400581553
+ },
  "dinov2": {
   "files": 3,
   "bytes": 346359338
@@ -66,5 +74,9 @@
  "prep_ex338_a_p2": {
   "files": 5,
   "bytes": 2430507893
+ },
+ "prep_ex365_union200_p2": {
+  "files": 7,
+  "bytes": 12147169794
  }
 }

@@ -1,0 +1,35 @@
+{
+ "prior": "hug2",
+ "algorithm": "DSRL-NA, the authors' train / update_noise_critic (code/tools/dsrl_port)",
+ "regime": "offline",
+ "data": [
+  "census"
+ ],
+ "bound": 1.0,
+ "offline_calls": 25,
+ "utd": 20,
+ "noise_critic_grad_steps": 10,
+ "batch": 256,
+ "layer_size": 2048,
+ "num_layers": 3,
+ "noise_source": "pool",
+ "pool_m": 4096,
+ "state": "meanpool",
+ "action": "normalised_flow99",
+ "reward": "native",
+ "readout": "deterministic",
+ "prep": "reference/dsrl/mini_sweep/prep",
+ "seed": 1,
+ "label_protocol": "mano-1111-p2",
+ "train_ids_file": "train_ids.txt",
+ "train_ids_sha256": "f97839ccf3d71929a1b83ad3afedc3600747b05096ba20a0a4168685e80566e1",
+ "forbidden_ids_file": "forbidden_ids.json",
+ "forbidden_ids_sha256": "e8fe65a8915c2c3304d14c4d1f65867973bdc8d35b4f1090f1bcad6910b09837",
+ "expected_executions": 1760,
+ "calls_rule": {
+  "anchor_calls": 25,
+  "anchor_executions": 1760,
+  "round_to": 1
+ },
+ "note": "the sweep trainer path on a mini census: 55 views of 3 shipped training objects, 25 calls (the calls rule with its anchor moved to this set), registered recipe otherwise"
+}

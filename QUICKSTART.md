@@ -2,13 +2,13 @@
 
 One page, no explanations. Every command with its expected output and the failure handling: [QUICKSTART_AGENT.md](QUICKSTART_AGENT.md) (section numbers below; hand it to your agent). Long guide: [SETUP.md](SETUP.md). Chinese: [QUICKSTART_zh.md](QUICKSTART_zh.md).
 
-**You receive:** (a) the public GitHub repository `Exiam6/wuji-floating-release` (tag `wf-20261122-r6`; no account needed); (b) a drive link: the folder `full/` (15 tarballs, 8.7 GB, with `SHA256SUMS`) and, if you run batches for the project, your upload folder `returns/<your name>/`; (c) for a batch issued to you: its archive (the first is `verification_batch_1a.tar`) with its sha256, sent after step 5. Steps 1 to 5 install and verify the release; step 6 is for an issued batch.
+**You receive:** (a) the public GitHub repository `Exiam6/wuji-floating-release` (tag `wf-20261123-r7a`; no account needed); (b) a drive link: the folder `full/` (18 tarballs, 23.3 GB, with `SHA256SUMS`) and, if you run batches for the project, your upload folder `returns/<your name>/`; (c) for a batch issued to you: its archive (the first is `verification_batch_1a.tar`) with its sha256, sent after step 5. Steps 1 to 5 install and verify the release; step 6 is for an issued batch.
 **Needs:** Linux x86-64, NVIDIA driver 570 or newer, CPython 3.10, 30 GB free on a local or scratch disk, internet during setup. Set `export BASE=<your folder>` and make `env.sh` (AGENT section 2).
 
 1. **Clone at the tag.**
-   `git clone --branch wf-20261122-r6 https://github.com/Exiam6/wuji-floating-release.git "$RELEASE"`
+   `git clone --branch wf-20261123-r7a https://github.com/Exiam6/wuji-floating-release.git "$RELEASE"`
    `cd "$RELEASE" && sha256sum -c --quiet SHA256SUMS && echo "release intact"`
-2. **Download `full/` into `$DOWNLOADS`, check, unpack** (15 lines `OK`, then `assets intact`).
+2. **Download `full/` into `$DOWNLOADS`, check, unpack** (18 lines `OK`, then `assets intact`).
    `cd "$DOWNLOADS" && sha256sum -c SHA256SUMS`
    `mkdir -p "$ASSETS" && for t in "$DOWNLOADS"/*.tar; do tar -xf "$t" -C "$ASSETS"; done`
    `cd "$ASSETS" && sha256sum -c --quiet "$RELEASE/asset_manifests/SHA256SUMS.all" && echo "assets intact"`

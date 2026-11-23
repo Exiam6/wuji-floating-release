@@ -53,16 +53,21 @@ def seed_all(seed: int) -> None:
 
 
 def build(seed: int, S_train: np.ndarray, pool_w: np.ndarray, pool_a: np.ndarray, device: str = "cuda", bound: float = BOUND,
-          fresh=None):
+          fresh=None, pool=None):
     """The authors' DSRL-NA with their defaults. Noise critic fed from the per-view pool (PORT), or, with `fresh` (a
     FreshFlow), from fresh N(0, I) draws decoded at every noise-critic step, exactly as their update_noise_critic
-    (noise_source "fresh"). `bound` is the action space's half-width."""
+    (noise_source "fresh"). `bound` is the action space's half-width.
+    Release r7: `pool` (a poolmap.MappedPool, the same callable contract as hug2_adapter.PoolNoise) replaces the in-memory pool; pool_w and pool_a are then not read (pass None).
+    Nothing else about the learner changes."""
     seed_all(seed)
     S32 = np.asarray(S_train, np.float32)
+    obs_dim = int(S32.shape[1])                       # r7a (--state): 64 for the shipped projected states (OBS_DIM, bit-identical to r7), 1,024 for the full pooled encoding
     lo, hi = -float(bound) * np.ones(ACT_DIM, np.float32), float(bound) * np.ones(ACT_DIM, np.float32)
     if fresh is not None:
-        return dsrl_port.DSRL(OBS_DIM, lo, hi, fresh, (1, ACT_DIM), device=device, noise_source="fresh")    # PORT: the decoder
-    return dsrl_port.DSRL(OBS_DIM, lo, hi, hug2_adapter.NoDiffusionCall(), (1, ACT_DIM), device=device,
+        return dsrl_port.DSRL(obs_dim, lo, hi, fresh, (1, ACT_DIM), device=device, noise_source="fresh")    # PORT: the decoder
+    if pool is not None:
+        return dsrl_port.DSRL(obs_dim, lo, hi, hug2_adapter.NoDiffusionCall(), (1, ACT_DIM), device=device, noise_source="pool", noise_pool=pool)   # PORT (r7: mapped pool)
+    return dsrl_port.DSRL(obs_dim, lo, hi, hug2_adapter.NoDiffusionCall(), (1, ACT_DIM), device=device,
                           noise_source="pool",                                                   # PORT
                           noise_pool=hug2_adapter.PoolNoise(np.asarray(pool_w, np.float32), np.asarray(pool_a, np.float32), S32, device))
 

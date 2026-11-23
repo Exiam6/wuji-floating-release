@@ -6,8 +6,10 @@
   python code/wf.py fingerprint --out FILE                                           the host fingerprint file we ask for before a batch (CPU, GPU, driver, versions)
   python code/wf.py batch run|status|slurm|shell|pack BATCH --out RESULTS            run an issued batch on one machine or a cluster and send the results back (README sections 5 and 9)
   python code/wf.py dsrl train|readout|check ...                                     job type 1: GPU DSRL-NA training and read-out
+  python code/wf.py cem decode|update|constants ...                                  job type 5 (r7): the searched-constant arm, one generation per step of a batch group
   python code/wf.py decode run|make-jobs|check ...                                   job type 2: GPU prior decode (HUG2 / HUG1 / 50k)
   python code/wf.py rollout verify|run|compare|check|slice ...                       job type 3: CPU rollouts, the evaluation that follows them (no GPU)
+  python code/wf.py census plan|decode|roll|finish|run|status|selftest ...           job type 4: the training-set (census) builder for a shard of qualified objects
   python code/wf.py pack-results --folder DIR                                        SHA256SUMS + PACK.json + RETURN.json for sending results back (`batch pack` calls it)
 
 The asset root (the folder that holds evaluator/, mano/, assets/, ckpt/ ...) is --assets PATH (a top-level option: write it right after
@@ -108,15 +110,23 @@ def build_parser() -> argparse.ArgumentParser:
     t.add_argument("--out", required=True, help="output folder (new)")
     t.add_argument("--seed", type=int, default=None, help="override the config's seed")
     t.add_argument("--calls", type=int, default=None, help="override offline_calls (tests only)")
+    t.add_argument("--state", choices=["pca64", "full"], default=None, help="r7a: the actor's observation: pca64 (default, the shipped 64-D projection) or full (the pooled 1,024-D encoding of states_full.npz, standardised per dimension over the training views)")
+    t.add_argument("--noise-source", choices=["pool", "fresh"], default=None, help="r7a: the noise critic's pairs: pool (default, precomputed) or fresh (the authors' fresh draws decoded by the prior at every step; 14 to 19 times slower per call (measured by the project: 2.1 to 2.5 h per 1,000 calls at 40 objects on an A6000, 2.56 million decodes per training))")
     t.add_argument("--device", default="cuda")
     q = ss.add_parser("readout", help="decode the trained actor's noise at each input and write the rollout jobs")
-    q.add_argument("--train-out", required=True, help="the folder `dsrl train` wrote (its config.json, seed included, is what the read-out uses)")
+    q.add_argument("--train-out", default=None, help="the folder `dsrl train` (or `cem constants`) wrote (its config.json, seed included, is what the read-out uses); r7: omit it for a read-out of the `file` arm alone (then --prior)")
+    q.add_argument("--prior", default=None, help="r7, without --train-out: the prior to decode with (hug2, hug1, dumbbell50k)")
     q.add_argument("--config", default=None, help="optional: must describe the same experiment as the training run's config.json")
     q.add_argument("--protocols", default="mano-1111-p1", help="comma list of the protocols you will roll the read-out jobs under: known-answer jobs (canaries) are added for each")
     q.add_argument("--no-canaries", action="store_true", help="debugging only: no known-answer jobs; `pack-results` refuses the results of such a file and our verifier rejects the pack")
     q.add_argument("--inputs", required=True, help="input set json")
     q.add_argument("--out", required=True, help="output folder (new)")
-    q.add_argument("--arms", default="own,stoch,normrand")
+    q.add_argument("--normrand-key", choices=["index", "unit"], default="index", help="r7a, arm normrand: how its random direction is keyed: index (default, the position of the unit in the prep: the r7 behaviour) or unit (a number derived from the unit's id, the same direction for the same unit at every training-set size)")
+    q.add_argument("--arms", default="own,stoch,normrand", help="own, stoch, normrand (a trained actor); r7: zero (noise 0), prior (one seeded N(0, I) draw per unit), const (--const-file), file (--noise-file); a read-out of zero / prior / const only needs --train-out to hold a config.json, of file alone only --prior")
+    q.add_argument("--const-file", default=None, help="r7, arm const: a 99-vector (.npy, or .npz) decoded at every unit")
+    q.add_argument("--noise-file", default=None, help="r7, arm file: an npz with `ids` (the read-out units) and `noise` (n, 99), one noise per unit; every read-out unit exactly once, nothing else")
+    q.add_argument("--forbidden-ids", default=None, help="r7, arm file: the forbidden-id file (held-out objects) the noise file's retrieval pool `train_ids` is checked against; needs --forbidden-ids-sha256")
+    q.add_argument("--forbidden-ids-sha256", default=None)
     q.add_argument("--sets", default=None, help="only units of these readout sets (comma list of 0 / 1 / 2: training inputs, unseen configurations, unseen objects)")
     q.add_argument("--store", default=None, help="input store folder (default: <assets>/inputs/input_store)")
     q.add_argument("--device", default="cuda")
@@ -126,6 +136,30 @@ def build_parser() -> argparse.ArgumentParser:
     k.add_argument("--cpu-only", action="store_true", help="run only the CPU tests")
     k.add_argument("--write-expected", default=None, help="maintainers: write this run's mini-training record as the reference file")
     k.add_argument("--tf32", action="store_true", help="stress test: allow TF32 matrix products (a much larger numerical perturbation than another GPU model)")
+    k.add_argument("--write-expected-sweep", default=None, help="maintainers (r7): write this run's mini-sweep record (reference/dsrl/mini_sweep) as the reference file")
+
+    s = sub.add_parser("cem", help="the searched-constant arm (job type 5, r7): one noise shared by every input, found by the cross-entropy search on the shell; the steps of one batch group")
+    ss = s.add_subparsers(dest="cmd", required=True)
+    c = ss.add_parser("decode", help="generation g: draw 32 noises from the current distribution, decode them at every search input, write the rollout jobs")
+    c.add_argument("--config", required=True, help="the search config json (see code/wf_lib/cem_cmd.py)")
+    c.add_argument("--seed", type=int, required=True)
+    c.add_argument("--gen", type=int, required=True)
+    c.add_argument("--prev", default=None, help="the update folder of generation g - 1 (its dist.npz); omitted for generation 0")
+    c.add_argument("--out", required=True, help="output folder (new)")
+    c.add_argument("--device", default="cuda")
+    c.add_argument("--store", default=None, help="input store folder (default: <assets>/inputs/input_store)")
+    u = ss.add_parser("update", help="generation g: the rollout labels -> the scores, the elites, the next distribution")
+    u.add_argument("--config", required=True)
+    u.add_argument("--seed", type=int, required=True)
+    u.add_argument("--gen", type=int, required=True)
+    u.add_argument("--decoded", required=True, help="the decode folder of this generation (noises.npy, jobs.npz)")
+    u.add_argument("--results", required=True, help="the results.npz that `rollout run` wrote for its jobs")
+    u.add_argument("--out", required=True, help="output folder (new)")
+    k = ss.add_parser("constants", help="after the last generation: the searched constants (the mean row on the shell, the best draw) and the config.json a read-out takes as --train-out")
+    k.add_argument("--config", required=True)
+    k.add_argument("--seed", type=int, required=True)
+    k.add_argument("--search", required=True, help="the group folder that holds g<k>_decode and g<k>_update for every generation")
+    k.add_argument("--out", required=True, help="output folder (new)")
 
     s = sub.add_parser("fingerprint", help="write the host fingerprint file (CPU, GPU, driver, versions, numerical class of the CPU) that we ask for before the first batch")
     s.add_argument("--out", required=True, help="the json file to write")
@@ -190,6 +224,8 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--folder", required=True)
     s.add_argument("--note", default="")
     s.add_argument("--no-canaries", action="store_true", help="pack results whose jobs file has no known-answer jobs (the pack records the waiver and our verifier rejects it)")
+    from wf_lib import census_cmd
+    census_cmd.add_parser(sub)
     return ap
 
 
@@ -231,6 +267,9 @@ def main(argv=None) -> int:
     if a.group == "dsrl":
         from wf_lib import dsrl_cmd
         return dsrl_cmd.main(a)
+    if a.group == "cem":
+        from wf_lib import cem_cmd
+        return cem_cmd.main(a)
     if a.group == "verify":
         from wf_lib import verify_cmd
         return verify_cmd.main(a)
@@ -240,6 +279,9 @@ def main(argv=None) -> int:
     if a.group == "batch":
         from wf_lib import batch_cmd
         return batch_cmd.main(a)
+    if a.group == "census":
+        from wf_lib import census_cmd
+        return census_cmd.main(a)
     if a.group == "fingerprint":
         from wf_lib import batch_cmd
         return batch_cmd.fingerprint(a)

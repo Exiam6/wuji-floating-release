@@ -52,9 +52,9 @@
  "bundle": {
   "folder": "wuji_floating_assets_20261120",
   "sha256sums_file": "SHA256SUMS",
-  "sha256sums_sha256": "337bf70148af1d82e73bb993d5b633f8b7ae85b160882318da856486bdecd2fc",
-  "files": 4591,
-  "bytes": 8687671283
+  "sha256sums_sha256": "4b3c203a38d61cd2dde4d69195365b4706b9fe8eaf1d173f3f89e3629a4ca149",
+  "files": 81034,
+  "bytes": 23228188052
  },
  "external_parts": {
   "hug1": {
@@ -87,7 +87,7 @@
   "returns": "for an issued batch: one archive (tar of the folder `wf.py pack-results` prepares) uploaded to returns/<name>/<date>/ in the drive folder shared with you for returns, with its sha256 sent to the project",
   "sets": {
    "rollout_only": "core, hands, batches, licences, a subset of the same files (download only these four tarballs and SHA256SUMS from `full`, then `sha256sum -c --ignore-missing SHA256SUMS`); it runs the CPU rollouts (robot-hand protocols included) once the MANO file is in place, and holds no model weights",
-   "full": "every part but mano and hug1 (both obtained by the user); it also runs the GPU jobs (HUG2, the 50k fine-tune, DINOv2, the pictures and the seven training sets; HUG1 after `wf.py assets fetch-hug1`)"
+   "full": "every part but mano and hug1 (both obtained by the user); it also runs the GPU jobs (HUG2, the 50k fine-tune, DINOv2, the pictures and the DSRL training sets; HUG1 after `wf.py assets fetch-hug1`)"
   }
  },
  "parts": {
@@ -535,6 +535,78 @@
      "notice": "this project's work (Copyright (c) 2026 the wuji-floating authors) on HUG2 (MIT, the HUG authors' copyright notice, as in licences/hug-LICENSE.txt)",
      "licence_text": "licences/wuji-floating-LICENSE.txt and licences/hug-LICENSE.txt",
      "derived_from_hug2": true
+    }
+   ]
+  },
+  "prep_ex365_union200_p2": {
+   "title": "DSRL training data: 200 objects (40 HUG-Bench and 160 DexGraspNet), prior HUG2, labels under mano-1111-p2 (revision r7a)",
+   "status": "openly licensed",
+   "delivered": true,
+   "files": 7,
+   "bytes": 12147169794,
+   "manifest": "asset_manifests/prep_ex365_union200_p2.sha256",
+   "manifest_sha256": "b7aea52167c2c98be40d40c3c931017736bea28788df7bef0ade9590b46bb8c0",
+   "needed_for": [
+    "dsrl_train",
+    "dsrl_readout"
+   ],
+   "components": [
+    {
+     "name": "prep ex365_union200_p2",
+     "path": "prep/ex365_union200_p2/",
+     "what": "the training set of the 200-object sweep: 3,704 views, 118,528 labelled executions (32 draws per view, labels under mano-1111-p2), the 4,096-row noise pool of every view (11.2 GB, the 40 HUG-Bench objects' pools bit-identical to prep_ex338_a_p2) and the list of the 200 object ids (train_ids.txt); ATTRIBUTION.txt and LICENSE_DexGraspNet.txt give the objects' licences and sources",
+     "source": "this project: HUG2 decodes and the evaluator's labels of renderings of the 40 HUG-Bench objects and 160 DexGraspNet objects",
+     "licence": "CC-BY-NC-4.0 (the licence of the DexGraspNet objects, which the derived numbers follow; non-commercial use only); built with HUG2 (MIT)",
+     "notice": "objects from DexGraspNet, CC BY-NC 4.0, and other collections named in ATTRIBUTION.txt; the part holds derived numbers only (no mesh, no picture); the notice, the source and the terms of every collection are in ATTRIBUTION.txt and LICENSE_DexGraspNet.txt in the part",
+     "licence_text": "LICENSE_DexGraspNet.txt and ATTRIBUTION.txt in the part"
+    }
+   ]
+  },
+  "dgn200_objects": {
+   "title": "The 200 DexGraspNet objects of the 200-object training set: simulation assets, input pictures and input sets (revision r7a)",
+   "status": "openly licensed",
+   "delivered": true,
+   "files": 12393,
+   "bytes": 400581553,
+   "manifest": "asset_manifests/dgn200_objects.sha256",
+   "manifest_sha256": "bbcd985c15b3095f2eb63677e2d5141866d4099c07805055003dfb450adb8ce3",
+   "needed_for": [
+    "census (the object-building jobs)",
+    "cem_readout (searched constants at 200 objects)"
+   ],
+   "components": [
+    {
+     "name": "dgn200 objects",
+     "path": "assets/, inputs/",
+     "what": "200 objects of the DexGraspNet dataset: the minimal simulation set (MJCF, properties, visual mesh, convex collision parts), the input pictures at the 19 camera levels and the input sets that name them; LICENSE_DexGraspNet.txt and ATTRIBUTION.txt give the licence and the source",
+     "source": "DexGraspNet (public dataset), converted and rendered by this project",
+     "licence": "CC-BY-NC-4.0 (DexGraspNet object data, and this project's conversions and renderings of it under the same terms; non-commercial research use only, with attribution)",
+     "notice": "objects from DexGraspNet, CC BY-NC 4.0; the full notice and source are in LICENSE_DexGraspNet.txt and ATTRIBUTION.txt in the part; changes: converted to MuJoCo MJCF with convex collision parts, rendered at the 19 camera levels",
+     "licence_text": "LICENSE_DexGraspNet.txt and ATTRIBUTION.txt in the part"
+    }
+   ]
+  },
+  "dgn1126_objects": {
+   "title": "The 1,009 qualified DexGraspNet objects: simulation assets, input pictures and input sets (revision r7a)",
+   "status": "openly licensed",
+   "delivered": true,
+   "files": 64043,
+   "bytes": 1992765422,
+   "manifest": "asset_manifests/dgn1126_objects.sha256",
+   "manifest_sha256": "5fa120ff66ea11421585f5ba77abe119029034984014df860b744750ad3f1039",
+   "needed_for": [
+    "census (the object-building jobs)",
+    "cem_readout (searched constants)"
+   ],
+   "components": [
+    {
+     "name": "dgn1126 objects",
+     "path": "assets/, inputs/",
+     "what": "1,009 objects of the DexGraspNet dataset (61 of them are also in part dgn200_objects, byte-identical files): the minimal simulation set, the input pictures at the 19 camera levels and the input sets; LICENSE_DexGraspNet.txt and ATTRIBUTION.txt give the licence and the source",
+     "source": "DexGraspNet (public dataset), converted and rendered by this project",
+     "licence": "CC-BY-NC-4.0 (DexGraspNet object data, and this project's conversions and renderings of it under the same terms; non-commercial research use only, with attribution)",
+     "notice": "objects from DexGraspNet, CC BY-NC 4.0; the full notice and source are in LICENSE_DexGraspNet.txt and ATTRIBUTION.txt in the part; changes: converted to MuJoCo MJCF with convex collision parts, rendered at the 19 camera levels",
+     "licence_text": "LICENSE_DexGraspNet.txt and ATTRIBUTION.txt in the part"
     }
    ]
   }

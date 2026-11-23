@@ -7,6 +7,12 @@ configs it needs, `SHA256SUMS`, `INSTRUCTIONS.txt`. Nothing in it is code. A **g
   dsrl_readout     train (GPU: `dsrl train`) -> readout (GPU: `dsrl readout`, adds the known-answer jobs) -> roll_<protocol> for every protocol; one training can carry several read-outs
                    (`readouts` in BATCH.json: then readout_1, roll_1_<protocol>, readout_2, ...); without a read-out the group stops after the training
   jobs             roll_<protocol> of a jobs file that came with the batch (known-answer jobs already in it)
+  cem_readout      (r7) the searched-constant arm: for every generation g of the cross-entropy search g<g>_decode (GPU: `cem decode`) -> roll_g<g>_<protocol> (CPU) -> g<g>_update (`cem update`); then
+                   constants (`cem constants`) -> readout (GPU: `dsrl readout --train-out <constants> --arms const,...`) -> roll_<protocol> for every protocol of the read-out. Resumes at the generation
+                   it stopped in (every step has its own STAMP.json)
+  nn_readout       (r7) a read-out WITHOUT any training: readout (GPU: `dsrl readout --prior P --arms file --noise-file <noise_file of the group>`: one noise per test input, e.g. a retrieved one) -> roll_<protocol>.
+                   The group names `noise_file` (a file of the batch folder), `prior` (default hug2) and, compulsory, `forbidden_ids_file` + `forbidden_ids_sha256` (the retrieval pool in the noise file is checked
+                   against them). Resumable like every kind.
 
   wf.py batch run    BATCH --out RESULTS [--gpus 0,1,2,3] [--workers N] [--cpu-python PY] [--only G,..] [--task K] [--gpu-prefix "CMD {gpu} --"] [--nice 19] [--dry] [--force-unlock]
                      runs the groups in the order of BATCH.json, one group per GPU slot at a time (`--gpus 0,1` = two slots; a repeated id is two slots on one card); every GPU step gets
@@ -143,8 +149,48 @@ def expand(batch: dict, bdir: Path, out: Path, assets: Path, gpu_py: str, cpu_py
                 steps += rolls(gdir / f"readout{tag}" / "jobs_readout.npz", rprotos, tag)
         elif kind == "jobs":
             steps += rolls(bdir / g["jobs_file"])
+        elif kind == "cem_readout":
+            cfg = bdir / g["config"]
+            gens = int(g["generations"])
+            if gens < 1 or not protos:
+                fail(f"group {gid}: a cem_readout group needs `generations` and the protocol the search and the read-out are rolled under")
+            for k in range(gens):
+                dd, ud = gdir / f"g{k}_decode", gdir / f"g{k}_update"
+                steps.append(dict(name=f"g{k}_decode", kind="cem_decode", gpu=True, prepare=False, dir=dd,
+                                  argv=[gpu_py, W, "cem", "decode", "--config", str(cfg), "--seed", str(g["seed"]), "--gen", str(k)] + (["--prev", str(gdir / f"g{k - 1}_update")] if k else []) + ["--out", str(dd)]))
+                steps += rolls(dd / "jobs.npz", protos[:1], f"_g{k}")
+                steps.append(dict(name=f"g{k}_update", kind="cem_update", gpu=False, prepare=False, dir=ud,
+                                  argv=[cpu_py, W, "cem", "update", "--config", str(cfg), "--seed", str(g["seed"]), "--gen", str(k), "--decoded", str(dd),
+                                        "--results", str(gdir / f"roll_g{k}_{protos[0]}" / "results.npz"), "--out", str(ud)]))
+            steps.append(dict(name="constants", kind="cem_constants", gpu=False, prepare=False, dir=gdir / "constants",
+                              argv=[cpu_py, W, "cem", "constants", "--config", str(cfg), "--seed", str(g["seed"]), "--search", str(gdir), "--out", str(gdir / "constants")]))
+            for j, ro in enumerate(g.get("readouts") or [], 1):
+                tag = "" if len(g["readouts"]) == 1 else f"_{j}"
+                rprotos = [q["name"] for q in ro.get("protocols", [])]
+                if not rprotos:
+                    fail(f"group {gid}: a read-out needs the protocols the read-out jobs will be rolled under (their known-answer jobs are made for them)")
+                inp = find_input_set(ro["input_set"], assets)
+                steps.append(dict(name=f"readout{tag}", kind="readout", gpu=True, prepare=False, dir=gdir / f"readout{tag}",
+                                  argv=[gpu_py, W, "dsrl", "readout", "--train-out", str(gdir / "constants"), "--inputs", inp, "--arms", ",".join(ro["arms"]),
+                                        "--const-file", str(gdir / "constants" / "constant_mean.npy")]
+                                  + (["--sets", ",".join(str(x) for x in ro["sets"])] if ro.get("sets") else []) + ["--protocols", ",".join(rprotos)] + ["--out", str(gdir / f"readout{tag}")]))
+                steps += rolls(gdir / f"readout{tag}" / "jobs_readout.npz", rprotos, tag)
+        elif kind == "nn_readout":
+            if not g.get("noise_file") or not g.get("forbidden_ids_file") or not g.get("forbidden_ids_sha256") or not g.get("readouts"):
+                fail(f"group {gid}: an nn_readout group needs `noise_file`, `forbidden_ids_file`, `forbidden_ids_sha256` and `readouts`")
+            for j, ro in enumerate(g["readouts"], 1):
+                tag = "" if len(g["readouts"]) == 1 else f"_{j}"
+                rprotos = [q["name"] for q in ro.get("protocols", [])]
+                if not rprotos:
+                    fail(f"group {gid}: a read-out needs the protocols the read-out jobs will be rolled under (their known-answer jobs are made for them)")
+                inp = find_input_set(ro["input_set"], assets)
+                steps.append(dict(name=f"readout{tag}", kind="readout", gpu=True, prepare=False, dir=gdir / f"readout{tag}",
+                                  argv=[gpu_py, W, "dsrl", "readout", "--prior", g.get("prior", "hug2"), "--inputs", inp, "--arms", ",".join(ro["arms"]), "--noise-file", str(bdir / g["noise_file"]),
+                                        "--forbidden-ids", str(bdir / g["forbidden_ids_file"]), "--forbidden-ids-sha256", g["forbidden_ids_sha256"]]
+                                  + (["--sets", ",".join(str(x) for x in ro["sets"])] if ro.get("sets") else []) + ["--protocols", ",".join(rprotos)] + ["--out", str(gdir / f"readout{tag}")]))
+                steps += rolls(gdir / f"readout{tag}" / "jobs_readout.npz", rprotos, tag)
         else:
-            fail(f"group {gid}: unknown kind {kind!r} (this release knows decode_rollout, dsrl_readout, jobs)")
+            fail(f"group {gid}: unknown kind {kind!r} (this release knows decode_rollout, dsrl_readout, jobs, cem_readout, nn_readout)")
         groups.append(dict(id=gid, index=i, kind=kind, dir=gdir, steps=steps))
     return groups
 

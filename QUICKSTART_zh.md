@@ -2,11 +2,11 @@
 
 一页，不做解释。每条命令的预期输出和出错处理见 [QUICKSTART_AGENT.md](QUICKSTART_AGENT.md)（下面的章节号指它；可以交给你的 agent）。完整指南：[SETUP.md](SETUP.md)（英文）和 [SETUP_zh.md](SETUP_zh.md)。英文版：[QUICKSTART.md](QUICKSTART.md)。
 
-**你会收到：**(a) 公开的 GitHub 仓库 `Exiam6/wuji-floating-release`（tag `wf-20261122-r6`，不需要账号）；(b) 一个网盘链接：文件夹 `full/`（15 个 tar 包，8.7 GB，附 `SHA256SUMS`），如果你为项目运行批次，还有你的上传文件夹 `returns/<你的名字>/`；(c) 发给你的批次：它的压缩包（第一个是 `verification_batch_1a.tar`）及其 sha256（第 5 步之后发给你）。第 1 到 5 步安装并验证发布；第 6 步只用于发给你的批次。
+**你会收到：**(a) 公开的 GitHub 仓库 `Exiam6/wuji-floating-release`（tag `wf-20261123-r7a`，不需要账号）；(b) 一个网盘链接：文件夹 `full/`（18 个 tar 包，23.3 GB，附 `SHA256SUMS`），如果你为项目运行批次，还有你的上传文件夹 `returns/<你的名字>/`；(c) 发给你的批次：它的压缩包（第一个是 `verification_batch_1a.tar`）及其 sha256（第 5 步之后发给你）。第 1 到 5 步安装并验证发布；第 6 步只用于发给你的批次。
 **需要：**Linux x86-64、NVIDIA 驱动 570 或更新、CPython 3.10、本地盘或 scratch 盘上 30 GB 空闲、安装时能上网。设置 `export BASE=<你的文件夹>` 并创建 `env.sh`（AGENT 第 2 节）。
 
 1. **按 tag 克隆。**
-   `git clone --branch wf-20261122-r6 https://github.com/Exiam6/wuji-floating-release.git "$RELEASE"`
+   `git clone --branch wf-20261123-r7a https://github.com/Exiam6/wuji-floating-release.git "$RELEASE"`
    `cd "$RELEASE" && sha256sum -c --quiet SHA256SUMS && echo "release intact"`
 2. **把 `full/` 下载到 `$DOWNLOADS`，校验，解包**（15 行 `OK`，然后 `assets intact`）。
    `cd "$DOWNLOADS" && sha256sum -c SHA256SUMS`

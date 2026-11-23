@@ -10,8 +10,8 @@ Every command below was run as written, in a fresh folder, before release; the e
 
 | From us | What it is |
 |---|---|
-| The code | the public GitHub repository https://github.com/Exiam6/wuji-floating-release (about 8 MB; no account is needed). Release tag: `wf-20261122-r6` |
-| A drive link | the asset tarballs (they do not go through GitHub): the folder `full` holds 15 tarballs, 8.69 GB, every part but MANO and HUG1 (you download those two yourself), with `SHA256SUMS`, `ASSET_TERMS.txt`, `README.txt`; the CPU-only subset, `rollout_only`, is 4 of the same tarballs (0.32 GB), a sibling folder repeats its manifest files; and, if you run batches issued by the project, the drive folder `returns/<your name>/<date>/`, where your results go |
+| The code | the public GitHub repository https://github.com/Exiam6/wuji-floating-release (about 8 MB; no account is needed). Release tag: `wf-20261123-r7a` |
+| A drive link | the asset tarballs (they do not go through GitHub): the folder `full` holds 18 tarballs, 23.30 GB, every part but MANO and HUG1 (you download those two yourself), with `SHA256SUMS`, `ASSET_TERMS.txt`, `README.txt`; the CPU-only subset, `rollout_only`, is 4 of the same tarballs (0.32 GB), a sibling folder repeats its manifest files; and, if you run batches issued by the project, the drive folder `returns/<your name>/<date>/`, where your results go |
 | Issued batch folders | the work: the first one is **verification batch 1** (in parts, 1a first), sent as an archive after step 8 |
 
 | You need | |
@@ -19,7 +19,7 @@ Every command below was run as written, in a fresh folder, before release; the e
 | Machine | Linux x86-64 (Ubuntu 22.04 and 24.04 tested): a GPU workstation, or a cluster with a login node and GPU nodes |
 | NVIDIA driver | one that supports CUDA 12.8 (driver 570 or newer): `nvidia-smi` shows it. The pinned stack is torch 2.9.1 built for CUDA 12.8; other CUDA builds are untested |
 | Python | 3.10 (tested for both environments). 3.12 was tested for the CPU environment only |
-| Disk | about 27 GB free while you unpack (tarballs 8.7 GB, unpacked assets 8.7 GB, environments 9 GB), about 18 GB after you delete the tarballs, plus your results. Use a fast local or scratch disk (see "Troubleshooting") |
+| Disk | about 58 GB free while you unpack (tarballs 23.3 GB, unpacked assets 23.2 GB, environments 9 GB; the three r7a parts, 14.6 GB of it, only if you need them), about 34 GB after you delete the tarballs, plus your results. Use a fast local or scratch disk (see "Troubleshooting") |
 | Internet | during setup only (PyPI, download.pytorch.org, data.pyg.org, github.com, huggingface.co): a login node is enough. Batches run without it. |
 | A MANO account | free, at https://mano.is.tue.mpg.de (step 5) |
 
@@ -42,7 +42,10 @@ prep_ex315_hug2.tar           1,394,216,960   4476a37008d666a0c97696196e42ef6bc3
 prep_ex324_a.tar              2,430,515,200   954227086d067cf421fc6ab46f399bf784e8a0789c2b53f5a3efe975ab252943
 prep_ex324_b.tar                656,885,760   56c8114ab7ece578e670b5f057c7a14ab1542bd0fba262a877d83f320613b688
 prep_ex338_a_p2.tar           2,430,515,200   93f4af5af53ca6e99eea95137c102ae5a10be467450a54079a34ae71cb2a9f82
-Total 8,691,578,880 bytes (15 tarballs). The folder rollout_only holds core, hands, batches and licences (303,964,160 bytes).
+prep_ex365_union200_p2.tar    12,147,179,520   d9736182eaf766ebcb7eef55e6ebdfe4d67ac2e047339302db34feb389ab2312
+dgn200_objects.tar              411,064,320   6822a4b982812d032fad1b172f6ff90dca011bab7bb2aee88f6f56d67cf0b8a1
+dgn1126_objects.tar           2,047,969,280   58e1e6d02c557d0a4d93bb0bcc5f5dbc068e57191bb7dfca903890f97637b593
+Total 23,297,792,000 bytes (18 tarballs). The folder rollout_only holds core, hands, batches and licences (303,964,160 bytes).
 ```
 
 ## Step 0. Choose a folder and check the machine
@@ -76,7 +79,7 @@ The repository is public: `git clone` needs no account and no credentials.
 
 ```bash
 source "$BASE/env.sh"
-git clone -c advice.detachedHead=false --branch wf-20261122-r6 https://github.com/Exiam6/wuji-floating-release.git "$RELEASE"
+git clone -c advice.detachedHead=false --branch wf-20261123-r7a https://github.com/Exiam6/wuji-floating-release.git "$RELEASE"
 cd "$RELEASE" && git log -1 --format='%H %s' && sha256sum -c --quiet SHA256SUMS && echo "release intact"
 ```
 
@@ -126,7 +129,7 @@ cd "$DOWNLOADS" && ls
 sha256sum -c SHA256SUMS
 ```
 
-Expected: the 15 tarballs plus `ASSET_TERMS.txt`, `README.txt`, `SHA256SUMS`, and 15 lines ending in `OK` (`batches.tar: OK`, `core.tar: OK`, ...). A line ending in `FAILED` means that tarball is damaged: download that file again. Read `ASSET_TERMS.txt`: it states the licence of every part and the attribution it requires.
+Expected: the 18 tarballs plus `ASSET_TERMS.txt`, `README.txt`, `SHA256SUMS`, and 18 lines ending in `OK` (`batches.tar: OK`, `core.tar: OK`, ...). A line ending in `FAILED` means that tarball is damaged: download that file again. Read `ASSET_TERMS.txt`: it states the licence of every part and the attribution it requires.
 
 ## Step 4. Unpack into the asset root
 

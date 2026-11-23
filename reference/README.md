@@ -37,6 +37,11 @@ tolerance; the measured difference between an RTX 3080 and an RTX A6000 is below
 `mini_config.json` the authors' settings with 20 calls. `expected_mini_train.json` is the record of that training on one RTX A6000 (the loss and Q-value summary after
 each call and the end-of-training diagnostics). The check compares them within the tolerance printed by `wf.py dsrl check`.
 
+`dsrl/mini_sweep/` (revision r7a) is the reference vector of the sweep path: 3 of the shipped training objects (55 views, 1,760 labelled executions, copied bit for bit from the asset part `prep_ex338_a_p2`) in the layout of a census shard
+(`prep/`: states, actions, a noise pool stored once with 64 rows per view and tiled by index to the registered 4,096, manifest with every file's sha256), `train_ids.txt`, `forbidden_ids.json` (the 20 held-out test objects) and `config.json` (the registered recipe, 25 calls).
+`wf.py dsrl check` trains it through the whole list-file path and compares it with `expected_mini_sweep.json` (`dsrl/mini_sweep/expected_mini_sweep.json`, the record of that training on one RTX A6000; the check reports T6 as skipped if the file is missing), and
+trains the same data from a tiled copy of the pool on your machine: the two must be bit-identical.
+
 ## `census/` (an input set for batches)
 
 `dumbbell_census220_readout_sets.json` is the dumbbell census input set of the asset part `inputs` (220 views, the same order, every field of every unit unchanged) with a `readout_set` per unit: 0 = the 56 training
