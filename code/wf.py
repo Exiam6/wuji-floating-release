@@ -82,7 +82,7 @@ def build_parser() -> argparse.ArgumentParser:
     s = sub.add_parser("decode", help="GPU prior decode (job type 2)")
     ss = s.add_subparsers(dest="cmd", required=True)
     d = ss.add_parser("run", help="decode an input set with one prior: stored pictures x noise rows -> grasps")
-    d.add_argument("--prior", required=True, choices=["hug2", "hug1", "dumbbell50k", "hug2obj", "hug2obj_50k"], help="the grasp prior to decode with")
+    d.add_argument("--prior", required=True, choices=["hug2", "hug1", "dumbbell50k", "hug2obj", "hug2obj_50k", "hug2obj_100k"], help="the grasp prior to decode with")
     d.add_argument("--inputs", required=True, help="input set json (inputs/input_sets/*.json or reference/decode/*.json)")
     d.add_argument("--out", required=True, help="output folder (new)")
     d.add_argument("--draws", type=int, default=32)

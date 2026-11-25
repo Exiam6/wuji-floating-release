@@ -76,4 +76,4 @@ The bundle is the 81,034 delivered files (23.23 GB) in the layout `code/wf_lib/p
 
 ## Revision r8: the object-frame HUG2 prior
 
-Added parts (data, delivered with the batch that uses them, not in the public tarballs above; licence status: granted by the model authors (relayed 2026-11-25); MIT, as their repository says): `hug2obj_50k`. Sizes and hashes: `asset_manifests/<part>.sha256`; details: `docs/HUG2OBJ.md`.
+Added parts (data, delivered with the batch that uses them, not in the public tarballs above; licence status: granted by the model authors (relayed 2026-11-25); MIT, as their repository says): `hug2obj_100k`, `hug2obj_50k`, `hug2obj_15k`. Sizes and hashes: `asset_manifests/<part>.sha256`; details: `docs/HUG2OBJ.md`.

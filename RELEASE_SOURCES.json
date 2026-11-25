@@ -41,7 +41,7 @@
   },
   "code/tools/float/decode.py": {
    "source": "tools/float/decode.py",
-   "sha256": "438a86c72724f73ecbada940307897d6b105a662c7374b41480cac8924c43cd3",
+   "sha256": "562af27277d3db420e462c0dacd3e61937be2fd46b731050497787fa01ad4cc3",
    "edited": true,
    "edit": "docstring and comments: a branch name and role wording replaced by descriptions; r8: the object-frame decoder, make_frame(object_mask=), the pins and the source part loader (the repository's decode.py of the r8 build)"
   },
@@ -225,7 +225,7 @@
  "pinned_files_with_inert_private_strings": [],
  "r8": {
   "base": "r7a",
-  "tag_draft": "wf-20261125-r8",
+  "tag_draft": "wf-20261125-r8a",
   "note": "see docs/HUG2OBJ.md; the old prior ids are unchanged; the changed files are listed in R8_FILES.json of the build"
  }
 }

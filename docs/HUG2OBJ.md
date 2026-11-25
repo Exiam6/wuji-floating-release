@@ -1,13 +1,14 @@
 # The object-frame HUG2 prior (release revision r8)
 
-Revision r8 adds a second HUG2 checkpoint family to r7a: a model that reads only the object's point cloud (from a depth picture and an object mask) and predicts the grasp's translation
+Revision r8 (and its pin update r8a) adds a second HUG2 checkpoint family to r7a: a model that reads only the object's point cloud (from a depth picture and an object mask) and predicts the grasp's translation
 relative to the object's centroid. Everything of r7a keeps its behaviour: the prior ids `hug2`, `hug1` and `dumbbell50k`, their pins, their defaults and their results are unchanged (the old
 decoder is the same code path; `make_frame` carries one more optional field the old decoder never reads).
 
 | Prior id | File (sha256) | What it is |
 |---|---|---|
+| `hug2obj_100k` | `ckpt/hug2obj/hug_objpcl_aug_100k.pt` (3fd123112931...) | the final checkpoint: step 100000, EMA export (an average over the last 50,000 steps), bf16, 10 Euler steps; release copy as below (the decoder also accepts the author's file, sha256 5dcd845dad91...) |
 | `hug2obj_50k` | `ckpt/hug2obj/hug_objpcl_aug_50k.pt` (c4ef201487ad...) | step 50000, EMA export (the EMA had just begun), bf16 weights, 10 Euler steps; the release copy of the author's file: the tensors are bit-equal, four training-config strings that name the author's machines and account are replaced (the decoder also accepts the author's own file, sha256 350f41313b9d...) |
-| `hug2obj` | `ckpt/hug2obj/hug_objpcl_aug_15k.pt` (929a58e54b26...) | step 15000, RAW weights, bf16: a separate id, never swapped with the 50k file; delivered only when a batch lists it |
+| `hug2obj` | `ckpt/hug2obj/hug_objpcl_aug_15k.pt` (5738b4d9aa2d...) | step 15000, RAW weights, bf16 (release copy; the author's file has sha256 929a58e54b26...): a separate id, never swapped with another checkpoint |
 
 Both ids use the model authors' code at commit `44ad0250779db5366c938d2c71f0a5467e007770`, integrated as our own package `code/tools/float/objframe/` (ten modules under our names, two small data files, the MIT licence text; one header per file
 names the origin commit and file; `PROVENANCE.json` records the sha256 of every original and of every copy and the exact import edits, so the fidelity claim can be checked). The decoder refuses a checkpoint whose

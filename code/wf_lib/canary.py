@@ -29,7 +29,7 @@ SCHEMA = "wf-canaries-1"
 PREFIX = "__canary__/"
 FRACTION = 0.01
 MINIMUM = 20
-PRIORS = ("hug1", "hug2", "dumbbell50k", "hug2obj", "hug2obj_50k")
+PRIORS = ("hug1", "hug2", "dumbbell50k", "hug2obj", "hug2obj_50k", "hug2obj_100k")
 BATCH_REFERENCE = "reference_cpu"
 # HUG-Bench grasps of the release's own reference files (reference/cpu, in git): known answers under the MANO protocols for jobs whose keys carry no prior of ours (the read-out jobs of a DSRL-NA run
 # on HUG-Bench inputs, keys <arm>/<unit>): (jobs file, expected file, protocol)

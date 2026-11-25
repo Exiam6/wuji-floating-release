@@ -368,6 +368,7 @@ class Decoder:
 # The old prior ("hug2", "hug1", "dumbbell50k") keeps `Decoder` above, unchanged; this class is selected only by the
 # prior id "hug2obj", and refuses to run until the checkpoint sha256 and the source commit are pinned here.
 HUG2OBJ = "hug2obj"                                                   # the 15k checkpoint (hug_objpcl_aug_15k.pt)
+HUG2OBJ_100K = "hug2obj_100k"                                        # the FINAL checkpoint (hug_objpcl_aug_100k.pt, 2026-11-25): a separate id, the id names the file
 HUG2OBJ_50K = "hug2obj_50k"                                           # the 50k checkpoint (hug_objpcl_aug_50k.pt): a separate prior id, never a swap of the file behind "hug2obj"
 UNFILLED = "UNFILLED"
 # The pin of the new prior: filled in one commit, together with the experiment's plan, when the checkpoint exists. The old
@@ -377,6 +378,10 @@ PRIOR_PINS = {HUG2OBJ: {"checkpoint_sha256": "929a58e54b26bcd72a3c8ef1a88b9dffb3
 PRIOR_PINS[HUG2OBJ_50K] = {"checkpoint_sha256": "350f41313b9d6e00cc89619ee4f307b3691971fcc901c5fe01aa542c39cc46c4",   # hug_objpcl_aug_50k.pt (237,741,301 bytes, written 2026-11-24 22:15, config hug2_objpcl_aug, 50k steps)
                            "source_commit": "44ad0250779db5366c938d2c71f0a5467e007770"}   # the same code commit as the 15k file; the prior id names the file, the decoder never swaps checkpoints
 PRIOR_PINS[HUG2OBJ_50K]["release_sha256"] = "c4ef201487adcceca2554cbee7d5d1e3670a3c71a39dac664a0e61bbe7ba5f69"   # the release copy (tools/ex396_1125/scrub_ckpt397.py): tensors bit-equal, four config strings replaced
+PRIOR_PINS[HUG2OBJ_100K] = {"checkpoint_sha256": "5dcd845dad91e9b9c2958a912f9b90a2e941fe4123e2ac2d7626925cf891be7f", "source_commit": "44ad0250779db5366c938d2c71f0a5467e007770",   # hug_objpcl_aug_100k.pt (237,741,301 bytes, NAS 2026-11-25 01:35, config hug2_objpcl_aug, 100k steps)
+                            "release_sha256": "3fd12311293141cbb7d958c07098be388d1a8bbb492c2a6c3bfefe90d6220c48"}        # the release copy (tools/ex396_1125/scrub_ckpt397.py): tensors bit-equal, four config strings replaced
+PRIOR_PINS[HUG2OBJ]["release_sha256"] = "5738b4d9aa2d7e7788ac77772d9aa3e8c9e285cea1673fc7b1941b750e124b95"   # the release copy of the 15k file (scrub_ckpt397.py)
+PRIOR_PINS[HUG2OBJ_100K].update(weights_kind="ema", global_step=100000, weights_dtype="bfloat16", layout="inference_export")    # read from the file (weights_only) 2026-11-25: an EMA export (ema_start_step 50000: an average over 50k steps), bf16, 248 tensors
 PRIOR_PINS[HUG2OBJ].update(weights_kind="raw", global_step=15000, weights_dtype="bfloat16", layout="inference_export")       # read from the file (weights_only) 2026-11-24: the 15k file is the RAW weights, bf16
 PRIOR_PINS[HUG2OBJ_50K].update(weights_kind="ema", global_step=50000, weights_dtype="bfloat16", layout="inference_export")    # the 50k file is an "ema" export, but cfg.data.ema_start_step is 50000 (train.py:500-505): the average has just begun
 OBJ_REVIEWED_COMMIT = "44ad0250779db5366c938d2c71f0a5467e007770"   # the text this class was written from; not a pin
@@ -641,7 +646,7 @@ class ObjectFrameDecoder(Decoder):
     def __init__(self, checkpoint, steps: int, *, hug_source=None, hug_commit: str = None, shim_dir=None, expected_sha256=None, mem_fraction=None,
                  prior: str = HUG2OBJ):
         global torch
-        if prior not in (HUG2OBJ, HUG2OBJ_50K):
+        if prior not in (HUG2OBJ, HUG2OBJ_50K, HUG2OBJ_100K):
             raise PinUnfilled(f"unknown object-frame prior id {prior!r}")
         pin = resolve_pin(prior)                                         # first: nothing else is looked at while the pin is open
         if hug_commit is not None and hug_commit != pin["source_commit"]:

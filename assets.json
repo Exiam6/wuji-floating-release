@@ -610,6 +610,34 @@
     }
    ]
   },
+  "hug2obj_100k": {
+   "title": "HUG2 object-frame checkpoint hug_objpcl_aug_100k.pt (prior id hug2obj_100k)",
+   "status": "granted: the model authors agreed (relayed by the project's lead, 2026-11-25) to the checkpoint and the code being shared; MIT, as their repository says",
+   "delivered": false,
+   "delivery": "with the batch that uses it (PARTS.txt of the batch folder); not in the public asset tarballs",
+   "files": 1,
+   "bytes": 237737781,
+   "manifest": "asset_manifests/hug2obj_100k.sha256",
+   "needed_for": [
+    "decode, dsrl_readout and census with --prior hug2obj_100k"
+   ],
+   "components": [
+    {
+     "name": "hug_objpcl_aug_100k.pt",
+     "path": "ckpt/hug2obj/hug_objpcl_aug_100k.pt",
+     "what": "the object-frame HUG2 model (object-only point cloud, centroid query, translation relative to the object centre), step 100000, EMA export (an average over the last 50,000 steps), bf16, layout inference_export; 10 Euler steps",
+     "source": "given to the project by the model's authors; not public",
+     "licence": "MIT (the authors' repository licence; granted: the model authors agreed (relayed by the project's lead, 2026-11-25) to the checkpoint and the code being shared; MIT, as their repository says)",
+     "notice": "the model's authors' copyright notice, as in LICENSES/hug2obj-source-LICENSE.txt",
+     "licence_text": "LICENSES/hug2obj-source-LICENSE.txt",
+     "sha256": "3fd12311293141cbb7d958c07098be388d1a8bbb492c2a6c3bfefe90d6220c48",
+     "author_file_sha256": "5dcd845dad91e9b9c2958a912f9b90a2e941fe4123e2ac2d7626925cf891be7f",
+     "release_copy": true,
+     "derived_from_hug2": false
+    }
+   ],
+   "manifest_sha256": "f0f36f7e56a8533662b83950adcd29be6293e17219a15acfb26193019300dbac"
+  },
   "hug2obj_50k": {
    "title": "HUG2 object-frame checkpoint hug_objpcl_aug_50k.pt (prior id hug2obj_50k)",
    "status": "granted: the model authors agreed (relayed by the project's lead, 2026-11-25) to the checkpoint and the code being shared; MIT, as their repository says",
@@ -637,6 +665,34 @@
     }
    ],
    "manifest_sha256": "478fbe2317fda257d5251cd904b21ffef924c9b7489b26eddd493ff7d7bac221"
+  },
+  "hug2obj_15k": {
+   "title": "HUG2 object-frame checkpoint hug_objpcl_aug_15k.pt (prior id hug2obj)",
+   "status": "granted: the model authors agreed (relayed by the project's lead, 2026-11-25) to the checkpoint and the code being shared; MIT, as their repository says",
+   "delivered": false,
+   "delivery": "with the batch that uses it (PARTS.txt of the batch folder); not in the public asset tarballs",
+   "files": 1,
+   "bytes": 237737781,
+   "manifest": "asset_manifests/hug2obj_15k.sha256",
+   "needed_for": [
+    "decode, dsrl_readout and census with --prior hug2obj"
+   ],
+   "components": [
+    {
+     "name": "hug_objpcl_aug_15k.pt",
+     "path": "ckpt/hug2obj/hug_objpcl_aug_15k.pt",
+     "what": "the object-frame HUG2 model (object-only point cloud, centroid query, translation relative to the object centre), step 15000, RAW weights (no EMA existed yet), bf16, layout inference_export; 10 Euler steps",
+     "source": "given to the project by the model's authors; not public",
+     "licence": "MIT (the authors' repository licence; granted: the model authors agreed (relayed by the project's lead, 2026-11-25) to the checkpoint and the code being shared; MIT, as their repository says)",
+     "notice": "the model's authors' copyright notice, as in LICENSES/hug2obj-source-LICENSE.txt",
+     "licence_text": "LICENSES/hug2obj-source-LICENSE.txt",
+     "sha256": "5738b4d9aa2d7e7788ac77772d9aa3e8c9e285cea1673fc7b1941b750e124b95",
+     "author_file_sha256": "929a58e54b26bcd72a3c8ef1a88b9dffb307793fd3eebf1797b87c5716f67f48",
+     "release_copy": true,
+     "derived_from_hug2": false
+    }
+   ],
+   "manifest_sha256": "3dbd95c11b9a57001758da1c2b7762c97a52836c213169f316420af13b941997"
   }
  },
  "attribution": [
@@ -711,11 +767,15 @@
  "object_frame_prior": {
   "revision": "r8",
   "prior_ids": [
-   "hug2obj_50k"
+   "hug2obj_100k",
+   "hug2obj_50k",
+   "hug2obj"
   ],
   "source_commit": "44ad0250779db5366c938d2c71f0a5467e007770",
   "parts": [
-   "hug2obj_50k"
+   "hug2obj_100k",
+   "hug2obj_50k",
+   "hug2obj_15k"
   ],
   "code": "code/tools/float/objframe/ (integrated, PROVENANCE.json)",
   "permission": "granted",

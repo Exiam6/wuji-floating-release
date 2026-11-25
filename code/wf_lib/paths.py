@@ -47,8 +47,9 @@ PRIORS = {
 # name -> (checkpoint path below the asset root, expected sha256, Euler steps); the sha256 must equal tools/float/decode.py PRIOR_PINS (the decoder refuses a mismatch).
 # The file name is the author's own: hug_objpcl_aug_15k.pt holds RAW weights of step 15000, hug_objpcl_aug_50k.pt the EMA export of step 50000 (both bf16); an id never names another file.
 OBJECT_FRAME_PRIORS = {
-    "hug2obj": ("ckpt/hug2obj/hug_objpcl_aug_15k.pt", "929a58e54b26bcd72a3c8ef1a88b9dffb307793fd3eebf1797b87c5716f67f48", 10),
+    "hug2obj": ("ckpt/hug2obj/hug_objpcl_aug_15k.pt", "5738b4d9aa2d7e7788ac77772d9aa3e8c9e285cea1673fc7b1941b750e124b95", 10),
     "hug2obj_50k": ("ckpt/hug2obj/hug_objpcl_aug_50k.pt", "c4ef201487adcceca2554cbee7d5d1e3670a3c71a39dac664a0e61bbe7ba5f69", 10),
+    "hug2obj_100k": ("ckpt/hug2obj/hug_objpcl_aug_100k.pt", "3fd12311293141cbb7d958c07098be388d1a8bbb492c2a6c3bfefe90d6220c48", 10),
 }
 
 
