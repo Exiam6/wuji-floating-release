@@ -225,7 +225,7 @@
  "pinned_files_with_inert_private_strings": [],
  "r8": {
   "base": "r7a",
-  "tag_draft": "wf-20261125-r8a",
+  "tag_draft": "wf-20261125-r8b",
   "note": "see docs/HUG2OBJ.md; the old prior ids are unchanged; the changed files are listed in R8_FILES.json of the build"
  }
 }

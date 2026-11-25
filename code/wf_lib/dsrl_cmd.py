@@ -64,6 +64,7 @@ STATES_FULL = "states_full.npz"                       # next to states.npz in th
 STATE_STATS = "state_stats.npz"                       # in the run folder (na/): the per-dimension mean and standard deviation over the training views, and the sha256 of states_full.npz
 STD_FLOOR = 1e-8                                      # a dimension with a smaller standard deviation over the training views is not rescaled (sd := 1)
 # the registered cov19 recipe (EX338 row b, configs/dsrl_ex338_b_p2.json): asserted for every config that has a train_ids_file, in the config and in the learner that was built
+REGISTERED_BOUNDS = (1.0, 3.0)                # r8b: the noise bound of the steering policy: 1.0 (the recipe) or 3.0 (EX396 row d, the bound ablation); nothing else
 RECIPE = dict(prior="hug2", utd=20, noise_critic_grad_steps=10, batch=256, layer_size=2048, num_layers=3, bound=1.0, pool_m=4096, noise_source="pool")
 RECIPE_MODEL = dict(learning_rate=3e-4, tau=0.005, gamma=0.99, n_critics=2)
 CALLS_RULE = dict(anchor_calls=1000, anchor_executions=23712, round_to=250)
@@ -104,7 +105,11 @@ def assert_recipe(cfg: dict) -> None:
             return float(got) != float(want)
         except (TypeError, ValueError):
             return True
-    bad = [f"{k}: {cfg.get(k)!r} (registered {v!r})" for k, v in RECIPE.items() if k != "noise_source" and differs(cfg.get(k), v)]
+    bad = [f"{k}: {cfg.get(k)!r} (registered {v!r})" for k, v in RECIPE.items() if k not in ("noise_source", "prior", "bound") and differs(cfg.get(k), v)]
+    if cfg.get("prior") != RECIPE["prior"] and cfg.get("prior") not in paths.OBJECT_FRAME_PRIORS:          # r8b: the recipe is the same for the object-frame prior ids; the old rule (prior hug2) stands for every other id
+        bad.append(f"prior: {cfg.get('prior')!r} (registered {RECIPE['prior']!r} or one of {sorted(paths.OBJECT_FRAME_PRIORS)})")
+    if differs(cfg.get("bound"), REGISTERED_BOUNDS[0]) and differs(cfg.get("bound"), REGISTERED_BOUNDS[1]):
+        bad.append(f"bound: {cfg.get('bound')!r} (registered {REGISTERED_BOUNDS})")
     if cfg.get("noise_source", "pool") not in NOISE_SOURCES:
         bad.append(f"noise_source: {cfg.get('noise_source')!r} (one of {NOISE_SOURCES})")
     if cfg.get("state_mode", "pca64") not in STATE_MODES:
@@ -336,7 +341,7 @@ def train_model(cfg: dict, folder: Path, out: Path, device: str, log_every: int 
     assert model.policy_kwargs["net_arch"]["pi"] == [int(cfg["layer_size"])] * int(cfg["num_layers"]) == model.policy_kwargs["net_arch"]["qf"]
     if cfg.get("train_ids_file"):                                         # r7: the learner itself carries the registered recipe, not only the config
         assert all(float(getattr(model, k)) == v for k, v in RECIPE_MODEL.items() if k != "n_critics"), "the learner's learning rate, tau or gamma is not the registered one"
-        assert model.policy_kwargs["n_critics"] == RECIPE_MODEL["n_critics"] and float(model.high.max()) == RECIPE["bound"] == float(-model.low.min())
+        assert model.policy_kwargs["n_critics"] == RECIPE_MODEL["n_critics"] and float(model.high.max()) == float(cfg["bound"]) == float(-model.low.min())
     n = na.add(model, S[[pos[str(u)] for u in act["unit"][rows]]], act["action"][rows], act["label"][rows])
     model.replay_buffer.final_offline_step()                           # utils.load_offline_data's last line
     nadir = out / "na"

@@ -1,6 +1,6 @@
 # The object-frame HUG2 prior (release revision r8)
 
-Revision r8 (and its pin update r8a) adds a second HUG2 checkpoint family to r7a: a model that reads only the object's point cloud (from a depth picture and an object mask) and predicts the grasp's translation
+Revision r8 (and its updates r8a, r8b) adds a second HUG2 checkpoint family to r7a: a model that reads only the object's point cloud (from a depth picture and an object mask) and predicts the grasp's translation
 relative to the object's centroid. Everything of r7a keeps its behaviour: the prior ids `hug2`, `hug1` and `dumbbell50k`, their pins, their defaults and their results are unchanged (the old
 decoder is the same code path; `make_frame` carries one more optional field the old decoder never reads).
 
@@ -26,8 +26,8 @@ shifted rows. A census, DSRL or read-out job that names a prior of this family n
 3. `code/wf_lib/census_cmd.py`, `tokens_chunk()` (line 757)
 4. `code/wf_lib/census_cmd.py`, `encode_stage()` (line 890)
 5. `code/wf_lib/decode_cmd.py`, `decode_units()` (line 94)
-6. `code/wf_lib/dsrl_cmd.py`, `fresh_flow()` (line 290)
-7. `code/wf_lib/dsrl_cmd.py`, `readout()` (line 610)
+6. `code/wf_lib/dsrl_cmd.py`, `fresh_flow()` (line 295)
+7. `code/wf_lib/dsrl_cmd.py`, `readout()` (line 615)
 
 (`ast`-extracted from this folder by the builder; the mask is read from the stored picture's `object_mask`; a picture without one makes the object-frame decoder stop.)
 
