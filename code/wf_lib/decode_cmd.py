@@ -70,11 +70,14 @@ def make_decoder(layout: paths.Layout, prior: str, mem_fraction=None, checkpoint
         ckpt, sha = Path(checkpoint), None
     if not ckpt.is_file():
         raise SystemExit(f"checkpoint for {prior!r} not found: {ckpt} (asset part for this prior; see ASSETS.md)")
-    if not (layout.hug_source / ".git").exists():
-        raise SystemExit(f"{layout.hug_source} is not a git checkout; run `wf.py assets fetch-hug-source`")
     from tools.float import decode
     import atexit
     import shutil
+    if prior in paths.OBJECT_FRAME_PRIORS:                          # EX396: the object-frame prior has its own code checkout and decoder class; its pin lives in tools/float/decode.py
+        os.environ["WF_MANO_ROOT"] = str(layout.mano)                   # r8: the model's code is our integrated package tools/float/objframe (PROVENANCE.json): no checkout, no shim, no extra part
+        return decode.ObjectFrameDecoder(ckpt, int(steps or default_steps), hug_commit=paths.HUG2OBJ_SOURCE_COMMIT, expected_sha256=sha, mem_fraction=mem_fraction, prior=prior)
+    if not (layout.hug_source / ".git").exists():
+        raise SystemExit(f"{layout.hug_source} is not a git checkout; run `wf.py assets fetch-hug-source`")
     work = Path(tempfile.mkdtemp(prefix="wf_decode_"))              # the import shim (a link to the HUG source): never inside an output folder
     atexit.register(shutil.rmtree, work, True)
     return decode.Decoder(ckpt, int(steps or default_steps), hug_source=layout.hug_source, hug_commit=paths.HUG_SOURCE_COMMIT,
@@ -88,7 +91,7 @@ def decode_units(dec, units, draws: int, base_seed: int, request_seed: int, batc
     frames, noises, seeds = [], [], []
     for u in units:
         with np.load(u["case_path"]) as z:
-            frames.append(decode.make_frame(z["rgb"], z["depth_mm"], z["camera_k"], z["condition_uv"], int(request_seed)))
+            frames.append(decode.make_frame(z["rgb"], z["depth_mm"], z["camera_k"], z["condition_uv"], int(request_seed), object_mask=decode.case_object_mask(z)))
         sd, w = decode.case_noise(int(base_seed), u["noise_key"], int(draws))
         seeds.append(sd)
         noises.append(w)

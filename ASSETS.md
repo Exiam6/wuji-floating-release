@@ -74,3 +74,6 @@ Fetched separately (public):
 
 The bundle is the 81,034 delivered files (23.23 GB) in the layout `code/wf_lib/paths.py` describes. `asset_manifests/SHA256SUMS.all` lists them (`sha256sum -c` from the asset root; add `--ignore-missing` when you hold only some parts); its sha256 is `4b3c203a38d61cd2dde4d69195365b4706b9fe8eaf1d173f3f89e3629a4ca149`. Our own build folder holds a copy of that list as `SHA256SUMS` beside `assets.json` and `ASSET_TERMS.txt`; the tarballs do not carry these three files (the release folder has them). The two expected files that are not delivered, `mano/models/MANO_RIGHT.pkl` and `ckpt/hug1/hug_full.safetensors`, are listed only in `asset_manifests/mano.sha256` and `asset_manifests/hug1.sha256`.
 
+## Revision r8: the object-frame HUG2 prior
+
+Added parts (data, delivered with the batch that uses them, not in the public tarballs above; licence status: granted by the model authors (relayed 2026-11-25); MIT, as their repository says): `hug2obj_50k`. Sizes and hashes: `asset_manifests/<part>.sha256`; details: `docs/HUG2OBJ.md`.

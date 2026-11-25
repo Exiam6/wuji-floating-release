@@ -41,9 +41,9 @@
   },
   "code/tools/float/decode.py": {
    "source": "tools/float/decode.py",
-   "sha256": "9a6ea0a70038a7db4d6e5d645f732f1ca13f7baa8e8cd06765354c56fa6e76e5",
+   "sha256": "438a86c72724f73ecbada940307897d6b105a662c7374b41480cac8924c43cd3",
    "edited": true,
-   "edit": "docstring and comments: a branch name and role wording replaced by descriptions"
+   "edit": "docstring and comments: a branch name and role wording replaced by descriptions; r8: the object-frame decoder, make_frame(object_mask=), the pins and the source part loader (the repository's decode.py of the r8 build)"
   },
   "code/grasp_runtime/hug_sampling.py": {
    "source": "grasp_runtime/hug_sampling.py",
@@ -222,5 +222,10 @@
    "edit": "`hosts` table removed and machine names / paths in provenance text replaced (no digest covers them); the sha256 of its edited digest-pinned code files and the base digests re-pinned, hence a new digest"
   }
  },
- "pinned_files_with_inert_private_strings": []
+ "pinned_files_with_inert_private_strings": [],
+ "r8": {
+  "base": "r7a",
+  "tag_draft": "wf-20261125-r8",
+  "note": "see docs/HUG2OBJ.md; the old prior ids are unchanged; the changed files are listed in R8_FILES.json of the build"
+ }
 }

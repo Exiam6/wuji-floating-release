@@ -46,3 +46,5 @@ Attribution (required by the licences above):
 - wuji-retargeting (https://github.com/wuji-technology/wuji-retargeting, release v2026.6.15): MIT License, Copyright (c) 2025 WujiHand Technologies; the licence text is licences/wuji-retargeting-LICENSE.txt.
 
 The full table, with what each part holds: ASSETS.md and assets.json in the code release.
+
+Revision r8 (object-frame HUG2 prior), parts hug2obj_50k: the model's authors' checkpoint, MIT (their copyright notice: LICENSES/hug2obj-source-LICENSE.txt); their code is integrated in code/tools/float/objframe/ (LICENSE there); status: granted by the model authors (relayed 2026-11-25); MIT, as their repository says.

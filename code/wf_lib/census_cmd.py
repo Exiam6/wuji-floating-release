@@ -68,7 +68,7 @@ from .util import emit, fail, now, sha256_file, versions
 SCHEMA_PLAN = "wf-census-plan-1"
 SCHEMA_STAMP = "wf-census-stamp-1"
 SCHEMA_LIST = "wf-object-list-1"
-PRIOR = "hug2"
+PRIOR = "hug2"                           # the default prior; `--prior NAME` (main) replaces it for one command; a plan records the prior it was made with
 PROTOCOL = "mano-1111-p2"
 BASE_SEED = 20261116                      # EX245's census seed (the shipped actions.npz noise is derived from it)
 REQUEST_SEED = 0
@@ -406,7 +406,7 @@ def make_plan(object_list: dict, shard: str, start: int, end: int, input_set_pat
     if not views:
         fail(f"no view: none of the {end - start} objects ranked {start} .. {end - 1} has a picture in the input set")
     plan = {"schema": SCHEMA_PLAN, "release": RELEASE_NAME,
-            "params": {"prior": PRIOR, "protocol": PROTOCOL, "base_seed": BASE_SEED, "request_seed": REQUEST_SEED, "draws": DRAWS, "euler_steps": paths.PRIORS[PRIOR][2],
+            "params": {"prior": PRIOR, "protocol": PROTOCOL, "base_seed": BASE_SEED, "request_seed": REQUEST_SEED, "draws": DRAWS, "euler_steps": paths.prior_row(PRIOR)[2],
                        "pool_seed": POOL_SEED, "pool_k0": POOL_K0 + int(pool_k_base), "pool_rows": int(pool_rows), "pool_tile": POOL_TILE, "chunk_views": int(chunk_views), "state_dim": STATE_DIM,
                        "levels": list(LEVELS), "test_only": bool(test_only or int(chunk_views) != CHUNK_VIEWS), **({"label_noise": label_noise} if label_noise != "shared" else {})},   # the key is absent for "shared": the plan digest of the default is unchanged
             "inputs": {"object_list": object_list["name"], "object_list_sha256": object_list["sha256"], "shard": shard, "start": int(start), "end": int(end),
@@ -440,6 +440,8 @@ def load_plan(out: Path) -> tuple:
         fail(f"{p}: schema {plan.get('schema')!r}, this release reads {SCHEMA_PLAN!r}")
     if plan_digest(plan) != plan.get("digest"):
         fail(f"{p} was edited (its digest no longer matches its content): a plan is never edited")
+    if plan["params"].get("prior", "hug2") != PRIOR:
+        fail(f"{p} was made for prior {plan['params'].get('prior')!r} but this command runs prior {PRIOR!r}: pass --prior {plan['params'].get('prior')}")
     local = json.loads((out / "paths.json").read_text()) if (out / "paths.json").is_file() else {}
     return plan, local
 
@@ -591,7 +593,7 @@ def decode_chunk(dec, plan: dict, fit: dict, c: int, store: Path, dest: Path) ->
     frames, noises, seeds = [], [], []
     for v, f in zip(views, npzs):
         with np.load(f) as z:
-            frames.append(D.make_frame(z["rgb"], z["depth_mm"], z["camera_k"], z["condition_uv"], int(prm["request_seed"])))
+            frames.append(D.make_frame(z["rgb"], z["depth_mm"], z["camera_k"], z["condition_uv"], int(prm["request_seed"]), object_mask=D.case_object_mask(z)))
         if prm.get("label_noise") == "fresh64":
             sd, w = noise_fresh64(int(prm["base_seed"]), v["noise_key"], int(prm["draws"]))
         else:
@@ -614,7 +616,7 @@ def decode_chunk(dec, plan: dict, fit: dict, c: int, store: Path, dest: Path) ->
         cond = torch.as_tensor(np.asarray(r["encoding"], np.float32), device=dec.device)
         for s in range(0, rows, POOL_BATCH):
             m = min(POOL_BATCH, rows - s)
-            A[i, s:s + m] = _normalise(dec, dec.flow(cond.expand(m, *cond.shape[1:]), W[i, s:s + m]))
+            A[i, s:s + m] = _normalise(dec, dec.flow_native(cond.expand(m, *cond.shape[1:]), W[i, s:s + m]))
     torch.cuda.synchronize()
     t_pool = time.time() - t1
     d = int(prm["draws"])
@@ -703,7 +705,7 @@ def decode_stage(a, layout: paths.Layout) -> int:
                     shutil.rmtree(tmp)
                 t0 = time.time()
                 info = decode_chunk(dec, plan, fit, c, store, tmp)
-                write_stamp(tmp, plan, c, "decode", ["census.npz", "tokens.npz", "pool.npz", "decode/preds_hug2.npz", "decode/decode.json"], seconds=round(time.time() - t0, 2),
+                write_stamp(tmp, plan, c, "decode", ["census.npz", "tokens.npz", "pool.npz", f"decode/preds_{PRIOR}.npz", "decode/decode.json"], seconds=round(time.time() - t0, 2),
                             model_load_s=round(t_load, 2) if done == 0 else 0.0, **info)
                 os.replace(tmp, dest)
                 done += 1
@@ -752,7 +754,7 @@ def tokens_chunk(dec, plan: dict, fit: dict, c: int, out: Path, store: Path, des
     pooled = []
     for v, f in zip(views, verify_pictures(views, store)):
         with np.load(f) as z:
-            frame = D.make_frame(z["rgb"], z["depth_mm"], z["camera_k"], z["condition_uv"], int(plan["params"]["request_seed"]))
+            frame = D.make_frame(z["rgb"], z["depth_mm"], z["camera_k"], z["condition_uv"], int(plan["params"]["request_seed"]), object_mask=D.case_object_mask(z))
         cond = dec.encode(dec.scene(frame), frame["seed"])
         pooled.append(pooled_of(cond.cpu().numpy()))
     pooled = np.stack(pooled)
@@ -885,7 +887,7 @@ def encode_stage(a, layout: paths.Layout) -> int:
     try:
         for n, (v, f) in enumerate(zip(views, files)):
             with np.load(f) as z:
-                frame = D.make_frame(z["rgb"], z["depth_mm"], z["camera_k"], z["condition_uv"], REQUEST_SEED)
+                frame = D.make_frame(z["rgb"], z["depth_mm"], z["camera_k"], z["condition_uv"], REQUEST_SEED, object_mask=D.case_object_mask(z))
             enc = dec.encode(dec.scene(frame), frame["seed"]).cpu().numpy()
             pooled.append(pooled_of(enc))
             if save_grid:
@@ -1848,9 +1850,20 @@ def add_parser(sub) -> None:
     p.add_argument("--chunk-views", type=int, default=CHUNK_VIEWS, help=argparse.SUPPRESS)       # tests of chunking and resumption on a small set
     p.add_argument("--keep-chunks", action="store_true")
     work_args(p)
+    for p in ss.choices.values():                            # the prior of the command (default: the old prior, hug2); a plan made for another prior refuses to run without it
+        p.add_argument("--prior", default=None, choices=list(paths.PRIORS) + list(paths.OBJECT_FRAME_PRIORS), help="the grasp prior (default hug2)")
+
+
+def use_prior(name: str) -> None:
+    """Make `name` the prior of this command (the module default is the old prior). Every stage reads PRIOR at run time."""
+    global PRIOR
+    paths.prior_row(name)                                  # refuses an unknown prior id
+    PRIOR = name
 
 
 def main(a) -> int:
+    if getattr(a, "prior", None):
+        use_prior(a.prior)
     layout = paths.Layout(paths.assets_root(a.assets))
     if a.cmd in ("plan", "run"):
         util.refuse_inside(a.out, paths.RELEASE, layout.root)

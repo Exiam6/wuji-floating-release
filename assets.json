@@ -609,6 +609,34 @@
      "licence_text": "LICENSE_DexGraspNet.txt and ATTRIBUTION.txt in the part"
     }
    ]
+  },
+  "hug2obj_50k": {
+   "title": "HUG2 object-frame checkpoint hug_objpcl_aug_50k.pt (prior id hug2obj_50k)",
+   "status": "granted: the model authors agreed (relayed by the project's lead, 2026-11-25) to the checkpoint and the code being shared; MIT, as their repository says",
+   "delivered": false,
+   "delivery": "with the batch that uses it (PARTS.txt of the batch folder); not in the public asset tarballs",
+   "files": 1,
+   "bytes": 237737781,
+   "manifest": "asset_manifests/hug2obj_50k.sha256",
+   "needed_for": [
+    "decode, dsrl_readout and census with --prior hug2obj_50k"
+   ],
+   "components": [
+    {
+     "name": "hug_objpcl_aug_50k.pt",
+     "path": "ckpt/hug2obj/hug_objpcl_aug_50k.pt",
+     "what": "the object-frame HUG2 model (object-only point cloud, centroid query, translation relative to the object centre), step 50000, EMA export (the EMA had just begun: effectively the raw weights of step 50000), bf16, layout inference_export; 10 Euler steps",
+     "source": "given to the project by the model's authors; not public",
+     "licence": "MIT (the authors' repository licence; granted: the model authors agreed (relayed by the project's lead, 2026-11-25) to the checkpoint and the code being shared; MIT, as their repository says)",
+     "notice": "the model's authors' copyright notice, as in LICENSES/hug2obj-source-LICENSE.txt",
+     "licence_text": "LICENSES/hug2obj-source-LICENSE.txt",
+     "sha256": "c4ef201487adcceca2554cbee7d5d1e3670a3c71a39dac664a0e61bbe7ba5f69",
+     "author_file_sha256": "350f41313b9d6e00cc89619ee4f307b3691971fcc901c5fe01aa542c39cc46c4",
+     "release_copy": true,
+     "derived_from_hug2": false
+    }
+   ],
+   "manifest_sha256": "478fbe2317fda257d5251cd904b21ffef924c9b7489b26eddd493ff7d7bac221"
   }
  },
  "attribution": [
@@ -679,5 +707,18 @@
    ],
    "runs_with_openly_licensed_parts": "with the hug1 prep and HUG1: yes; with a HUG2-derived prep: yes"
   }
+ },
+ "object_frame_prior": {
+  "revision": "r8",
+  "prior_ids": [
+   "hug2obj_50k"
+  ],
+  "source_commit": "44ad0250779db5366c938d2c71f0a5467e007770",
+  "parts": [
+   "hug2obj_50k"
+  ],
+  "code": "code/tools/float/objframe/ (integrated, PROVENANCE.json)",
+  "permission": "granted",
+  "note": "the checkpoint part is delivered with the batch that uses it; the public asset tarballs and `bundle` below are r7a's and unchanged"
  }
 }

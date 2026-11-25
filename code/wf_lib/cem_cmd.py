@@ -165,7 +165,7 @@ def decode_gen(a) -> int:
         frames, cases = [], []
         for u in part:
             with np.load(u["case_path"]) as c:
-                frames.append(decode.make_frame(c["rgb"], c["depth_mm"], c["camera_k"], c["condition_uv"], 0))
+                frames.append(decode.make_frame(c["rgb"], c["depth_mm"], c["camera_k"], c["condition_uv"], 0, object_mask=decode.case_object_mask(c)))
                 cases.append((np.asarray(c["T_base_camera"], np.float64), np.asarray(c["settled_object_qpos"], np.float64)))
         recs = dec.decode_many(frames, [noises] * len(part), return_encoding=False)
         for u, case, rec in zip(part, cases, recs):

@@ -1,0 +1,120 @@
+{
+ "data": {
+  "LICENSE": {
+   "edits": [],
+   "origin": "LICENSE",
+   "origin_sha256": "e7e5e17c30f1edfd4725cfeeabc8e00f901944b9aa12e58ad9cbcdef91ea17f8",
+   "sha256": "e7e5e17c30f1edfd4725cfeeabc8e00f901944b9aa12e58ad9cbcdef91ea17f8"
+  },
+  "data/mano_rhand_shape.npy": {
+   "edits": [],
+   "origin": "assets/mano_rhand_shape.npy",
+   "origin_sha256": "3e9a85085ae67f36745ce647b904acb4e3620e8ac46378755498291fcf010ddf",
+   "sha256": "3e9a85085ae67f36745ce647b904acb4e3620e8ac46378755498291fcf010ddf"
+  },
+  "data/norm_stats.json": {
+   "edits": [],
+   "origin": "assets/norm_stats.json",
+   "origin_sha256": "79458d26683176d8f60284300b0e78b0b89b7a545e8ba718a8b1693cbb322d59",
+   "sha256": "79458d26683176d8f60284300b0e78b0b89b7a545e8ba718a8b1693cbb322d59"
+  }
+ },
+ "files": {
+  "baselines.py": {
+   "edits": [],
+   "origin": "src/models/grasp_baselines.py",
+   "origin_sha256": "4a958f9ad5c908197ed4503044409df7049038d2b5c45fda71f6d67252aadd6d",
+   "sha256": "2b882c12dd795d8a047513ee763ebc4282435e0d0598370624c60e5736b0fc9c"
+  },
+  "encoders.py": {
+   "edits": [],
+   "origin": "src/models/encoders.py",
+   "origin_sha256": "11be47e65e52f74d5e0131b238f8be28ceb414123f12af817130a42661ef7ecf",
+   "sha256": "c00aa8802d12c1c5766525c4b0300d1176022ac75ddc96ce1b61918bcb4c11dd"
+  },
+  "flow.py": {
+   "edits": [],
+   "origin": "src/models/grasp_flow.py",
+   "origin_sha256": "70021539e80fb3b5d30e4e6c5d99c8bd4841325a9407432e4243c5f590fe3502",
+   "sha256": "f459db6a863798b2f6087081abe800e8dd0ae97fdd1805b1ee7412363929714c"
+  },
+  "fusion.py": {
+   "edits": [],
+   "origin": "src/models/fusion.py",
+   "origin_sha256": "7290151541766e0497db885672a4c43a5352eaf6360ab25e29ef0372bac0a0e1",
+   "sha256": "467f14d5223034af1f3ccc66fb2d1e1886ad713902f66e1357d24b3ff41f7c71"
+  },
+  "keys.py": {
+   "edits": [
+    [
+     "(whole file)",
+     "rewritten: the package's data files and mano_models_folder(); PROJECT_ROOT kept; OUTPUTS_FOLDER and MANO_RIGHT_MESH_FACES_FILE dropped (read by none of the ten modules)"
+    ]
+   ],
+   "origin": "src/utils/data_keys.py",
+   "origin_sha256": "e4d64690c8bba6bd345c40ecd586a6f709e71fe2fe25a7234f5b513d0d85cb00",
+   "sha256": "2847f73d53976417d0803a66c79a18ebeb0ad22092d1648bb1bd270099a2ba72"
+  },
+  "mano.py": {
+   "edits": [
+    [
+     "from ..utils.data_keys import MANO_MODELS_FOLDER\n",
+     "from .keys import mano_models_folder\n"
+    ],
+    [
+     "from ..utils.transform_utils import six_d_to_rotation_matrix\n",
+     "from .rotations import six_d_to_rotation_matrix\n"
+    ],
+    [
+     "mano_assets_root=MANO_MODELS_FOLDER,",
+     "mano_assets_root=mano_models_folder(),"
+    ]
+   ],
+   "origin": "src/models/mano.py",
+   "origin_sha256": "ebc9113402846d3fd0773e7740e9ff6a70c2e59d317241b576d042b5dd683ed3",
+   "sha256": "dda8b5eb9cc6074c7d7e4f8e00e177c1ca6188bd6267781e01d1b685696f232a"
+  },
+  "model.py": {
+   "edits": [
+    [
+     "from ..utils.data_keys import MANO_RIGHT_SHAPE_FILE, NORM_STATS_FILE, PROJECT_ROOT\n",
+     "from .keys import MANO_RIGHT_SHAPE_FILE, NORM_STATS_FILE, PROJECT_ROOT\n"
+    ],
+    [
+     "from .grasp_baselines import GraspCVAE, GraspRegression\n",
+     "from .baselines import GraspCVAE, GraspRegression\n"
+    ],
+    [
+     "from .grasp_flow import GraspFlowMatching\n",
+     "from .flow import GraspFlowMatching\n"
+    ]
+   ],
+   "origin": "src/models/grasp_model.py",
+   "origin_sha256": "106fe22c34a37b44eb9205fa7c42fa390b31f430a622336eaa9349b973975505",
+   "sha256": "cc7e7bcf224786105ce978cb4a5d235d9df00399eb246894ab0a950c0d5b4fc6"
+  },
+  "pointnext.py": {
+   "edits": [],
+   "origin": "src/models/pointnext.py",
+   "origin_sha256": "1f42ed7d2490a21e670a4abc0ba261415e201d0ca1052f924ba90f12cf41e440",
+   "sha256": "1307149d2f4c1a6be543a611a377ffcc9ea1f988ca4faa06a046470a65130e66"
+  },
+  "rotations.py": {
+   "edits": [],
+   "origin": "src/utils/transform_utils.py",
+   "origin_sha256": "c1c1a6d264b4ff896b3d3b8b4ebe92da98d772efdef1cc35a1615ed60a5086b0",
+   "sha256": "1bd2261c68843b0da6fc04a35ce31a4e78804c9fd1179473431b1a153708685c"
+  },
+  "transformer.py": {
+   "edits": [],
+   "origin": "src/models/transformer.py",
+   "origin_sha256": "023376a00f81084fca2ec61024632631b13f1b76c40ecf920ab1d9eb72f842fe",
+   "sha256": "bf4460eeec6b2294656ecb17f93848b0f131bd8713371b4c672e5da004449dfe"
+  }
+ },
+ "licence": "MIT; text in LICENSE next to this file and in LICENSES/hug2obj-source-LICENSE.txt of the release",
+ "not_shipped": [
+  "assets/mano_rhand_mesh_faces.npy (constant MANO_RIGHT_MESH_FACES_FILE: read by no module of the ten)"
+ ],
+ "origin_commit": "44ad0250779db5366c938d2c71f0a5467e007770"
+}

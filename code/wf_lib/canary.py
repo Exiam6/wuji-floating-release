@@ -5,7 +5,7 @@ Why: a user who runs our batches can only send us numbers, so the numbers have t
 `wf.py decode make-jobs` and `wf.py dsrl readout` add them to the jobs file they write (and so does the issue tool on our side); the rule is
 
     canaries = max(20, ceil(1 % of the real jobs), one per (protocol, prior, object set) cell),
-    spread over the protocols you name with `--protocols`, over the priors of the batch (a prior is the first part of a job's key: hug1, hug2, dumbbell50k; anything else is "other")
+    spread over the protocols you name with `--protocols`, over the priors of the batch (a prior is the first part of a job's key: hug1, hug2, dumbbell50k, hug2obj, hug2obj_50k; anything else is "other")
     and over the object set of the jobs themselves (the dumbbell, or HUG-Bench objects: read from each job's `sim_assets_dir`), so a HUG-Bench job gets HUG-Bench canaries and a dumbbell job
     dumbbell canaries; each tagged in the key column as  __canary__/<protocol>/<batch>/<the row's own key>  and placed at random positions among the real jobs.
 
@@ -29,7 +29,7 @@ SCHEMA = "wf-canaries-1"
 PREFIX = "__canary__/"
 FRACTION = 0.01
 MINIMUM = 20
-PRIORS = ("hug1", "hug2", "dumbbell50k")
+PRIORS = ("hug1", "hug2", "dumbbell50k", "hug2obj", "hug2obj_50k")
 BATCH_REFERENCE = "reference_cpu"
 # HUG-Bench grasps of the release's own reference files (reference/cpu, in git): known answers under the MANO protocols for jobs whose keys carry no prior of ours (the read-out jobs of a DSRL-NA run
 # on HUG-Bench inputs, keys <arm>/<unit>): (jobs file, expected file, protocol)

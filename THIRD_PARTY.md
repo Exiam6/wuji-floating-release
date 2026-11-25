@@ -15,3 +15,9 @@ The asset tarballs (not in git) carry the licence texts their parts need in the 
 
 Python packages are installed from their own indexes (requirements/*.txt) and are not redistributed here: MuJoCo is Apache-2.0, chumpy is MIT, and manotorch is GPL
 according to its package metadata (it is installed from its public repository only).
+
+## Revision r8 addition
+
+| Path | What it is | Licence |
+|---|---|---|
+| `code/tools/float/objframe/` | ten modules of the object-frame HUG2 model, integrated as our own package (import lines changed only; `PROVENANCE.json`), used by `code/tools/float/decode.py::ObjectFrameDecoder` | MIT, the model authors' copyright notice (`LICENSES/hug2obj-source-LICENSE.txt`); status: granted by the model authors (relayed 2026-11-25); MIT, as their repository says |

@@ -287,7 +287,7 @@ def fresh_flow(cfg: dict, layout, train_ids, S_train, device: str):
     frames = []
     for u in train_ids:
         with np.load(units[u]["case_path"]) as c:
-            frames.append(decode.make_frame(c["rgb"], c["depth_mm"], c["camera_k"], c["condition_uv"], 0))
+            frames.append(decode.make_frame(c["rgb"], c["depth_mm"], c["camera_k"], c["condition_uv"], 0, object_mask=decode.case_object_mask(c)))
     dec = decode_cmd.make_decoder(layout, cfg["prior"])
     return na.FreshFlow(dec, [{"frame": f} for f in frames], S_train, device)
 
@@ -607,7 +607,7 @@ def readout(a) -> int:
     frames = []
     for u in units:
         with np.load(u["case_path"]) as c:
-            frames.append(decode.make_frame(c["rgb"], c["depth_mm"], c["camera_k"], c["condition_uv"], 0))
+            frames.append(decode.make_frame(c["rgb"], c["depth_mm"], c["camera_k"], c["condition_uv"], 0, object_mask=decode.case_object_mask(c)))
     cases = []
     for u in units:
         with np.load(u["case_path"]) as c:

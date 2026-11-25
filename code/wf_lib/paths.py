@@ -30,6 +30,7 @@ REFERENCE = RELEASE / "reference"
 MANIFESTS = RELEASE / "asset_manifests"
 CONFIG_FILE = RELEASE / "wf_config.json"
 
+HUG2OBJ_SOURCE_COMMIT = "44ad0250779db5366c938d2c71f0a5467e007770"                                    # the commit of that code the checkpoint is run with; tools/float/decode.py PRIOR_PINS must carry the same one
 HUG_SOURCE_URL = "https://github.com/KevinyWu/hug.git"
 HUG_SOURCE_COMMIT = "8d1c52d4c24bfae5a369e32e3f134f5601a02630"
 DINOV2_REPO = "facebook/dinov2-with-registers-base"
@@ -41,6 +42,23 @@ PRIORS = {
     "hug1": ("ckpt/hug1/hug_full.safetensors", "515b5c3bc7987739aec019e754c15df5fbf3eff9daefb93924da098ae4bd1eae", 50),
     "dumbbell50k": ("ckpt/dumbbell50k/hug_dumbbell_50k.pt", "cacad83b6dc40b1b20673863e174f95e39fb58e015e1310af500ef911e97ef5b", 10),
 }
+
+# the object-frame prior (EX396), kept apart from PRIORS so the default lists of `decode check` and `verify` stay the released priors.
+# name -> (checkpoint path below the asset root, expected sha256, Euler steps); the sha256 must equal tools/float/decode.py PRIOR_PINS (the decoder refuses a mismatch).
+# The file name is the author's own: hug_objpcl_aug_15k.pt holds RAW weights of step 15000, hug_objpcl_aug_50k.pt the EMA export of step 50000 (both bf16); an id never names another file.
+OBJECT_FRAME_PRIORS = {
+    "hug2obj": ("ckpt/hug2obj/hug_objpcl_aug_15k.pt", "929a58e54b26bcd72a3c8ef1a88b9dffb307793fd3eebf1797b87c5716f67f48", 10),
+    "hug2obj_50k": ("ckpt/hug2obj/hug_objpcl_aug_50k.pt", "c4ef201487adcceca2554cbee7d5d1e3670a3c71a39dac664a0e61bbe7ba5f69", 10),
+}
+
+
+def prior_row(prior: str) -> tuple:
+    """(checkpoint path, sha256, Euler steps) of any prior id; an unknown id stops."""
+    if prior in PRIORS:
+        return PRIORS[prior]
+    if prior in OBJECT_FRAME_PRIORS:
+        return OBJECT_FRAME_PRIORS[prior]
+    raise SystemExit(f"unknown prior {prior!r}; choose from {list(PRIORS) + list(OBJECT_FRAME_PRIORS)}")
 
 
 def config() -> dict:
@@ -78,5 +96,5 @@ class Layout:
         self.prep = self.root / "prep"
 
     def checkpoint(self, prior: str) -> tuple:
-        rel, sha, steps = PRIORS[prior]
+        rel, sha, steps = prior_row(prior)
         return self.root / rel, sha, steps

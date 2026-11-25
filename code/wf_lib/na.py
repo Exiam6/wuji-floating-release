@@ -165,13 +165,28 @@ class Flow:
         for s in range(0, len(order), self.batch):
             idx = order[s:s + self.batch]
             cond = th.cat([self.cond[v] for v in vids[s:s + self.batch]], 0)
-            params = self.dec.flow(cond, W[idx])
+            params = self.dec.flow_native(cond, W[idx])
             out[idx] = self.dec.model.flow.denoise_fn.normalize(params).float().cpu().numpy()
         return out
 
-    def normalise_params(self, params99) -> np.ndarray:
-        """Normalised form of stored denormalised 99-D outputs (decode's flow_output99 / mano_params99)."""
+    def normalise_params(self, params99, centers=None, native=False) -> np.ndarray:
+        """Normalised form of stored denormalised 99-D outputs.
+
+        Old priors: decode's flow_output99 / mano_params99 (the same rows); `centers` and `native` are refused.
+        Object-frame prior (hug2obj): flow_output99 is the model's own row, pass native=True; mano_params99 and flow_output99_camera are
+        camera-frame, pass their (n, 3) object centres and the translation is moved back to the object frame first. Neither or both:
+        refused, since a camera-frame row normalised as it is would be off by centre / std on the translation."""
         p = th.as_tensor(np.asarray(params99, np.float32), device=self.dec.device)
+        if getattr(self.dec, "object_frame", False):
+            if bool(native) == (centers is not None):
+                raise ValueError("object-frame prior: pass native=True for flow_output99, or centers (n, 3) for camera-frame rows (mano_params99), not both and not neither")
+            if centers is not None:
+                c = th.as_tensor(np.asarray(centers, np.float32), device=p.device)
+                if tuple(c.shape) != (p.shape[0], 3):
+                    raise ValueError(f"centers must be ({p.shape[0]}, 3), got {tuple(c.shape)}")
+                p = self.dec.model.shift_translation(p, -c)
+        elif native or centers is not None:
+            raise ValueError("native / centers are for the object-frame prior only")
         with th.no_grad():
             return self.dec.model.flow.denoise_fn.normalize(p).float().cpu().numpy()
 
@@ -191,6 +206,6 @@ class FreshFlow:
     def __call__(self, obs, noise, return_numpy: bool = True):
         k = self.index(obs)
         w = noise.reshape(noise.shape[0], ACT_DIM).float().cpu()
-        x = self.dec.model.flow.denoise_fn.normalize(self.dec.flow(self.cond[k.to(self.cond.device)], w)).float()
+        x = self.dec.model.flow.denoise_fn.normalize(self.dec.flow_native(self.cond[k.to(self.cond.device)], w)).float()
         self.calls += 1
         return x.cpu().numpy() if return_numpy else x
