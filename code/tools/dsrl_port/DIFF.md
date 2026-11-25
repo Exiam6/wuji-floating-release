@@ -32,3 +32,15 @@ Line-by-line check: `check_against_upstream.py` (our lab's L0 check, not shipped
 | Distillation noise | fresh `th.randn` draws, denoised every step | pool of 1,024 draws per input (registered EX136 cost deviation) | approximation kept in the port's `"pool"` mode for EX150 |
 | Initialisation | two full SACPolicy builds (actor, critic, critic target, then the noise policy's actor, critic, critic target) in that order, PyTorch default init | actor, critic, noise critic built directly | different initial weights for the same seed |
 | Losses, network shapes, optimizers, entropy tuning, update order (entropy → critic → actor on the noise critic → Polyak; then distillation) | — | identical | test T2 (our L1 test record (not shipped)): one step from the same weights, batch and RNG gives bit-identical entropy / critic / actor losses and actor / critic parameters; the noise critics differ by ≤ 4.7e-5 only because the old code scales the noise as w / b and SB3 as 2((w + b) / 2b) − 1 (float32 difference ≤ 2.4e-7, amplified by Adam's first step); with the same scaled input they are bit-identical (T2b) |
+
+## Release r8c: optional variants (default = the rows above, bit for bit)
+
+Every changed line of `dsrl.py` carries "PORT-r8c". With the defaults (`noise_param="box"`, `critic_input_scale="bound"`, `critic_penalty=0.0`, `n_noise_critics=None`) each code path is the one above: the actor loss passes `actions_pi` itself, the distillation and `q_noise` call `scale_action`, the backup calls `unscale_action`, the noise critic is built with the same arguments, and no generator is drawn from. The meaning and the allowed values are in `docs/R8C.md` of the release.
+
+| Where | Authors | r8c option | What it tests |
+|---|---|---|---|
+| executed noise w | w = unscale(tanh x) in Box(-b, b) | `noise_param` sphere / anchored / sphere_anchored / geodesic (a fixed differentiable map g; box Box(-1, 1); the anchored maps zero the mean layer so the policy starts at the anchor) | the actor's reachable set excludes the prior's shell; start at the global answer |
+| noise critic input | scale_action(w) = w / b | `critic_input_scale` raw: w (forced for the non-box maps) | the bound changes the actor's box and the critic's input at once |
+| noise critic loss | distillation MSE | `critic_penalty` alpha: + alpha sum_j mean_b [logsumexp_k Q^W_j(s, z_k) - Q^W_j(s, w_b)], z_k ~ N(0, I), k = 1..10 (CQL-style; not the authors') | critic optimism |
+| noise critic heads | n_critics (2) | `n_noise_critics` 10; head i regresses Q^A head i mod 2 | pessimism of a larger ensemble |
+

@@ -19,6 +19,8 @@ configs it needs, `SHA256SUMS`, `INSTRUCTIONS.txt`. Nothing in it is code. A **g
                      CUDA_VISIBLE_DEVICES=<its slot's id>; without --gpus there is one slot and the environment's CUDA_VISIBLE_DEVICES is left alone (SLURM sets it). Every step writes its own
                      folder RESULTS/<group>/<step>/ and, when it has finished, STAMP.json in it; run it again after an interruption and the steps that have a valid STAMP.json are skipped,
                      an unfinished step folder is moved to RESULTS/_failed/ (kept as evidence) and the step is run again. --dry prints the plan and runs nothing.
+                     r8c: the one exception is an unfinished `dsrl train` step whose folder holds the resume key of this very command (a training with checkpoint_every): it is NOT moved; the
+                     same command runs again in place and continues from its last complete checkpoint (the log says "resumed from checkpoint N").
   wf.py batch status BATCH --out RESULTS [--array]       state of every group (--array: the group indices still to run, for `sbatch --array=`)
   wf.py batch slurm  BATCH --out RESULTS --partition P [--gpus-per-task 1] [--cpus 8] [--time HH:MM:SS] ...   writes a SLURM array script: one array task per group
   wf.py batch shell  BATCH --out RESULTS --gpus 0,1,2,3  writes a plain shell loop for a machine without SLURM: one background worker per GPU, groups dealt out round robin
@@ -130,10 +132,11 @@ def expand(batch: dict, bdir: Path, out: Path, assets: Path, gpu_py: str, cpu_py
                 steps.append(dict(name="jobs", kind="jobs", gpu=False, prepare=True, dir=gdir / "jobs",
                                   argv=[gpu_py, W, "decode", "make-jobs", "--decoded", str(gdir / "decode"), "--inputs", inp, "--protocols", ",".join(protos), "--out", str(gdir / "jobs" / "jobs.npz")]))
                 steps += rolls(gdir / "jobs" / "jobs.npz")
-        elif kind == "dsrl_readout":
+        elif kind in ("dsrl_readout", "online_readout"):          # batch 4 patch: online_readout = job type 5 (wf.py online train) in place of dsrl train; the read-out and rollouts are the same
             cfg = bdir / g["config"]
             steps.append(dict(name="train", kind="train", gpu=True, prepare=False, dir=gdir / "train",
-                              argv=[gpu_py, W, "dsrl", "train", "--config", str(cfg), "--seed", str(g["seed"])] + (["--calls", str(g["calls"])] if g.get("calls") else []) + ["--out", str(gdir / "train")]))
+                              argv=([gpu_py, W, "online", "train", "--config", str(cfg), "--seed", str(g["seed"]), "--out", str(gdir / "train")] if kind == "online_readout" else
+                                    [gpu_py, W, "dsrl", "train", "--config", str(cfg), "--seed", str(g["seed"])] + (["--calls", str(g["calls"])] if g.get("calls") else []) + ["--out", str(gdir / "train")])))
             readouts = g.get("readouts")
             if readouts is None and g.get("arms"):                                      # one read-out given at the group level
                 readouts = [{"arms": g["arms"], "sets": g.get("sets"), "input_set": g["input_set"], "protocols": g.get("protocols", [])}]
@@ -190,7 +193,7 @@ def expand(batch: dict, bdir: Path, out: Path, assets: Path, gpu_py: str, cpu_py
                                   + (["--sets", ",".join(str(x) for x in ro["sets"])] if ro.get("sets") else []) + ["--protocols", ",".join(rprotos)] + ["--out", str(gdir / f"readout{tag}")]))
                 steps += rolls(gdir / f"readout{tag}" / "jobs_readout.npz", rprotos, tag)
         else:
-            fail(f"group {gid}: unknown kind {kind!r} (this release knows decode_rollout, dsrl_readout, jobs, cem_readout, nn_readout)")
+            fail(f"group {gid}: unknown kind {kind!r} (this release knows decode_rollout, dsrl_readout, online_readout, jobs, cem_readout, nn_readout)")
         groups.append(dict(id=gid, index=i, kind=kind, dir=gdir, steps=steps))
     return groups
 
@@ -223,6 +226,31 @@ def group_state(g: dict, batch: dict, release_digest: str) -> dict:
     done = sum(s == "done" for s in states)
     state = "done" if states and done == len(states) else ("failed" if failed else ("partial" if done or "partial" in states else "pending"))
     return {"group": g["id"], "index": g["index"], "state": state, "steps_done": done, "steps": len(states)}
+
+
+def resumable_in_place(st: dict, d: Path):
+    """r8c: the calls of the last complete checkpoint (0: none complete yet) when an unfinished step can be resumed in place, else None. Only a `dsrl train` step whose folder holds a resume key
+    (dsrl_cmd.RESUME_KEY, written only by a training with checkpoint_every) equal to the key of this step's own command, and no train_run.json (a finished training is not resumed)."""
+    argv = [str(x) for x in st.get("argv", [])]
+    if st.get("kind") != "train" or len(argv) < 4 or argv[2:4] != ["dsrl", "train"]:
+        return None
+    from . import dsrl_cmd
+    kf = d / dsrl_cmd.RESUME_KEY
+    if not kf.is_file() or (d / "train_run.json").is_file():
+        return None
+    try:
+        have = json.loads(kf.read_text())
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("wf_cli_r8c", paths.CODE / "wf.py")          # the command's own parser, so the key is computed from the namespace `dsrl train` will see
+        cli = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cli)
+        want = dsrl_cmd.resume_key(cli.build_parser().parse_args(argv[2:]))
+    except (ValueError, OSError, SystemExit):
+        return None
+    if have != want:
+        return None
+    done = dsrl_cmd.complete_checkpoints(d)
+    return done[-1] if done else 0
 
 
 def set_aside(out: Path, gid: str, name: str, d: Path) -> Path:
@@ -275,8 +303,13 @@ def run_step(ctx: Context, g: dict, st: dict, gpu) -> bool:
         ctx.log(gid, f"{name}: done before, skipped")
         return True
     if state == "partial":
-        dest = set_aside(out, gid, name, d)
-        ctx.log(gid, f"{name}: an unfinished folder was moved to {dest} (kept as evidence); running the step again")
+        resumed = resumable_in_place(st, d)                                          # r8c: None for every step but a checkpointing dsrl train of this very command
+        if resumed is not None:
+            ctx.log(gid, f"{name}: resumed from checkpoint {resumed} (in place: the folder holds this command's resume key)" if resumed else
+                    f"{name}: no complete checkpoint yet: the same command runs again in place from call 0")
+        else:
+            dest = set_aside(out, gid, name, d)
+            ctx.log(gid, f"{name}: an unfinished folder was moved to {dest} (kept as evidence); running the step again")
     logs = g["dir"] / "logs"
     logs.mkdir(parents=True, exist_ok=True)
     (logs / f"{name}.failed.json").unlink(missing_ok=True)

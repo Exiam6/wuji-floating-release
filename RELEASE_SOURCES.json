@@ -118,9 +118,9 @@
   },
   "code/tools/dsrl_port/dsrl.py": {
    "source": "tools/dsrl_port/dsrl.py",
-   "sha256": "8bf9f76d9244d69cf82fff45c8a93b268552c6f8a43dc447095ea2c60d437d07",
+   "sha256": "236d4ab8160b67e1e519ba31e7586062c6424dd792b4a7c1269e1a4943848ce6",
    "edited": true,
-   "edit": "docstring: the paper cited by its title; the copyright line is referred to the licence file"
+   "edit": "docstring: the paper cited by its title; the copyright line is referred to the licence file; r8c: the optional steering variants (every changed line marked PORT-r8c; the defaults are the code paths above)"
   },
   "code/tools/dsrl_port/sb3_parts.py": {
    "source": "tools/dsrl_port/sb3_parts.py",
@@ -140,9 +140,9 @@
   },
   "code/tools/dsrl_port/DIFF.md": {
    "source": "tools/dsrl_port/DIFF.md",
-   "sha256": "a3d2202f878e835c9b850305d2ec054c735804965c0d9bf8f378bad1adf24b84",
+   "sha256": "d3f31ef9b2a47146c1c6581b6359d0aafc56760c246dbdcb122e387238891796",
    "edited": true,
-   "edit": "paths of our machines and of our internal run records removed from the text; the copyright line is referred to the licence file"
+   "edit": "paths of our machines and of our internal run records removed from the text; the copyright line is referred to the licence file; r8c: the section on the optional variants"
   },
   "code/protocols/mano-1111-p1.json": {
    "source": "protocols/mano-1111-p1.json",
@@ -227,5 +227,10 @@
   "base": "r7a",
   "tag_draft": "wf-20261125-r8b",
   "note": "see docs/HUG2OBJ.md; the old prior ids are unchanged; the changed files are listed in R8_FILES.json of the build"
+ },
+ "r8c": {
+  "base": "r8b",
+  "tag": "wf-20261125-r8c",
+  "note": "see docs/R8C.md: optional dsrl train keys and read-out arms (absent = r8b, bit for bit), the dynamics log, and the online job type of batch 4 (online overlay and batch patch) with four edits for the object-frame prior"
  }
 }

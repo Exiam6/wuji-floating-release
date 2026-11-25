@@ -1,0 +1,188 @@
+{
+ "axes": [
+  "sideways_m",
+  "distance_m",
+  "elevation_deg",
+  "azimuth_offset_deg",
+  "yaw_offset_deg"
+ ],
+ "levels": [
+  "r",
+  "p1",
+  "d1",
+  "y1",
+  "e1",
+  "p2",
+  "p3",
+  "p4",
+  "d2",
+  "d3",
+  "d4",
+  "y2",
+  "y3",
+  "y4",
+  "e2",
+  "e3",
+  "e4",
+  "a1",
+  "a2"
+ ],
+ "levels_values": {
+  "a1": {
+   "azimuth_offset_deg": 50.0,
+   "distance_m": 0.7,
+   "elevation_deg": 52.0,
+   "sideways_m": 0.0,
+   "yaw_offset_deg": 0.0
+  },
+  "a2": {
+   "azimuth_offset_deg": 90.0,
+   "distance_m": 0.7,
+   "elevation_deg": 52.0,
+   "sideways_m": 0.0,
+   "yaw_offset_deg": 0.0
+  },
+  "d1": {
+   "azimuth_offset_deg": 0.0,
+   "distance_m": 0.57,
+   "elevation_deg": 52.0,
+   "sideways_m": 0.0,
+   "yaw_offset_deg": 0.0
+  },
+  "d2": {
+   "azimuth_offset_deg": 0.0,
+   "distance_m": 0.41,
+   "elevation_deg": 52.0,
+   "sideways_m": 0.0,
+   "yaw_offset_deg": 0.0
+  },
+  "d3": {
+   "azimuth_offset_deg": 0.0,
+   "distance_m": 0.28,
+   "elevation_deg": 52.0,
+   "sideways_m": 0.0,
+   "yaw_offset_deg": 0.0
+  },
+  "d4": {
+   "azimuth_offset_deg": 0.0,
+   "distance_m": 0.2,
+   "elevation_deg": 52.0,
+   "sideways_m": 0.0,
+   "yaw_offset_deg": 0.0
+  },
+  "e1": {
+   "azimuth_offset_deg": 0.0,
+   "distance_m": 0.7,
+   "elevation_deg": 59.0,
+   "sideways_m": 0.0,
+   "yaw_offset_deg": 0.0
+  },
+  "e2": {
+   "azimuth_offset_deg": 0.0,
+   "distance_m": 0.7,
+   "elevation_deg": 72.0,
+   "sideways_m": 0.0,
+   "yaw_offset_deg": 0.0
+  },
+  "e3": {
+   "azimuth_offset_deg": 0.0,
+   "distance_m": 0.7,
+   "elevation_deg": 82.0,
+   "sideways_m": 0.0,
+   "yaw_offset_deg": 0.0
+  },
+  "e4": {
+   "azimuth_offset_deg": 0.0,
+   "distance_m": 0.7,
+   "elevation_deg": 88.0,
+   "sideways_m": 0.0,
+   "yaw_offset_deg": 0.0
+  },
+  "p1": {
+   "azimuth_offset_deg": 0.0,
+   "distance_m": 0.7,
+   "elevation_deg": 52.0,
+   "sideways_m": 0.13,
+   "yaw_offset_deg": 0.0
+  },
+  "p2": {
+   "azimuth_offset_deg": 0.0,
+   "distance_m": 0.7,
+   "elevation_deg": 52.0,
+   "sideways_m": 0.39,
+   "yaw_offset_deg": 0.0
+  },
+  "p3": {
+   "azimuth_offset_deg": 0.0,
+   "distance_m": 0.7,
+   "elevation_deg": 52.0,
+   "sideways_m": 0.45,
+   "yaw_offset_deg": 0.0
+  },
+  "p4": {
+   "azimuth_offset_deg": 0.0,
+   "distance_m": 0.7,
+   "elevation_deg": 52.0,
+   "sideways_m": 0.52,
+   "yaw_offset_deg": 0.0
+  },
+  "r": {
+   "azimuth_offset_deg": 0.0,
+   "distance_m": 0.7,
+   "elevation_deg": 52.0,
+   "sideways_m": 0.0,
+   "yaw_offset_deg": 0.0
+  },
+  "y1": {
+   "azimuth_offset_deg": 0.0,
+   "distance_m": 0.7,
+   "elevation_deg": 52.0,
+   "sideways_m": 0.0,
+   "yaw_offset_deg": 20.0
+  },
+  "y2": {
+   "azimuth_offset_deg": 0.0,
+   "distance_m": 0.7,
+   "elevation_deg": 52.0,
+   "sideways_m": 0.0,
+   "yaw_offset_deg": 50.0
+  },
+  "y3": {
+   "azimuth_offset_deg": 0.0,
+   "distance_m": 0.7,
+   "elevation_deg": 52.0,
+   "sideways_m": 0.0,
+   "yaw_offset_deg": 90.0
+  },
+  "y4": {
+   "azimuth_offset_deg": 0.0,
+   "distance_m": 0.7,
+   "elevation_deg": 52.0,
+   "sideways_m": 0.0,
+   "yaw_offset_deg": 180.0
+  }
+ },
+ "ranges": {
+  "azimuth_offset_deg": [
+   0.0,
+   90.0
+  ],
+  "distance_m": [
+   0.2,
+   0.7
+  ],
+  "elevation_deg": [
+   52.0,
+   88.0
+  ],
+  "sideways_m": [
+   0.0,
+   0.52
+  ],
+  "yaw_offset_deg": [
+   0.0,
+   180.0
+  ]
+ },
+ "schema": "wf-view-ranges-1"
+}

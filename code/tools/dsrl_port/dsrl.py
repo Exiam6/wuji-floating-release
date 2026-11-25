@@ -18,14 +18,29 @@ The update code below is the authors' `train` / `update_noise_critic`, line for 
   * `noise_source`: the distillation pairs (w, HUG2(s, w)) come from the authors' fresh draws (`"fresh"`: th.randn on
     the CPU generator, then the diffusion policy) or from a precomputed per-input pool of N(0, I) draws (`"pool"`, EX136's
     registered cost deviation: HUG2's 10-step sampler takes ~0.84 s per 256 draws).
+
+Release r8c adds OPTIONAL steering variants (each one variable; with every default the code paths above are untouched, bit
+for bit; lines marked "PORT-r8c", listed in DIFF.md and docs/STEERING_VARIANTS.md of the release):
+  * `noise_param`: the map from the actor's output to the executed noise w: "box" (authors: w = unscale(tanh(x))) |
+    "sphere" | "anchored" | "sphere_anchored" | "geodesic" (see to_noise);
+  * `critic_input_scale`: what the noise critic Q^W sees: "bound" (authors: scale_action(w) = w / bound) | "raw" (w itself;
+    forced for every non-box map, so Q^W(s, w) is learned on the executed noise);
+  * `critic_penalty`: a CQL-style conservative term on Q^W (weight alpha; 0 = the authors' loss);
+  * `n_noise_critics`: heads of Q^W (default n_critics = 2, the authors').
 """
 from __future__ import annotations
+
+import math
 
 import numpy as np
 import torch as th
 from torch.nn import functional as F
 
 from sb3_parts import ReplayBuffer, SACPolicy, polyak_update
+
+
+NOISE_PARAMS = ("box", "sphere", "anchored", "sphere_anchored", "geodesic")      # PORT-r8c
+ANCHORED = ("anchored", "sphere_anchored", "geodesic")                            # PORT-r8c: the maps with an anchor c (zero-initialised mean layer)
 
 
 class DSRL:
@@ -53,6 +68,14 @@ class DSRL:
         skip_terminal_backup: bool = True,  # PORT
         noise_source: str = "fresh",        # PORT: "fresh" (authors) | "pool"
         noise_pool=None,                    # PORT: callable(observations) -> (noise (B, chunk, dim), diffused (B, chunk * dim))
+        noise_param: str = "box",           # PORT-r8c: "box" (authors) | "sphere" | "anchored" | "sphere_anchored" | "geodesic"
+        anchor=None,                        # PORT-r8c: (dim,) the anchor constant c of the anchored maps
+        steer_bound: float = 1.0,           # PORT-r8c: b of "anchored" / "sphere_anchored" (every non-box map has the action space Box(-1, 1), asserted)
+        max_angle=None,                     # PORT-r8c: the geodesic trust region of "geodesic", radians
+        critic_input_scale: str = "bound",  # PORT-r8c: Q^W's input: "bound" (authors: scale_action(w)) | "raw" (w); "raw" for every non-box map
+        critic_penalty: float = 0.0,        # PORT-r8c: alpha of the conservative term on Q^W (0.0: the authors' distillation loss only)
+        penalty_samples: int = 10,          # PORT-r8c: N, the random N(0, I) noises per row of that term
+        n_noise_critics=None,               # PORT-r8c: heads of Q^W (None: n_critics, the authors')
     ):
         # train_dsrl.py: policy_kwargs
         post_linear_modules = [th.nn.LayerNorm] if use_layer_norm else None
@@ -75,6 +98,22 @@ class DSRL:
         self.critic_backup_combine_type = critic_backup_combine_type
         self.skip_terminal_backup, self.noise_source, self.noise_pool = skip_terminal_backup, noise_source, noise_pool
         assert noise_source in ("fresh", "pool") and (noise_source == "fresh" or noise_pool is not None)
+        # PORT-r8c: the variants (defaults: the authors' code paths, untouched)
+        assert noise_param in NOISE_PARAMS and critic_input_scale in ("bound", "raw"), (noise_param, critic_input_scale)
+        assert noise_param == "box" or (critic_input_scale == "raw" and np.all(self.low == -1.0) and np.all(self.high == 1.0)), \
+            "a non-box noise map has the action space Box(-1, 1) and the noise critic sees the executed noise w (critic_input_scale raw)"
+        assert (anchor is not None) == (noise_param in ANCHORED), "an anchor is given exactly for the anchored maps"
+        assert (max_angle is not None) == (noise_param == "geodesic"), "max_angle is given exactly for the geodesic map"
+        assert float(critic_penalty) >= 0.0 and int(penalty_samples) >= 1
+        self.noise_param, self.steer_bound, self.critic_input_scale = noise_param, float(steer_bound), critic_input_scale
+        self.max_angle = None if max_angle is None else float(max_angle)
+        self.critic_penalty, self.penalty_samples = float(critic_penalty), int(penalty_samples)
+        self.n_noise_critics = int(n_noise_critics) if n_noise_critics is not None else int(n_critics)
+        self.anchor = None if anchor is None else np.asarray(anchor, np.float32).reshape(-1)
+        assert self.anchor is None or (self.anchor.shape == self.low.shape and np.isfinite(self.anchor).all() and np.linalg.norm(self.anchor) > 0)
+        self.anchor_t = None if self.anchor is None else th.as_tensor(self.anchor, device=device)
+        self.shell = math.sqrt(float(self.low.shape[0]))       # R = sqrt(99): the radius of the prior's typical set
+        self.penalty_log = []
         self._n_updates = 0
         self.replay_buffer = ReplayBuffer(buffer_size, obs_dim, self.low.shape[0], device=device)
         self._setup_model()
@@ -112,9 +151,71 @@ class DSRL:
             # is passed
             self.ent_coef_tensor = th.tensor(float(self.ent_coef), device=self.device)
 
-        policy_noise = SACPolicy(self.obs_dim, self.low, self.high, self.learning_rate, device=self.device, **self.policy_kwargs)
+        noise_kwargs = self.policy_kwargs if self.n_noise_critics == self.policy_kwargs["n_critics"] else dict(self.policy_kwargs, n_critics=self.n_noise_critics)  # PORT-r8c
+        policy_noise = SACPolicy(self.obs_dim, self.low, self.high, self.learning_rate, device=self.device, **noise_kwargs)
         self.critic_noise = policy_noise.critic
         self.critic_noise = self.critic_noise.to(self.device)
+        if self.noise_param in ANCHORED:
+            # PORT-r8c: the actor's mean layer starts at zero, so the deterministic noise at step 0 is the anchor (x = 0, u = tanh(0) = 0)
+            with th.no_grad():
+                self.actor.mu.weight.zero_()
+                self.actor.mu.bias.zero_()
+
+    # ---- PORT-r8c: the noise maps. x = the actor's pre-squash output (the Gaussian sample, or its mean when deterministic), u = tanh(x)
+    # in [-1, 1]^dim (the authors' action, on which their entropy term lives, unchanged for every map). The maps have no parameters.
+    def to_noise(self, u: th.Tensor, x: th.Tensor = None) -> th.Tensor:
+        """The executed noise w of a non-box map (differentiable):
+        sphere           w = R * u / |u|                          (b cancels)
+        anchored         w = c + b * u
+        sphere_anchored  w = R * (c + b * u) / |c + b * u|
+        geodesic         c^ = c / |c|; v = x - (x . c^) c^; theta = max_angle * tanh(|v|); w = R * (cos(theta) c^ + sin(theta) v / |v|)
+                         (x is the PRE-squash output: the map squashes |v| itself; w = R c^ when |v| < 1e-8, with a safe sinc form)"""
+        assert self.noise_param != "box"
+        if self.noise_param == "geodesic":
+            assert x is not None, "the geodesic map reads the actor's pre-squash output"
+            ch = self.anchor_t / self.anchor_t.norm()
+            v = x - (x * ch).sum(-1, keepdim=True) * ch
+            n2 = (v * v).sum(-1, keepdim=True)
+            small = n2 < 1e-16
+            n = th.sqrt(th.where(small, th.ones_like(n2), n2))           # no 0/0 in the value or the gradient
+            theta = self.max_angle * th.tanh(n)
+            sinc = th.where(small, th.full_like(n2, self.max_angle), th.sin(theta) / n)      # sin(a tanh n) / n -> a as n -> 0
+            cos_t = th.where(small, th.ones_like(n2), th.cos(theta))
+            return self.shell * (cos_t * ch + sinc * v)
+        z = self.steer_bound * u
+        if self.anchor_t is not None:
+            z = z + self.anchor_t
+        if self.noise_param in ("sphere", "sphere_anchored"):
+            z = self.shell * z / z.norm(dim=-1, keepdim=True).clamp_min(1e-6)
+        return z
+
+    def _pre_squash(self):
+        """The pre-squash output x of the actor's last call (SquashedDiagGaussianDistribution keeps it; reassigned, never mutated, by the next call)."""
+        return self.actor.action_dist.gaussian_actions
+
+    def critic_in_u(self, u: th.Tensor, x: th.Tensor = None) -> th.Tensor:
+        """Q^W's input for the actor's own action (actor loss). Authors (box, bound): u itself = scale_action(unscale(u))."""
+        if self.noise_param != "box":
+            return self.to_noise(u, x)
+        if self.critic_input_scale == "bound":
+            return u
+        lo, hi = th.as_tensor(self.low, device=u.device), th.as_tensor(self.high, device=u.device)
+        return lo + 0.5 * (u + 1.0) * (hi - lo)               # raw: the executed noise w = unscale(u), as a differentiable torch op
+
+    def critic_in_w(self, w: np.ndarray) -> np.ndarray:
+        """Q^W's input for a given executed noise w (distillation draws, penalty draws, read-out). Authors: scale_action(w) = w / bound."""
+        if self.critic_input_scale == "bound":
+            return self.policy.scale_action(w)
+        return np.asarray(w, np.float32)
+
+    def variant_record(self) -> dict:
+        """{} for the authors' learner; otherwise the settings a read-out must rebuild (saved with the checkpoint, compared on load)."""
+        if (self.noise_param, self.critic_input_scale, self.critic_penalty, self.n_noise_critics) == ("box", "bound", 0.0, int(self.policy_kwargs["n_critics"])):
+            return {}
+        return dict(noise_param=self.noise_param, steer_bound=self.steer_bound if self.noise_param in ("anchored", "sphere_anchored") else None,
+                    max_angle=self.max_angle, critic_input_scale=self.critic_input_scale, critic_penalty=self.critic_penalty,
+                    penalty_samples=self.penalty_samples if self.critic_penalty > 0 else None, n_noise_critics=self.n_noise_critics,
+                    anchor=None if self.anchor is None else [float(v) for v in self.anchor])
 
     def _create_aliases(self) -> None:
         self.actor = self.policy.actor
@@ -141,6 +242,7 @@ class DSRL:
 
             # Action by the current actor for the sampled state
             actions_pi, log_prob = self.actor.action_log_prob(replay_data.observations)
+            x_pi = self._pre_squash()                                  # PORT-r8c: read only by the geodesic map
             log_prob = log_prob.reshape(-1, 1)
 
             ent_coef_loss = None
@@ -170,7 +272,10 @@ class DSRL:
                     # PORT: (1 - dones) == 0 for every row, so the backup below is 0 whatever next_q_values is
                     next_q_values = th.zeros_like(replay_data.rewards)
                 else:
-                    next_actions = th.tensor(self.policy.unscale_action(next_actions.cpu().numpy())).to(self.device)
+                    if self.noise_param == "box":
+                        next_actions = th.tensor(self.policy.unscale_action(next_actions.cpu().numpy())).to(self.device)
+                    else:
+                        next_actions = self.to_noise(next_actions, self._pre_squash())     # PORT-r8c: the executed noise of the map
                     next_actions = self.diffusion_policy(replay_data.next_observations, next_actions.reshape(-1, self.diffusion_act_chunk, self.diffusion_act_dim), return_numpy=False)
                     next_actions = next_actions.reshape(-1, self.diffusion_act_chunk * self.diffusion_act_dim)
                     # Compute the next Q values: min over all critics targets
@@ -202,7 +307,8 @@ class DSRL:
                 # Compute actor loss
                 # Alternative: actor_loss = th.mean(log_prob - qf1_pi)
                 # Min over all critic networks
-                q_values_pi = th.cat(self.critic_noise(replay_data.observations, actions_pi), dim=1)
+                # PORT-r8c: critic_in_u is actions_pi itself for the authors' map; for the others the actor's gradient flows through the fixed map
+                q_values_pi = th.cat(self.critic_noise(replay_data.observations, self.critic_in_u(actions_pi, x_pi)), dim=1)
                 if self.critic_backup_combine_type == 'min':
                     min_qf_pi, _ = th.min(q_values_pi, dim=1, keepdim=True)
                 elif self.critic_backup_combine_type == 'mean':
@@ -235,7 +341,8 @@ class DSRL:
         # PORT: logger.record -> returned dict
         return {"n_updates": self._n_updates, "ent_coef": float(np.mean(ent_coefs)), "actor_loss": float(np.mean(actor_losses)),
                 "critic_loss": float(np.mean(critic_losses)), "noise_critic_loss": float(np.mean(noise_critic_losses)),
-                "ent_coef_loss": float(np.mean(ent_coef_losses)) if ent_coef_losses else float("nan")}
+                "ent_coef_loss": float(np.mean(ent_coef_losses)) if ent_coef_losses else float("nan"),
+                **({"noise_critic_penalty": float(np.mean(self.penalty_log[-self.noise_critic_grad_steps:]))} if self.critic_penalty > 0.0 else {})}   # PORT-r8c
 
     def update_noise_critic(self, replay_data):
         with th.no_grad():
@@ -248,13 +355,25 @@ class DSRL:
             diffused_actions = diffused_actions.reshape(-1, self.diffusion_act_chunk * self.diffusion_act_dim)
             current_q_values = self.critic(replay_data.observations, diffused_actions)
         noise_actions = noise_actions.reshape(-1, self.diffusion_act_chunk * self.diffusion_act_dim).detach().cpu().numpy()
-        noise_actions = th.tensor(self.policy.scale_action(noise_actions)).to(self.device)
+        noise_actions = th.tensor(self.critic_in_w(noise_actions)).to(self.device)     # PORT-r8c: = scale_action(noise) for "bound" (authors)
         current_q_noise_vals = self.critic_noise(replay_data.observations, noise_actions)
         critic_distill_loss = 0
-        for i in range(len(current_q_values)):
-            current_q = current_q_values[i]
+        for i in range(len(current_q_noise_vals)):
+            current_q = current_q_values[i % len(current_q_values)]                   # PORT-r8c: head i of Q^W regresses head (i mod n_critics) of Q^A (head i when the counts agree)
             current_q_noise = current_q_noise_vals[i]
             critic_distill_loss = critic_distill_loss + 0.5*F.mse_loss(current_q.detach(), current_q_noise)
+        if self.critic_penalty > 0.0:
+            # PORT-r8c (CQL-style; not the authors'):  alpha * sum_j mean_b [ logsumexp_k Q^W_j(s_b, z_bk) - Q^W_j(s_b, w_b) ],
+            # z_bk ~ N(0, I), k = 1..N (CPU generator, executed-noise coordinates, then critic_in_w); w_b = row b's distillation noise
+            B, N = replay_data.observations.shape[0], self.penalty_samples
+            z = th.randn(B * N, self.diffusion_act_chunk * self.diffusion_act_dim)
+            z_in = th.tensor(self.critic_in_w(z.numpy())).to(self.device)
+            q_rand = self.critic_noise(replay_data.observations.repeat_interleave(N, dim=0), z_in)
+            penalty = 0
+            for i in range(len(q_rand)):
+                penalty = penalty + (th.logsumexp(q_rand[i].reshape(B, N), dim=1) - current_q_noise_vals[i].reshape(B)).mean()
+            self.penalty_log.append(float(penalty.item()))
+            critic_distill_loss = critic_distill_loss + self.critic_penalty * penalty
         return critic_distill_loss
 
     # ---- acting: BasePolicy.predict + DSRL.predict_diffused without the diffusion call (the caller runs HUG2 itself)
@@ -265,6 +384,9 @@ class DSRL:
         passes to the diffusion policy."""
         self.policy.set_training_mode(False)
         obs = th.as_tensor(observation, device=self.device, dtype=th.float32)
+        if self.noise_param != "box":
+            u = self.actor(obs, deterministic)
+            return self.to_noise(u, self._pre_squash()).cpu().numpy()          # PORT-r8c: the executed noise of the map
         actions = self.actor(obs, deterministic).cpu().numpy()
         return self.policy.unscale_action(actions)
 
@@ -272,7 +394,7 @@ class DSRL:
     def q_noise(self, observation, noise):
         """min over Q^W critics at the unscaled noise (scaled as in update_noise_critic)."""
         obs = th.as_tensor(observation, device=self.device, dtype=th.float32)
-        w = th.tensor(self.policy.scale_action(np.asarray(noise, np.float32))).to(self.device)
+        w = th.tensor(self.critic_in_w(np.asarray(noise, np.float32))).to(self.device)          # PORT-r8c: scale_action for "bound" (authors)
         return th.cat(self.critic_noise(obs, w), dim=1).min(1)[0].cpu().numpy()
 
     @th.no_grad()

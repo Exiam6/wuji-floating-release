@@ -53,23 +53,31 @@ def seed_all(seed: int) -> None:
 
 
 def build(seed: int, S_train: np.ndarray, pool_w: np.ndarray, pool_a: np.ndarray, device: str = "cuda", bound: float = BOUND,
-          fresh=None, pool=None):
+          fresh=None, pool=None, variant=None, learner=None):
     """The authors' DSRL-NA with their defaults. Noise critic fed from the per-view pool (PORT), or, with `fresh` (a
     FreshFlow), from fresh N(0, I) draws decoded at every noise-critic step, exactly as their update_noise_critic
     (noise_source "fresh"). `bound` is the action space's half-width.
     Release r7: `pool` (a poolmap.MappedPool, the same callable contract as hug2_adapter.PoolNoise) replaces the in-memory pool; pool_w and pool_a are then not read (pass None).
-    Nothing else about the learner changes."""
+    Nothing else about the learner changes.
+    Release r8c: `variant` (dsrl_cmd.variant_of: the noise map, the critic's input scale, the conservative penalty, the noise critic's heads) and `learner` (dsrl_cmd.learner_of: the opened
+    recipe constants learning_rate / gradient_steps / batch_size / noise_critic_grad_steps) are None for every r8b config, and then the call below is the r8b call, argument for argument."""
     seed_all(seed)
     S32 = np.asarray(S_train, np.float32)
     obs_dim = int(S32.shape[1])                       # r7a (--state): 64 for the shipped projected states (OBS_DIM, bit-identical to r7), 1,024 for the full pooled encoding
     lo, hi = -float(bound) * np.ones(ACT_DIM, np.float32), float(bound) * np.ones(ACT_DIM, np.float32)
+    kw = dict(learner or {})                          # r8c: empty for r8b configs
+    if variant:
+        if variant["noise_param"] != "box":           # r8c: every non-box map has the action space Box(-1, 1); the bound enters only as b of the anchored / sphere-anchored maps
+            lo, hi = -np.ones(ACT_DIM, np.float32), np.ones(ACT_DIM, np.float32)
+        kw.update(noise_param=variant["noise_param"], anchor=variant["anchor"], steer_bound=float(bound), max_angle=variant["max_angle"],
+                  critic_input_scale=variant["critic_input_scale"], critic_penalty=variant["critic_penalty"], n_noise_critics=variant["n_noise_critics"])
     if fresh is not None:
-        return dsrl_port.DSRL(obs_dim, lo, hi, fresh, (1, ACT_DIM), device=device, noise_source="fresh")    # PORT: the decoder
+        return dsrl_port.DSRL(obs_dim, lo, hi, fresh, (1, ACT_DIM), device=device, noise_source="fresh", **kw)    # PORT: the decoder
     if pool is not None:
-        return dsrl_port.DSRL(obs_dim, lo, hi, hug2_adapter.NoDiffusionCall(), (1, ACT_DIM), device=device, noise_source="pool", noise_pool=pool)   # PORT (r7: mapped pool)
+        return dsrl_port.DSRL(obs_dim, lo, hi, hug2_adapter.NoDiffusionCall(), (1, ACT_DIM), device=device, noise_source="pool", noise_pool=pool, **kw)   # PORT (r7: mapped pool)
     return dsrl_port.DSRL(obs_dim, lo, hi, hug2_adapter.NoDiffusionCall(), (1, ACT_DIM), device=device,
                           noise_source="pool",                                                   # PORT
-                          noise_pool=hug2_adapter.PoolNoise(np.asarray(pool_w, np.float32), np.asarray(pool_a, np.float32), S32, device))
+                          noise_pool=hug2_adapter.PoolNoise(np.asarray(pool_w, np.float32), np.asarray(pool_a, np.float32), S32, device), **kw)
 
 
 def add(model, S_rows, A_rows, R) -> int:
@@ -121,11 +129,14 @@ def save(model, path) -> None:
                  critic_opt=model.critic.optimizer.state_dict(), critic_noise_opt=model.critic_noise.optimizer.state_dict(),
                  log_ent_coef=model.log_ent_coef.detach().cpu(), ent_opt=model.ent_coef_optimizer.state_dict(), n_updates=model._n_updates,
                  np_rng=np.random.get_state(), th_rng=th.get_rng_state(), py_rng=random.getstate(),
-                 cuda_rng=th.cuda.get_rng_state_all() if th.cuda.is_available() else None), path)
+                 cuda_rng=th.cuda.get_rng_state_all() if th.cuda.is_available() else None,
+                 **({"r8c_variant": model.variant_record()} if model.variant_record() else {})), path)      # r8c: the variant a read-out must rebuild (absent for every r8b learner)
 
 
 def load(model, path) -> None:
     z = th.load(path, map_location="cpu", weights_only=False)        # RNG states must stay CPU ByteTensors
+    if z.get("r8c_variant", {}) != model.variant_record():           # r8c: a checkpoint is loaded only into the learner it was trained as
+        raise SystemExit(f"{path} was trained with the steering variant {z.get('r8c_variant') or 'r8b (none)'}; this learner is {model.variant_record() or 'r8b (none)'}")
     model.actor.load_state_dict(z["actor"])
     model.critic.load_state_dict(z["critic"])
     model.critic_target.load_state_dict(z["critic_target"])

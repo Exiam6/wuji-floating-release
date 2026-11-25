@@ -10,6 +10,7 @@
   python code/wf.py decode run|make-jobs|check ...                                   job type 2: GPU prior decode (HUG2 / HUG1 / 50k)
   python code/wf.py rollout verify|run|compare|check|slice ...                       job type 3: CPU rollouts, the evaluation that follows them (no GPU)
   python code/wf.py census plan|decode|roll|finish|run|status|selftest ...           job type 4: the training-set (census) builder for a shard of qualified objects
+  python code/wf.py online l1|train|status ...                                        job type 5: online learner on stored views (the authors' online loop)
   python code/wf.py pack-results --folder DIR                                        SHA256SUMS + PACK.json + RETURN.json for sending results back (`batch pack` calls it)
 
 The asset root (the folder that holds evaluator/, mano/, assets/, ckpt/ ...) is --assets PATH (a top-level option: write it right after
@@ -122,7 +123,7 @@ def build_parser() -> argparse.ArgumentParser:
     q.add_argument("--inputs", required=True, help="input set json")
     q.add_argument("--out", required=True, help="output folder (new)")
     q.add_argument("--normrand-key", choices=["index", "unit"], default="index", help="r7a, arm normrand: how its random direction is keyed: index (default, the position of the unit in the prep: the r7 behaviour) or unit (a number derived from the unit's id, the same direction for the same unit at every training-set size)")
-    q.add_argument("--arms", default="own,stoch,normrand", help="own, stoch, normrand (a trained actor); r7: zero (noise 0), prior (one seeded N(0, I) draw per unit), const (--const-file), file (--noise-file); a read-out of zero / prior / const only needs --train-out to hold a config.json, of file alone only --prior")
+    q.add_argument("--arms", default="own,stoch,normrand", help="own, stoch, normrand (a trained actor); r8c: rerank32, rerank8, swap_obs, frozen_obs, mean_obs, lib4, lib8 (read a trained checkpoint, docs/STEERING_VARIANTS.md); r7: zero (noise 0), prior (one seeded N(0, I) draw per unit), const (--const-file), file (--noise-file); a read-out of zero / prior / const only needs --train-out to hold a config.json, of file alone only --prior")
     q.add_argument("--const-file", default=None, help="r7, arm const: a 99-vector (.npy, or .npz) decoded at every unit")
     q.add_argument("--noise-file", default=None, help="r7, arm file: an npz with `ids` (the read-out units) and `noise` (n, 99), one noise per unit; every read-out unit exactly once, nothing else")
     q.add_argument("--forbidden-ids", default=None, help="r7, arm file: the forbidden-id file (held-out objects) the noise file's retrieval pool `train_ids` is checked against; needs --forbidden-ids-sha256")
@@ -130,6 +131,14 @@ def build_parser() -> argparse.ArgumentParser:
     q.add_argument("--sets", default=None, help="only units of these readout sets (comma list of 0 / 1 / 2: training inputs, unseen configurations, unseen objects)")
     q.add_argument("--store", default=None, help="input store folder (default: <assets>/inputs/input_store)")
     q.add_argument("--device", default="cuda")
+    q.add_argument("--checkpoint", type=int, default=None, help="r8c: read the checkpoint at this many calls (<train-out>/checkpoints/<calls>/, written by checkpoint_every) instead of the endpoint")
+    q.add_argument("--census-noise", choices=["shared", "fresh", "fresh64"], default=None, help="r8c, arms rerank32 / rerank8: the label-noise rule of the census of these inputs (their K candidates are its draws 0..K-1)")
+    q.add_argument("--census-base-seed", type=int, default=None, help="r8c, rerank arms: the census base seed (default: the census builder's, 20261116)")
+    q.add_argument("--library-file", default=None, help="r8c, arms lib4 / lib8: the constant library made by `wf.py dsrl library`")
+    lb = ss.add_parser("library", help="r8c: a library of K constants (greedy coverage) from searched-constant folders, for the read-out arms lib4 / lib8")
+    lb.add_argument("--search", required=True, help="comma list of search folders (each with g<k>_decode/noises.npy and g<k>_update/labels.npz)")
+    lb.add_argument("--k", type=int, default=8)
+    lb.add_argument("--out", required=True, help="the library file to write (.npz, new)")
     k = ss.add_parser("check", help="the port's exactness tests (CPU) and a short training run (GPU) against the reference")
     k.add_argument("--out", required=True)
     k.add_argument("--device", default="cuda")
@@ -226,6 +235,8 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--no-canaries", action="store_true", help="pack results whose jobs file has no known-answer jobs (the pack records the waiver and our verifier rejects it)")
     from wf_lib import census_cmd
     census_cmd.add_parser(sub)
+    from wf_lib import online_parser          # light: argparse only (the code of the command is imported when `online` runs)
+    online_parser.add_parser(sub)
     return ap
 
 
@@ -282,6 +293,9 @@ def main(argv=None) -> int:
     if a.group == "census":
         from wf_lib import census_cmd
         return census_cmd.main(a)
+    if a.group == "online":
+        from wf_lib import online_cmd
+        return online_cmd.main(a)
     if a.group == "fingerprint":
         from wf_lib import batch_cmd
         return batch_cmd.fingerprint(a)
