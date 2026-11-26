@@ -165,5 +165,20 @@
   "sha256": "1ff237394162bc6d698650caa489f29e032d67475dcdb0ed119471529e404a85",
   "bytes": 23128,
   "rows": 200
+ },
+ "hands22/jobs_ref200_wuji22.npz": {
+  "source": "census relabel 20261121 (Wuji Hand 2.2, wuji22-float-p2, 200 of 23,712 rows): jobs",
+  "source_sha256": "2fad2953218037f59f7aab883fc2f569d7231b07843a5be1fd14212df1b4be7e",
+  "sha256": "2fad2953218037f59f7aab883fc2f569d7231b07843a5be1fd14212df1b4be7e",
+  "bytes": 303668,
+  "rows": 200
+ },
+ "hands22/expected_ref200_wuji22-float-p2.npz": {
+  "source": "census relabel 20261121 (Wuji Hand 2.2, wuji22-float-p2, 200 of 23,712 rows): results, protocol digest re-pinned to the release's",
+  "source_sha256": "6dd144e3509de777deac0a106ea0b3d1db8ec85baab055051d9b13d7cddcad3f",
+  "sha256": "b8516f3b17e700d7c2f92e2aca2ab91087d091291c7893ff8ccc043e7618a432",
+  "bytes": 91928,
+  "rows": 200,
+  "success_native": 88
  }
 }

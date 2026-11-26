@@ -693,6 +693,47 @@
     }
    ],
    "manifest_sha256": "3dbd95c11b9a57001758da1c2b7762c97a52836c213169f316420af13b941997"
+  },
+  "hands22": {
+   "title": "Robot-hand model Wuji Hand 2.2 (glove variant), release r8f",
+   "status": "openly licensed",
+   "delivered": false,
+   "delivery": "with the batch that uses it (hands22_part.tar in batches/ex409_wuji22/ of the project's dataset repository); not in the public asset tarballs",
+   "files": 56,
+   "bytes": 3403998,
+   "manifest": "asset_manifests/hands22.sha256",
+   "manifest_sha256": "c759a03cc9f640d94ddfd8784d36720b5287d6dab69915fcf9ec26f48194bb05",
+   "needed_for": [
+    "cpu_rollouts and census with wuji22-float-p2"
+   ],
+   "components": [
+    {
+     "name": "Wuji Hand 2.2 (glove) URDF and meshes",
+     "path": "hand_models/assets/robot_description/hands/multihand/wuji22/",
+     "what": "the URDF (the hand on the xArm 7's kinematic chain), the right hand's collision meshes, the self-collision policy, SOURCES.json",
+     "source": "https://github.com/wuji-technology/wuji-description commit 5c4dfa16917355d073e2e1d7e3d03897b6cf9508 (hand2/hand2_2, with glove); arm kinematics https://github.com/xArm-Developer/xarm_ros commit aad7e1611c9c46eb719045414394bfdd42dcb0f8 (xarm_description)",
+     "licence": "MIT (hand); BSD-3-Clause (arm kinematics)",
+     "notice": "Copyright (c) 2025 Wuji Technology; Copyright (c) 2018, UFACTORY Inc.",
+     "licence_text": "wuji22/licenses/ in the part, and LICENSES/wuji-description-MIT.txt, LICENSES/xarm_description-BSD-3-Clause.txt in the release"
+    },
+    {
+     "name": "Hand 2.2 actuator recipe",
+     "path": "hand_models/assets/robot_description/hands/multihand/wuji22/recipes/wuji_hand2_actuators.yaml",
+     "what": "the vendor's identified Hand 2 actuator model at the deployed gains (kp, kd, current limit, damping, frictionloss, armature)",
+     "source": "https://github.com/wuji-technology/wuji-mjlab commit b2b98d7054a8d1b0f5cf295d5acaebc4358bc6a9 (pen_spin hand2_constants.py)",
+     "licence": "Apache-2.0",
+     "notice": "Copyright 2026 Wuji Technology Co., Ltd.",
+     "licence_text": "licences/wuji-mjlab-LICENSE.txt and licences/wuji-mjlab-NOTICE.txt (asset part `licences`)"
+    },
+    {
+     "name": "Floating Hand 2.2 MJCF",
+     "path": "hand_models/assets/robot_description/hands/multihand/wuji22_float/",
+     "what": "the MJCF converted from the URDF by code/tools/float_wuji22/model22.py (hand only) and its SOURCE.json",
+     "source": "this project",
+     "licence": "MIT (this project), made from the files above under their licences",
+     "licence_text": "LICENSE.txt"
+    }
+   ]
   }
  },
  "attribution": [

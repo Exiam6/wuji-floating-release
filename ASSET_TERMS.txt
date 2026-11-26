@@ -48,3 +48,5 @@ Attribution (required by the licences above):
 The full table, with what each part holds: ASSETS.md and assets.json in the code release.
 
 Revision r8 (object-frame HUG2 prior), parts hug2obj_100k, hug2obj_50k, hug2obj_15k: the model's authors' checkpoint, MIT (their copyright notice: LICENSES/hug2obj-source-LICENSE.txt); their code is integrated in code/tools/float/objframe/ (LICENSE there); status: granted by the model authors (relayed 2026-11-25); MIT, as their repository says.
+
+Revision r8f (Wuji Hand 2.2), part hands22: the hand's URDF and meshes are wuji-description's, MIT, Copyright (c) 2025 Wuji Technology (LICENSES/wuji-description-MIT.txt); the arm kinematics in the URDF are xarm_description's, BSD-3-Clause, Copyright (c) 2018, UFACTORY Inc. (LICENSES/xarm_description-BSD-3-Clause.txt); the actuator numbers are wuji-mjlab's, Apache-2.0 (licences/wuji-mjlab-LICENSE.txt, -NOTICE.txt); the converted MJCF and the source records are this project's (MIT).

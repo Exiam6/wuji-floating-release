@@ -68,7 +68,7 @@ for _m in (native, base_protocol, records, rollout):
     if CODE not in Path(_m.__file__).resolve().parents:
         raise SystemExit(f"{_m.__name__} was imported from {_m.__file__}, not from this release's {CODE}")
 
-MANO, HANDS, WUJI1 = "mano", "hands", "wuji1"
+MANO, HANDS, WUJI1, WUJI22 = "mano", "hands", "wuji1", "wuji22"     # r8f: wuji22 = the floating Wuji Hand 2.2 (tools/float_wuji22, asset part `hands22`)
 INT_FIELDS = ("success_native", "success_strict_v1", "sim_valid", "stage_code", "prelift_fingers_n", "final_fingers_n", "final_thumb",
               "final_palm", "prelift_finger_mask", "final_finger_mask", "init_contacts", "prelift_contacts", "final_contacts",
               "lift_min_contacts", "badqacc_warnings", "n_steps", "fit_nfev")
@@ -91,6 +91,8 @@ def family_of(name: str) -> str:
         raise SystemExit(f"wf: no protocol {name!r}; available: {', '.join(protocol_names())}")
     if name == "wuji1-float-p1":
         return WUJI1
+    if name.startswith("wuji22-float-"):
+        return WUJI22
     return HANDS if "hand_name" in json.loads(path.read_text()) else MANO
 
 
@@ -112,6 +114,11 @@ def verify(name: str, layout: paths.Layout, release_check: bool = True) -> dict:
         elif fam == WUJI1:
             from tools.float_wuji import protocol_wuji as P
             proto = P.load()
+            stamp = P.stamp(proto)
+        elif fam == WUJI22:
+            from tools.float_wuji22 import protocol22 as P
+            version = name.rsplit("-", 1)[1]
+            proto = P.load(version, root=CODE)
             stamp = P.stamp(proto)
         else:
             proto = base_protocol.load(name)
@@ -183,13 +190,29 @@ def verify(name: str, layout: paths.Layout, release_check: bool = True) -> dict:
             if sha256_file(layout.retargeter / P.RT_CONFIG) != proto["retargeter"]["config_sha256"]:
                 problems.append("retargeter config differs from the protocol")
             extra = {"retargeter_files_shipped": len(shipped)}
+    elif fam == WUJI22:
+        hand_files = P.hand_files(CODE) if (CODE / P.SRC).is_dir() else {}
+        if hand_files != proto["hand"]:
+            problems.append(f"Wuji Hand 2.2 model files differ from the protocol ({len(set(hand_files.items()) ^ set(proto['hand'].items()))} entries); "
+                            f"unpack the `hands22` asset part into the asset root and run `wf.py assets link-hands`")
+        rt = {rel: _sha_or_none(CODE / rel) for rel in P.RETARGETER_FILES}
+        if rt != proto["retargeter"]["files"]:
+            problems.append("retargeter files differ from the protocol: " + ", ".join(r for r in rt if rt[r] != proto["retargeter"]["files"].get(r)))
+        if not problems:
+            if P.drive_parameters(version) != proto["drive"]:
+                problems.append("the drive parameters of tools/float_wuji22 differ from the protocol's")
+            from tools.float_wuji22 import model22
+            chk = model22.check()
+            if not chk["pass"]:
+                problems.append(f"the stored Wuji Hand 2.2 MJCF is not a fresh conversion of its inputs: {chk}")
+        extra = {"hand": P.HAND, "version": version, "hand_files": len(hand_files), "retargeter_files": len(rt)}
     import mujoco
     if mujoco.__version__ != bproto["evaluator"]["mujoco"]:
         problems.append(f"mujoco {mujoco.__version__} != {bproto['evaluator']['mujoco']}")
     release = manifest.check_release() if release_check else {"pass": True, "skipped": True}
     if not release["pass"]:
         problems += [f"release folder: {p}" for p in release["problems"]]
-    parts = ["core", "mano"] + (["hands"] if fam != MANO else [])
+    parts = ["core", "mano"] + ({MANO: [], WUJI22: ["hands22"]}.get(fam, ["hands"]))
     assets = manifest.check_parts(layout.root, parts)
     for part, rep in assets.items():
         if not rep["pass"]:
@@ -290,6 +313,29 @@ def make_hand_pool(workers: int, layout: paths.Layout, name: str, nice: int):
                                               initargs=(str(shim), str(work), hand, int(nice), P.gravity_compensation(proto), P.wrist_rule(proto)))
 
     return HandPool()
+
+
+def make_wuji22_pool(workers: int, layout: paths.Layout, name: str, nice: int):
+    """r8f: tools/float_wuji22/rollout22's workers (HandHarness22: tools/float_hands/rollout_hand.run_job with the Hand 2.2), its `run` unchanged."""
+    from tools.float_wuji22 import protocol22 as P
+    from tools.float_wuji22 import rollout22
+
+    class Wuji22Pool(HandPoolBase):
+        run = rollout22.HandPool22.run
+
+        def __init__(self):
+            self._tmp = tempfile.TemporaryDirectory(prefix="wf_roll_wuji22_")
+            work = Path(self._tmp.name)
+            shim = work / "shim"
+            native.make_shim(shim, layout.evaluator)
+            os.environ["FLOAT_EVALUATOR_CHECKOUT"] = str(layout.evaluator)      # hand_eval: the MANO shape file
+            os.environ["FLOAT_MANO_ASSETS"] = str(layout.mano)                  # hand_eval: the MANO layer
+            proto = P.load(name.rsplit("-", 1)[1], root=CODE)
+            self.stamp = P.stamp(proto)
+            self._ex = cf.ProcessPoolExecutor(max_workers=int(workers), initializer=rollout22._init22,
+                                              initargs=(str(shim), str(work), int(nice), P.gravity_compensation(proto), P.wrist_rule(proto)))
+
+    return Wuji22Pool()
 
 
 def make_wuji_pool(workers: int, layout: paths.Layout, name: str, nice: int):
@@ -428,6 +474,8 @@ def run(a, layout: paths.Layout) -> int:
             pool_cm = ManoPool(a.workers, layout, name, nice=a.nice)
         elif fam == HANDS:
             pool_cm = make_hand_pool(a.workers, layout, name, a.nice)
+        elif fam == WUJI22:
+            pool_cm = make_wuji22_pool(a.workers, layout, name, a.nice)
         else:
             pool_cm = make_wuji_pool(a.workers, layout, name, a.nice)
         with pool_cm as pool:
@@ -446,7 +494,7 @@ def run(a, layout: paths.Layout) -> int:
     cpu["total"] = round(cpu["runner"] + cpu["workers"], 1)
     ms = [None] * len(jobs)
     october = np.zeros(len(jobs), np.int64)
-    extra = {f: np.zeros(len(jobs), np.float64) for f in HAND_EXTRA_FIELDS} if fam == HANDS else {}
+    extra = {f: np.zeros(len(jobs), np.float64) for f in HAND_EXTRA_FIELDS} if fam in (HANDS, WUJI22) else {}
     for k, r in zip(live, res):
         if r.get("key") != jobs[k]["key"]:
             raise SystemExit(f"result order differs from job order at job {k}")

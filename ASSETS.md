@@ -77,3 +77,7 @@ The bundle is the 81,034 delivered files (23.23 GB) in the layout `code/wf_lib/p
 ## Revision r8: the object-frame HUG2 prior
 
 Added parts (data, delivered with the batch that uses them, not in the public tarballs above; licence status: granted by the model authors (relayed 2026-11-25); MIT, as their repository says): `hug2obj_100k`, `hug2obj_50k`, `hug2obj_15k`. Sizes and hashes: `asset_manifests/<part>.sha256`; details: `docs/HUG2OBJ.md`.
+
+## Revision r8f: the Wuji Hand 2.2
+
+Added part `hands22` (56 files, 3.4 MB; delivered with the batch that uses it, not in the public tarballs above): the Wuji Hand 2.2 (glove variant) for protocol `wuji22-float-p2`, below `hand_models/assets/robot_description/hands/multihand/wuji22` and `wuji22_float`. Unpack it into the asset root and run `python code/wf.py assets link-hands`. Licences: MIT (Wuji Technology, wuji-description) for the hand, BSD-3-Clause (UFACTORY, xarm_description) for the arm kinematics the URDF keeps, Apache-2.0 (Wuji Technology, wuji-mjlab) for the actuator numbers. Hashes: `asset_manifests/hands22.sha256`; details: `docs/R8F.md`.

@@ -242,5 +242,296 @@
   "base": "r8d",
   "tag": "wf-20261126-r8e",
   "note": "see docs/R8E.md: optional census --protocol (absent = r8d, bit for bit)"
+ },
+ "r8f": {
+  "base": "r8e",
+  "tag": "wf-20261126-r8f",
+  "source_commit": "13b1935a6db60e520536bca6edc0f38739b6a815",
+  "note": "see docs/R8F.md: the floating Wuji Hand 2.2 (protocol wuji22-float-p2, asset part hands22)",
+  "copied_files": {
+   "code/tools/float_wuji22/__init__.py": {
+    "source": "tools/float_wuji22/__init__.py",
+    "sha256": "2cc319371b24a34916c4b2bddc310530e1765547f2a03607a87dd0ae1ec0d245",
+    "edited": false
+   },
+   "code/tools/float_wuji22/model22.py": {
+    "source": "tools/float_wuji22/model22.py",
+    "sha256": "ea8e6931eef01a8427e5ac6020fe8bae5f8b17e51a65bb3000c13aa785c96a0c",
+    "edited": false
+   },
+   "code/tools/float_wuji22/spec22.py": {
+    "source": "tools/float_wuji22/spec22.py",
+    "sha256": "c5d1645128ccc2aaf84ed1c91261ac6c370ea167e3a6144c850e83a76f28ffbb",
+    "edited": false
+   },
+   "code/tools/float_wuji22/hand_eval22.py": {
+    "source": "tools/float_wuji22/hand_eval22.py",
+    "sha256": "9a8fa8079815223ff21c10c0bdca93ece5897f77a7436f586fee3693ae5f1608",
+    "edited": true,
+    "source_sha256": "df166dd303af70ad0ae7e5c68a7589c44585cb66ac9d4253e0806adba757801b",
+    "edit": "one comment: a person's name replaced by a description (a digest-pinned file: the protocol carries the sha256 of this copy and its new digest)"
+   },
+   "code/tools/float_wuji22/rollout22.py": {
+    "source": "tools/float_wuji22/rollout22.py",
+    "sha256": "771c37d640dcdd33ca3a271fb1569792850c4141a56359c138ef1911451ecd8c",
+    "edited": false
+   },
+   "code/tools/float_wuji22/protocol22.py": {
+    "source": "tools/float_wuji22/protocol22.py",
+    "sha256": "c836243a88ab8e0ff051d203aca9a9aeaeb75d8772dfdd461d42454dad13b711",
+    "edited": true,
+    "source_sha256": "96a86e9a264dafe7fe6f45acae989a99ba563c1086a576f9d38c03a796c3efb6",
+    "edit": "write() and main() (they write protocol files from our machines) and the docstring's usage lines removed; role wording replaced"
+   }
+  },
+  "hand_files": {
+   "assets/robot_description/hands/multihand/wuji22/SOURCES.json": {
+    "source_sha256": "4a205e83a9e7131f4e1e021deccb94a119427e4aa56c188a1897c584634ae5a7",
+    "sha256": "819463e727bfc5fac0f06156249f3023f5b68c3638b6fa805083d1e1f2da2cc1"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_adductor_pollicis_cover.stl": {
+    "source_sha256": "35f99a0f3a7b56cefb3693565853aa88d36aa29d4d0291abcb4fb29295e19727",
+    "sha256": "35f99a0f3a7b56cefb3693565853aa88d36aa29d4d0291abcb4fb29295e19727"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_hypothenar_cover.stl": {
+    "source_sha256": "08b14fdc07bbd9c7d79b436b1267020b6a761df52a57c1cbd3972c01a579610d",
+    "sha256": "08b14fdc07bbd9c7d79b436b1267020b6a761df52a57c1cbd3972c01a579610d"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_index_finger_distal.stl": {
+    "source_sha256": "ce3e115789668c74758b2cfc2510bb0707eaad31fea7b790995eae4b9eb20ade",
+    "sha256": "ce3e115789668c74758b2cfc2510bb0707eaad31fea7b790995eae4b9eb20ade"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_index_finger_middle.stl": {
+    "source_sha256": "a8d3a30fb948e443ff131d9ce5b7b704a231262faa9f208deba604384eba5594",
+    "sha256": "a8d3a30fb948e443ff131d9ce5b7b704a231262faa9f208deba604384eba5594"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_index_finger_middle_cover.stl": {
+    "source_sha256": "c3bb3b4b136478312f60504c1f0f89cbb36bb76310ea637f774f6b5dec7fb34d",
+    "sha256": "c3bb3b4b136478312f60504c1f0f89cbb36bb76310ea637f774f6b5dec7fb34d"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_index_finger_proximal.stl": {
+    "source_sha256": "129ac84880ef57515c169bdefe0475fb4c65d662f52817d78a3c0f21196d7041",
+    "sha256": "129ac84880ef57515c169bdefe0475fb4c65d662f52817d78a3c0f21196d7041"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_index_finger_proximal_abd.stl": {
+    "source_sha256": "9e732a5b04e94383a4cb903976bdf751657e5a616b300ccc7292c6d4108ed57c",
+    "sha256": "9e732a5b04e94383a4cb903976bdf751657e5a616b300ccc7292c6d4108ed57c"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_index_finger_proximal_abd_cover.stl": {
+    "source_sha256": "a784df1c863a4dc67b6e07c76ee73be071c22b2410db0f5c20c6dbc8625ab75f",
+    "sha256": "a784df1c863a4dc67b6e07c76ee73be071c22b2410db0f5c20c6dbc8625ab75f"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_index_finger_tip_sensor_frame.stl": {
+    "source_sha256": "b58f93f7a5f1cad5792d58f14082f3a9fcda8431eff5597986e269444701b603",
+    "sha256": "b58f93f7a5f1cad5792d58f14082f3a9fcda8431eff5597986e269444701b603"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_index_palm_cover.stl": {
+    "source_sha256": "64f20391495f2d380d3466614bbb952adfc355fdb89983d13d24331fc1b656b9",
+    "sha256": "64f20391495f2d380d3466614bbb952adfc355fdb89983d13d24331fc1b656b9"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_middle_finger_distal.stl": {
+    "source_sha256": "ce3e115789668c74758b2cfc2510bb0707eaad31fea7b790995eae4b9eb20ade",
+    "sha256": "ce3e115789668c74758b2cfc2510bb0707eaad31fea7b790995eae4b9eb20ade"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_middle_finger_middle.stl": {
+    "source_sha256": "771d2174ca1a79f1475b7d2708606d7d24bc79db79771f909b01ab41c8e202ae",
+    "sha256": "771d2174ca1a79f1475b7d2708606d7d24bc79db79771f909b01ab41c8e202ae"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_middle_finger_middle_cover.stl": {
+    "source_sha256": "c3bb3b4b136478312f60504c1f0f89cbb36bb76310ea637f774f6b5dec7fb34d",
+    "sha256": "c3bb3b4b136478312f60504c1f0f89cbb36bb76310ea637f774f6b5dec7fb34d"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_middle_finger_proximal.stl": {
+    "source_sha256": "4ae6386aaa228303f3dbd6711b0d09e56b8469d6afce98d9e9b90c3b5641896d",
+    "sha256": "4ae6386aaa228303f3dbd6711b0d09e56b8469d6afce98d9e9b90c3b5641896d"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_middle_finger_proximal_abd.stl": {
+    "source_sha256": "e82fddfbaec0fee496b335bf190e05655463bc60f40743668e4c7aac0390d45f",
+    "sha256": "e82fddfbaec0fee496b335bf190e05655463bc60f40743668e4c7aac0390d45f"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_middle_finger_proximal_abd_cover.stl": {
+    "source_sha256": "50c5f640fae9f6243d8e5c11a731bdcc19c493f93d629fc3c3c35fe5ee35aac3",
+    "sha256": "50c5f640fae9f6243d8e5c11a731bdcc19c493f93d629fc3c3c35fe5ee35aac3"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_middle_finger_tip_sensor_frame.stl": {
+    "source_sha256": "b58f93f7a5f1cad5792d58f14082f3a9fcda8431eff5597986e269444701b603",
+    "sha256": "b58f93f7a5f1cad5792d58f14082f3a9fcda8431eff5597986e269444701b603"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_middle_palm_cover.stl": {
+    "source_sha256": "7ecc363065ee42624c4d852f933c5875d33b1d145762d403896853fbf932fea1",
+    "sha256": "7ecc363065ee42624c4d852f933c5875d33b1d145762d403896853fbf932fea1"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_midpalm_cover.stl": {
+    "source_sha256": "ee439d6c297204f24a6a0a35fc34d4b3108f63071686919ff7f9614259e2cb3b",
+    "sha256": "ee439d6c297204f24a6a0a35fc34d4b3108f63071686919ff7f9614259e2cb3b"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_mount.stl": {
+    "source_sha256": "d422f99d40b0964795392ab2aaa11d4d2f559521d6daa1452bcd9cc516fa4da9",
+    "sha256": "d422f99d40b0964795392ab2aaa11d4d2f559521d6daa1452bcd9cc516fa4da9"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_palm_index_cover.stl": {
+    "source_sha256": "39027af70966aee926799f79e67e884a95cfd407424c844e49c6c2669478bfd4",
+    "sha256": "39027af70966aee926799f79e67e884a95cfd407424c844e49c6c2669478bfd4"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_palm_middle_cover.stl": {
+    "source_sha256": "9f4a2be2322f6a060beeb0763adc2a651485b386ac295952d1557ae8f1fdbb01",
+    "sha256": "9f4a2be2322f6a060beeb0763adc2a651485b386ac295952d1557ae8f1fdbb01"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_palm_ring_cover.stl": {
+    "source_sha256": "2c1f3e8954b0607d9cddbadb43e55290a10389c49d0d3f0b9fa1591c33ed0e98",
+    "sha256": "2c1f3e8954b0607d9cddbadb43e55290a10389c49d0d3f0b9fa1591c33ed0e98"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_pinky_distal.stl": {
+    "source_sha256": "7316e024d221b53ac6403a664c4f00e3488daaeb7b372211f30785248c068263",
+    "sha256": "7316e024d221b53ac6403a664c4f00e3488daaeb7b372211f30785248c068263"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_pinky_middle.stl": {
+    "source_sha256": "aa7255ac65b9a2bdc93c62a4d9f801861506391a869d8990c9ea227d3504ba03",
+    "sha256": "aa7255ac65b9a2bdc93c62a4d9f801861506391a869d8990c9ea227d3504ba03"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_pinky_middle_cover.stl": {
+    "source_sha256": "b13b68fb4d3597e21e343cab7f30ddb0651b754c58fce51a49e781fb3a11e508",
+    "sha256": "b13b68fb4d3597e21e343cab7f30ddb0651b754c58fce51a49e781fb3a11e508"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_pinky_proximal.stl": {
+    "source_sha256": "6dfb20afa2c5e2b088b05b3ee742a05a0e8058bcdcfd5817eb77f2436c332ad5",
+    "sha256": "6dfb20afa2c5e2b088b05b3ee742a05a0e8058bcdcfd5817eb77f2436c332ad5"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_pinky_proximal_abd.stl": {
+    "source_sha256": "49399b3781443aeba19a743f96b72a7c34e565d1f4a3d67b8f313a0fef4456a7",
+    "sha256": "49399b3781443aeba19a743f96b72a7c34e565d1f4a3d67b8f313a0fef4456a7"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_pinky_proximal_abd_cover.stl": {
+    "source_sha256": "02b012b14d09e4ee26529c99ef3fc2adfcd691d2db003c80d884ee68d4d0a21d",
+    "sha256": "02b012b14d09e4ee26529c99ef3fc2adfcd691d2db003c80d884ee68d4d0a21d"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_pinky_proximal_cover.stl": {
+    "source_sha256": "e2f50799deeb31a77b05bf5dbe4d72cb517a951b60a8099eb214e6c34ff4e211",
+    "sha256": "e2f50799deeb31a77b05bf5dbe4d72cb517a951b60a8099eb214e6c34ff4e211"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_pinky_tip_sensor_frame.stl": {
+    "source_sha256": "e4f0ed54b15e66cf64292c69d4dfa73ca6389bd967ae7cd348ea8ca1d0f124fd",
+    "sha256": "e4f0ed54b15e66cf64292c69d4dfa73ca6389bd967ae7cd348ea8ca1d0f124fd"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_ring_finger_distal.stl": {
+    "source_sha256": "ce3e115789668c74758b2cfc2510bb0707eaad31fea7b790995eae4b9eb20ade",
+    "sha256": "ce3e115789668c74758b2cfc2510bb0707eaad31fea7b790995eae4b9eb20ade"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_ring_finger_middle.stl": {
+    "source_sha256": "eb7f3da86459fba05095b10799cc44c8099f438c75bd261ac28f84cd669143ac",
+    "sha256": "eb7f3da86459fba05095b10799cc44c8099f438c75bd261ac28f84cd669143ac"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_ring_finger_middle_cover.stl": {
+    "source_sha256": "c3bb3b4b136478312f60504c1f0f89cbb36bb76310ea637f774f6b5dec7fb34d",
+    "sha256": "c3bb3b4b136478312f60504c1f0f89cbb36bb76310ea637f774f6b5dec7fb34d"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_ring_finger_proximal.stl": {
+    "source_sha256": "42ce23d044774073efd5fd64189221e801118d1dafbb98e09229338ab22efef6",
+    "sha256": "42ce23d044774073efd5fd64189221e801118d1dafbb98e09229338ab22efef6"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_ring_finger_proximal_abd.stl": {
+    "source_sha256": "f314882181fa049c47d3b0eb93d35eebce6fb3be45224c53232246b1143cc356",
+    "sha256": "f314882181fa049c47d3b0eb93d35eebce6fb3be45224c53232246b1143cc356"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_ring_finger_proximal_abd_cover.stl": {
+    "source_sha256": "eb6b5d0a4f690e87f6008a8cdffeac30fe548d355f8b824b7b8f652ac6914378",
+    "sha256": "eb6b5d0a4f690e87f6008a8cdffeac30fe548d355f8b824b7b8f652ac6914378"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_ring_finger_tip_sensor_frame.stl": {
+    "source_sha256": "b58f93f7a5f1cad5792d58f14082f3a9fcda8431eff5597986e269444701b603",
+    "sha256": "b58f93f7a5f1cad5792d58f14082f3a9fcda8431eff5597986e269444701b603"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_ring_palm_cover.stl": {
+    "source_sha256": "693a89a7fce0ab78152ebcbb4d352e8687b5e260b1ae4eb21f1e61ce141360c2",
+    "sha256": "693a89a7fce0ab78152ebcbb4d352e8687b5e260b1ae4eb21f1e61ce141360c2"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_thenar_cover.stl": {
+    "source_sha256": "a52c6bb903147ab5857ba366a94926c8b4a1d5f34f3b53aa10c24dba01b6f85f",
+    "sha256": "a52c6bb903147ab5857ba366a94926c8b4a1d5f34f3b53aa10c24dba01b6f85f"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_thumb_distal.stl": {
+    "source_sha256": "7fa09a06d57b6438f06b3203565216b4c038bebb6bd7473518db91ed72f523f6",
+    "sha256": "7fa09a06d57b6438f06b3203565216b4c038bebb6bd7473518db91ed72f523f6"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_thumb_middle.stl": {
+    "source_sha256": "217ef63597c7d34afc896b9a06c58075014e7ababdbb93fbb95db8bca1a142fc",
+    "sha256": "217ef63597c7d34afc896b9a06c58075014e7ababdbb93fbb95db8bca1a142fc"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_thumb_middle_cover.stl": {
+    "source_sha256": "5c562ce794a714d78aacdda20f69cd15a2cbce0eabc3c43ee44c24d879ef2dbb",
+    "sha256": "5c562ce794a714d78aacdda20f69cd15a2cbce0eabc3c43ee44c24d879ef2dbb"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_thumb_palm_cover.stl": {
+    "source_sha256": "f3dc686738bb433013befc6729e38371db6dc2a11f7fafca41818154a9cb2d03",
+    "sha256": "f3dc686738bb433013befc6729e38371db6dc2a11f7fafca41818154a9cb2d03"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_thumb_proximal.stl": {
+    "source_sha256": "4c06541bf070526dd4be3dac049061b36a6a9d5a79c65624bced210bf781ee62",
+    "sha256": "4c06541bf070526dd4be3dac049061b36a6a9d5a79c65624bced210bf781ee62"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_thumb_proximal_abd.stl": {
+    "source_sha256": "76679ecddf0846040fdfd3f41b2c869c57faa81c61e7004f580baa5c51a2a4b9",
+    "sha256": "76679ecddf0846040fdfd3f41b2c869c57faa81c61e7004f580baa5c51a2a4b9"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_thumb_tip_sensor_frame.stl": {
+    "source_sha256": "26b8e30a79ef4f3935115200b8f4835f2450bbb2c31458af6d69e7cf233c4a38",
+    "sha256": "26b8e30a79ef4f3935115200b8f4835f2450bbb2c31458af6d69e7cf233c4a38"
+   },
+   "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_wrist.stl": {
+    "source_sha256": "a994218d0038abe700ea4ee4b4cfba4611a1a1629776704bb32f6eaba715395e",
+    "sha256": "a994218d0038abe700ea4ee4b4cfba4611a1a1629776704bb32f6eaba715395e"
+   },
+   "assets/robot_description/hands/multihand/wuji22/recipes/wuji_hand2_actuators.yaml": {
+    "source_sha256": "5a587a4bfc49cfb58012e1689cbbf7cf6cbefd3beb419cfd89eff3322f4b3281",
+    "sha256": "36fc47244398a304131dd4ed58aa6bf4549e6f5a89ca8b9f07e49af89c01874d"
+   },
+   "assets/robot_description/hands/multihand/wuji22/self_collision_right.json": {
+    "source_sha256": "e1991545436615790c50407374c61b30bfd10b2652f7fc9c59c4e96a82878be8",
+    "sha256": "e1991545436615790c50407374c61b30bfd10b2652f7fc9c59c4e96a82878be8"
+   },
+   "assets/robot_description/hands/multihand/wuji22/urdf/right.urdf": {
+    "source_sha256": "de7fd504ff2e326a05c34901022f1740b73b5cf73ca7469839b171b92be88b41",
+    "sha256": "de7fd504ff2e326a05c34901022f1740b73b5cf73ca7469839b171b92be88b41"
+   },
+   "assets/robot_description/hands/multihand/wuji22_float/SOURCE.json": {
+    "source_sha256": "19b070e216c54e4c3415f0f0488bcf207b9b6d9105cda45cf663ae3c7ee0b8d3",
+    "sha256": "364cc1ef55e95d02d55d99d59e0815a212419a6de3ca02db488f805348894505"
+   },
+   "assets/robot_description/hands/multihand/wuji22_float/mjcf/right_float.xml": {
+    "source_sha256": "0b0c1094428a9a3ef419639a5ac73b2a9a4650b91e0203a0bb99fa9e677d3a5d",
+    "sha256": "0b0c1094428a9a3ef419639a5ac73b2a9a4650b91e0203a0bb99fa9e677d3a5d"
+   }
+  },
+  "protocol": {
+   "name": "wuji22-float-p2",
+   "source_digest": "f555676b252697774905d3b831d525f7195f770537255c8be9b2b1d3d37b0ce0",
+   "digest": "9dea9c235e184cb26e3c1ff559d4361f3ca7cfc7a06523143df6ed7715868e95",
+   "repinned_paths": [
+    "/base/digest",
+    "/code/tools/float_hands/hand_eval.py",
+    "/code/tools/float_wuji22/hand_eval22.py",
+    "/hand/assets/robot_description/hands/multihand/wuji22/SOURCES.json",
+    "/hand/assets/robot_description/hands/multihand/wuji22/recipes/wuji_hand2_actuators.yaml",
+    "/hand/assets/robot_description/hands/multihand/wuji22_float/SOURCE.json",
+    "/wrist/sha256"
+   ],
+   "old_to_new": {
+    "498928cc7f7db3b6647f20e327ea1c54905b5b747efe70ce0f850982b69fc4d4": "fdb9345517e1f41792423089aafa429a24f4784db7c2c9fe2925c778835e236d",
+    "d77546b010e28a2dcb7d17ccebdfb16e705d436fb9ae63dc686c73892102064b": "c2f06050194e8764976577c03f5ede9fed6e11c23527875beb026f5667507160",
+    "70578fe80983b05cae019131e5702de0801b5a32a38c0eb057a75b85fe4681e0": "87f5281e3872f854f0b130fe2f044fb339086be7a576af9558d68492cad8cc20",
+    "5eb5510cef3d43a46a18cfe67af4a0be1faa23f76121e7e46b642b316179c6d6": "eaa390c9590e053c4b756bd7996bed5afb0f95430a31d7f8507772aec40376cb",
+    "df166dd303af70ad0ae7e5c68a7589c44585cb66ac9d4253e0806adba757801b": "9a8fa8079815223ff21c10c0bdca93ece5897f77a7436f586fee3693ae5f1608",
+    "96a86e9a264dafe7fe6f45acae989a99ba563c1086a576f9d38c03a796c3efb6": "c836243a88ab8e0ff051d203aca9a9aeaeb75d8772dfdd461d42454dad13b711",
+    "4a205e83a9e7131f4e1e021deccb94a119427e4aa56c188a1897c584634ae5a7": "819463e727bfc5fac0f06156249f3023f5b68c3638b6fa805083d1e1f2da2cc1",
+    "5a587a4bfc49cfb58012e1689cbbf7cf6cbefd3beb419cfd89eff3322f4b3281": "36fc47244398a304131dd4ed58aa6bf4549e6f5a89ca8b9f07e49af89c01874d",
+    "19b070e216c54e4c3415f0f0488bcf207b9b6d9105cda45cf663ae3c7ee0b8d3": "364cc1ef55e95d02d55d99d59e0815a212419a6de3ca02db488f805348894505",
+    "6758220ecbd0951936c6be0570f3ccdfe2459479b3cad94425ee7591276e4ccb": "854767bca05682bdeddd5afb1404dd75beacce0e66d7623fdb2beb4a2649635b"
+   },
+   "proof": "undoing old_to_new gives the source digest back (checked by the builder)"
+  },
+  "known_answers": {
+   "success_native": 88,
+   "expected_sha256": "b8516f3b17e700d7c2f92e2aca2ab91087d091291c7893ff8ccc043e7618a432"
+  }
  }
 }

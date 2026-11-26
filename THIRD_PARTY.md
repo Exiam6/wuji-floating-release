@@ -21,3 +21,10 @@ according to its package metadata (it is installed from its public repository on
 | Path | What it is | Licence |
 |---|---|---|
 | `code/tools/float/objframe/` | ten modules of the object-frame HUG2 model, integrated as our own package (import lines changed only; `PROVENANCE.json`), used by `code/tools/float/decode.py::ObjectFrameDecoder` | MIT, the model authors' copyright notice (`LICENSES/hug2obj-source-LICENSE.txt`); status: granted by the model authors (relayed 2026-11-25); MIT, as their repository says |
+
+## Revision r8f addition
+
+| Path | What it is | Licence |
+|---|---|---|
+| `code/tools/float_wuji22/` | this project's evaluator of the floating Wuji Hand 2.2 (protocol `wuji22-float-p2`); the hand model it loads is the asset part `hands22` (see ASSETS.md) | MIT (this project) |
+| `LICENSES/wuji-description-MIT.txt`, `LICENSES/xarm_description-BSD-3-Clause.txt` | the licence texts of the hand model's upstream files (asset part `hands22`) | as named |

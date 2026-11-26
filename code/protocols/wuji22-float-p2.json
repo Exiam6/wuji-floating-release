@@ -1,0 +1,349 @@
+{
+ "schema": 1,
+ "name": "wuji22-float-p2",
+ "hand_name": "wuji22",
+ "summary": "Floating Wuji Hand 2.2 (glove variant; vendor impedance actuators) on the official 6-DoF floating wrist, no arm: HUG's wrist pose executed by protocol mano-1111-p1's evaluator with the MANO capsule hand replaced; fingers and the hand-root mount from rl/sim/multihand/retarget.HandRetargeter (registered for the Hand 2.2 by tools/float_wuji22/spec22.py) fitted on HUG's predicted landmarks; the vendor impedance actuators of EX337's model, the hand server's 3 rad/s ramp and the deployed over-close profile. New benchmark version (2026-11-21).",
+ "base": {
+  "name": "mano-1111-p1",
+  "digest": "854767bca05682bdeddd5afb1404dd75beacce0e66d7623fdb2beb4a2649635b",
+  "note": "scene, table plane, wrist trajectory (GraspPlanConfig defaults), lift and final-frame table-contact test are the base protocol's; handoff A2 as tools/float/collab_native.Harness.bench_handoff"
+ },
+ "source": {
+  "port": "tools/float_hands (sharpa-float-p1 / -p2, EX327), itself tools/ex210_1112/hbport210.py at commit db7ee7177 and the frozen October Wuji evaluator tools/float_wuji/wuji_eval.py",
+  "changes": "tools/float_wuji22: the hand (an MJCF converted from EX337's pinned rrc / vendor URDF, hand only, 708.8 g), the retarget configuration (spec22.py), the scene's finger actuators and joint parameters (hand_eval22.build_scene), the command ramp and the close rule (hand_eval22.write_ctrl / Hand22.keyframes), the job pool (rollout22.py, tools/float_hands/rollout_hand.run_job unchanged)",
+  "hand_model": {
+   "urdf": "assets/robot_description/hands/multihand/wuji22/urdf/right.urdf",
+   "mjcf": "assets/robot_description/hands/multihand/wuji22_float/mjcf/right_float.xml",
+   "upstream": "see assets/robot_description/hands/multihand/wuji22/SOURCES.json and the README there"
+  }
+ },
+ "code": {
+  "tools/float_hands/hand_eval.py": "87f5281e3872f854f0b130fe2f044fb339086be7a576af9558d68492cad8cc20",
+  "tools/float_hands/rollout_hand.py": "2527afaf0656458953ebf7b2e62893e41672fdab0f0305d7310851f472655e44",
+  "tools/float_hands/fit4r.py": "94d29c9adf36eb571d433b72b4c6d6f627f68e4522ea8bba454a9e0d5312ade1",
+  "tools/float_wuji22/model22.py": "ea8e6931eef01a8427e5ac6020fe8bae5f8b17e51a65bb3000c13aa785c96a0c",
+  "tools/float_wuji22/spec22.py": "c5d1645128ccc2aaf84ed1c91261ac6c370ea167e3a6144c850e83a76f28ffbb",
+  "tools/float_wuji22/hand_eval22.py": "9a8fa8079815223ff21c10c0bdca93ece5897f77a7436f586fee3693ae5f1608",
+  "tools/float_wuji22/rollout22.py": "771c37d640dcdd33ca3a271fb1569792850c4141a56359c138ef1911451ecd8c"
+ },
+ "hand": {
+  "assets/robot_description/hands/multihand/wuji22/SOURCES.json": "819463e727bfc5fac0f06156249f3023f5b68c3638b6fa805083d1e1f2da2cc1",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_adductor_pollicis_cover.stl": "35f99a0f3a7b56cefb3693565853aa88d36aa29d4d0291abcb4fb29295e19727",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_hypothenar_cover.stl": "08b14fdc07bbd9c7d79b436b1267020b6a761df52a57c1cbd3972c01a579610d",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_index_finger_distal.stl": "ce3e115789668c74758b2cfc2510bb0707eaad31fea7b790995eae4b9eb20ade",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_index_finger_middle.stl": "a8d3a30fb948e443ff131d9ce5b7b704a231262faa9f208deba604384eba5594",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_index_finger_middle_cover.stl": "c3bb3b4b136478312f60504c1f0f89cbb36bb76310ea637f774f6b5dec7fb34d",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_index_finger_proximal.stl": "129ac84880ef57515c169bdefe0475fb4c65d662f52817d78a3c0f21196d7041",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_index_finger_proximal_abd.stl": "9e732a5b04e94383a4cb903976bdf751657e5a616b300ccc7292c6d4108ed57c",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_index_finger_proximal_abd_cover.stl": "a784df1c863a4dc67b6e07c76ee73be071c22b2410db0f5c20c6dbc8625ab75f",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_index_finger_tip_sensor_frame.stl": "b58f93f7a5f1cad5792d58f14082f3a9fcda8431eff5597986e269444701b603",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_index_palm_cover.stl": "64f20391495f2d380d3466614bbb952adfc355fdb89983d13d24331fc1b656b9",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_middle_finger_distal.stl": "ce3e115789668c74758b2cfc2510bb0707eaad31fea7b790995eae4b9eb20ade",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_middle_finger_middle.stl": "771d2174ca1a79f1475b7d2708606d7d24bc79db79771f909b01ab41c8e202ae",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_middle_finger_middle_cover.stl": "c3bb3b4b136478312f60504c1f0f89cbb36bb76310ea637f774f6b5dec7fb34d",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_middle_finger_proximal.stl": "4ae6386aaa228303f3dbd6711b0d09e56b8469d6afce98d9e9b90c3b5641896d",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_middle_finger_proximal_abd.stl": "e82fddfbaec0fee496b335bf190e05655463bc60f40743668e4c7aac0390d45f",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_middle_finger_proximal_abd_cover.stl": "50c5f640fae9f6243d8e5c11a731bdcc19c493f93d629fc3c3c35fe5ee35aac3",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_middle_finger_tip_sensor_frame.stl": "b58f93f7a5f1cad5792d58f14082f3a9fcda8431eff5597986e269444701b603",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_middle_palm_cover.stl": "7ecc363065ee42624c4d852f933c5875d33b1d145762d403896853fbf932fea1",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_midpalm_cover.stl": "ee439d6c297204f24a6a0a35fc34d4b3108f63071686919ff7f9614259e2cb3b",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_mount.stl": "d422f99d40b0964795392ab2aaa11d4d2f559521d6daa1452bcd9cc516fa4da9",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_palm_index_cover.stl": "39027af70966aee926799f79e67e884a95cfd407424c844e49c6c2669478bfd4",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_palm_middle_cover.stl": "9f4a2be2322f6a060beeb0763adc2a651485b386ac295952d1557ae8f1fdbb01",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_palm_ring_cover.stl": "2c1f3e8954b0607d9cddbadb43e55290a10389c49d0d3f0b9fa1591c33ed0e98",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_pinky_distal.stl": "7316e024d221b53ac6403a664c4f00e3488daaeb7b372211f30785248c068263",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_pinky_middle.stl": "aa7255ac65b9a2bdc93c62a4d9f801861506391a869d8990c9ea227d3504ba03",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_pinky_middle_cover.stl": "b13b68fb4d3597e21e343cab7f30ddb0651b754c58fce51a49e781fb3a11e508",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_pinky_proximal.stl": "6dfb20afa2c5e2b088b05b3ee742a05a0e8058bcdcfd5817eb77f2436c332ad5",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_pinky_proximal_abd.stl": "49399b3781443aeba19a743f96b72a7c34e565d1f4a3d67b8f313a0fef4456a7",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_pinky_proximal_abd_cover.stl": "02b012b14d09e4ee26529c99ef3fc2adfcd691d2db003c80d884ee68d4d0a21d",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_pinky_proximal_cover.stl": "e2f50799deeb31a77b05bf5dbe4d72cb517a951b60a8099eb214e6c34ff4e211",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_pinky_tip_sensor_frame.stl": "e4f0ed54b15e66cf64292c69d4dfa73ca6389bd967ae7cd348ea8ca1d0f124fd",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_ring_finger_distal.stl": "ce3e115789668c74758b2cfc2510bb0707eaad31fea7b790995eae4b9eb20ade",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_ring_finger_middle.stl": "eb7f3da86459fba05095b10799cc44c8099f438c75bd261ac28f84cd669143ac",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_ring_finger_middle_cover.stl": "c3bb3b4b136478312f60504c1f0f89cbb36bb76310ea637f774f6b5dec7fb34d",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_ring_finger_proximal.stl": "42ce23d044774073efd5fd64189221e801118d1dafbb98e09229338ab22efef6",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_ring_finger_proximal_abd.stl": "f314882181fa049c47d3b0eb93d35eebce6fb3be45224c53232246b1143cc356",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_ring_finger_proximal_abd_cover.stl": "eb6b5d0a4f690e87f6008a8cdffeac30fe548d355f8b824b7b8f652ac6914378",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_ring_finger_tip_sensor_frame.stl": "b58f93f7a5f1cad5792d58f14082f3a9fcda8431eff5597986e269444701b603",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_ring_palm_cover.stl": "693a89a7fce0ab78152ebcbb4d352e8687b5e260b1ae4eb21f1e61ce141360c2",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_thenar_cover.stl": "a52c6bb903147ab5857ba366a94926c8b4a1d5f34f3b53aa10c24dba01b6f85f",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_thumb_distal.stl": "7fa09a06d57b6438f06b3203565216b4c038bebb6bd7473518db91ed72f523f6",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_thumb_middle.stl": "217ef63597c7d34afc896b9a06c58075014e7ababdbb93fbb95db8bca1a142fc",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_thumb_middle_cover.stl": "5c562ce794a714d78aacdda20f69cd15a2cbce0eabc3c43ee44c24d879ef2dbb",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_thumb_palm_cover.stl": "f3dc686738bb433013befc6729e38371db6dc2a11f7fafca41818154a9cb2d03",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_thumb_proximal.stl": "4c06541bf070526dd4be3dac049061b36a6a9d5a79c65624bced210bf781ee62",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_thumb_proximal_abd.stl": "76679ecddf0846040fdfd3f41b2c869c57faa81c61e7004f580baa5c51a2a4b9",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_thumb_tip_sensor_frame.stl": "26b8e30a79ef4f3935115200b8f4835f2450bbb2c31458af6d69e7cf233c4a38",
+  "assets/robot_description/hands/multihand/wuji22/meshes/hand/right/collision/r_wrist.stl": "a994218d0038abe700ea4ee4b4cfba4611a1a1629776704bb32f6eaba715395e",
+  "assets/robot_description/hands/multihand/wuji22/recipes/wuji_hand2_actuators.yaml": "36fc47244398a304131dd4ed58aa6bf4549e6f5a89ca8b9f07e49af89c01874d",
+  "assets/robot_description/hands/multihand/wuji22/self_collision_right.json": "e1991545436615790c50407374c61b30bfd10b2652f7fc9c59c4e96a82878be8",
+  "assets/robot_description/hands/multihand/wuji22/urdf/right.urdf": "de7fd504ff2e326a05c34901022f1740b73b5cf73ca7469839b171b92be88b41",
+  "assets/robot_description/hands/multihand/wuji22_float/SOURCE.json": "364cc1ef55e95d02d55d99d59e0815a212419a6de3ca02db488f805348894505",
+  "assets/robot_description/hands/multihand/wuji22_float/mjcf/right_float.xml": "0b0c1094428a9a3ef419639a5ac73b2a9a4650b91e0203a0bb99fa9e677d3a5d"
+ },
+ "retargeter": {
+  "files": {
+   "rl/sim/multihand/retarget.py": "c3d9743f78e65fb3064215a44a16ccc8c5ae4964b7bbfa69c7c4d0ab7dea70f1",
+   "rl/sim/multihand/specs.py": "2bbdf00d6cc3a1a84d7eca7f6896d2b4395af2fc4b60fa01fb8ebe8f32c0b65c",
+   "rl/sim/multihand/handspec_build.py": "0b15f498538f1e4b4092f9f10875057ee6aa68112e7ad931de6a74145d4ea8ec"
+  },
+  "method": "the table-arm pipeline's 4r retarget gate (tools/float_hands/fit4r.py): rl/sim/multihand/retarget.HandRetargeter.fit, root pose (6) and every actuator target solved jointly by least squares on the 21 MANO keypoint positions in the evaluator world (scipy least_squares, bounds = the compiled joint ranges, max_nfev 400, tolerances 1e-10); when its fingertip RMS error exceeds 10 mm, a refit from 5 starts (rotation offsets 0 and +-30 deg about the palm z and x axes) keeping the lowest cost; a final fingertip error above 10 mm = 'not retargetable', a failure not rolled out (stage invalid_input, not_retargetable = 1)",
+  "weights": {
+   "fingertips": 1.0,
+   "other_finger_keypoints": 0.25,
+   "wrist": 0.0,
+   "orientation_prior_per_rad": 0.05,
+   "joint_mid_range_prior_per_rad": 0.001
+  },
+  "keypoints": {
+   "1": [
+    "r_thumb_proximal",
+    "o"
+   ],
+   "2": [
+    "r_thumb_middle",
+    "o"
+   ],
+   "3": [
+    "r_thumb_distal",
+    "o"
+   ],
+   "4": [
+    "r_thumb_distal",
+    "t"
+   ],
+   "5": [
+    "r_index_finger_proximal",
+    "o"
+   ],
+   "6": [
+    "r_index_finger_middle",
+    "o"
+   ],
+   "7": [
+    "r_index_finger_distal",
+    "o"
+   ],
+   "8": [
+    "r_index_finger_distal",
+    "t"
+   ],
+   "9": [
+    "r_middle_finger_proximal",
+    "o"
+   ],
+   "10": [
+    "r_middle_finger_middle",
+    "o"
+   ],
+   "11": [
+    "r_middle_finger_distal",
+    "o"
+   ],
+   "12": [
+    "r_middle_finger_distal",
+    "t"
+   ],
+   "13": [
+    "r_ring_finger_proximal",
+    "o"
+   ],
+   "14": [
+    "r_ring_finger_middle",
+    "o"
+   ],
+   "15": [
+    "r_ring_finger_distal",
+    "o"
+   ],
+   "16": [
+    "r_ring_finger_distal",
+    "t"
+   ],
+   "17": [
+    "r_pinky_proximal",
+    "o"
+   ],
+   "18": [
+    "r_pinky_middle",
+    "o"
+   ],
+   "19": [
+    "r_pinky_distal",
+    "o"
+   ],
+   "20": [
+    "r_pinky_distal",
+    "t"
+   ]
+  },
+  "root_body": "r_mount",
+  "root_to_wuji_palm": [
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    -1
+   ]
+  ],
+  "palm_init_rotation": [
+   [
+    0.06071180793475611,
+    -0.14549507182139032,
+    -0.987494435656719
+   ],
+   [
+    -0.975817217618471,
+    0.19947728757500646,
+    -0.08938439204393288
+   ],
+   [
+    0.20998770006035733,
+    0.969040760658398,
+    -0.12986596939134878
+   ]
+  ],
+  "palm_init_note": "the fit's initial root orientation and orientation prior = the MANO wrist rotation times this matrix (the frozen Wuji evaluator's fixed MANO-wrist -> Wuji-palm rotation; the Hand 2.2's palm frame has the Wuji 1 palm axes: fingers +z, palm normal +x, thumb +y)",
+  "open_pose": "the fit of the official MANO start pose (flat hand, thumb base pre-bend 1.0 rad on x and y), root at identity with the palm init rotation",
+  "closing_direction": "HandRetargeter.closing_sign: +1 on every flexion joint of the Hand 2.2 (checked at construction: the deployed over-close adds +delta in joint coordinates)"
+ },
+ "drive": {
+  "mit_kp": 3.0,
+  "mit_kd_S1_to_S4": [
+   0.075,
+   0.07,
+   0.05,
+   0.05
+  ],
+  "current_limit_a": 1.5,
+  "amps_per_mit_unit": 1.9114709702965849,
+  "saturating_overclose_rad": 0.2615786521321952,
+  "ramp_rad_per_s": 3.0,
+  "ramp_step_rad_per_5ms": 0.015,
+  "deployed_overclose_rad": [
+   0.15,
+   0.0,
+   0.05,
+   0.0,
+   0.4,
+   0.0,
+   0.4,
+   0.4,
+   0.3,
+   0.0,
+   0.3,
+   0.3,
+   0.25,
+   0.0,
+   0.25,
+   0.2,
+   0.3,
+   0.0,
+   0.3,
+   0.3
+  ],
+  "back_off_rad": 0.2,
+  "timestep_s": 0.005
+ },
+ "physics": {
+  "wrist": {
+   "joints": "3 slides + ball, damping 5, ball armature 0.01",
+   "actuators": "position kp 300 (translation, dampratio 1), kp 50 (rotation, dampratio 1.5)",
+   "gravity_compensation": false,
+   "note": "the wrist carries the hand's weight (mano-1111-p2's rule): before every physics step the generalized gravity force of the whole hand subtree (rooted at the hand's root body) is written to qfrc_applied on the six wrist dofs; the fingers keep their gravity (tools/float_hands/hand_eval.HandWristLoad = tools/float/wristload.WristLoad with the hand's root)"
+  },
+  "finger_actuators": {
+   "type": "position (general gain/bias)",
+   "gain": "kp = Kt x 1.9115 x 3.0 (N m/rad)",
+   "bias": "-kp q - kv qdot, kv = Kt x 1.9115 x kd[S]",
+   "force_limit": "+-Kt x 1.5 A (the recipe's cap; the URDF's joint effort is not applied)",
+   "ctrlrange": "the hand's compiled joint ranges",
+   "ramp": "the control moves toward the commanded target by at most 0.015 rad per 5 ms step (the hand server's 3 rad/s at 200 Hz)"
+  },
+  "hand_joints": "damping, frictionloss and armature per joint from the vendor recipe (wuji_hand2_actuators.yaml)",
+  "hand_contact": {
+   "friction": [
+    1.5,
+    0.05,
+    0.005
+   ],
+   "condim": 6,
+   "solref": [
+    0.04,
+    1.0
+   ],
+   "solimp": [
+    0.5,
+    0.95,
+    0.001,
+    0.5,
+    2.0
+   ],
+   "priority": 0,
+   "palm_bodies": [
+    "r_mount",
+    "r_wrist",
+    "r_adductor_pollicis_cover",
+    "r_thenar_cover",
+    "r_midpalm_cover",
+    "r_hypothenar_cover",
+    "r_palm_index_cover",
+    "r_palm_middle_cover",
+    "r_palm_ring_cover"
+   ],
+   "palm_priority": 1,
+   "palm_solimp": [
+    0.005,
+    0.9,
+    0.025,
+    0.5,
+    2.0
+   ],
+   "note": "the frozen Wuji evaluator's mapping of the MANO capsule hand's contact values (as every floating protocol); the glove's softness and the pads' real friction are not modelled, so absolute rates are not predictions for the robot"
+  },
+  "hand_model_edits": "rl/sim/multihand/handspec_build.load_hand_spec with its hull-vertex cap undone (maxhullvert -1); vendor actuators of the MJCF deleted and re-added by the scene builder from the recipe at full precision; the vendor's 344 self-collision exclusions applied",
+  "close_rule": "lerp endpoint = fit backed off <= 0.2 rad toward the open pose on the flexion actuators of fingers 2-5 and on each thumb actuator; goal = fit + the deployed over-close profile (drive.deployed_overclose_rad, per joint, in the SDK's order); targets clipped to the ranges",
+  "mount": "T_wrist_root = T_world_wrist^-1 T_world_root of the fit, set per grasp as the root body's pos / quat inside the wrist body, with a fresh compile per grasp; the wrist plan moves the hand rigidly as MANO's wrist",
+  "handoff_table_height": "handoff A2 places the object on the compiled scene's table plane, as the frozen evaluator's harness",
+  "object_contact": "the object's collision geoms take the hand default solref 0.04 1 / solimp 0.5 0.95 0.001, as every floating protocol",
+  "scene_mask": "object and table geoms accept the hand's contype bits"
+ },
+ "labels": {
+  "success_native": "no contact between the table plane and any object geom at the final frame (t = 4.0 s, after the 0.5 m lift) and a valid simulation (finite state, no BADQACC warning during the rollout); as mano-1111-p1",
+  "success_strict_v1": "native success AND the final-frame hand-object contact includes the thumb (finger 1 of tools/float_wuji22/spec22: bodies ['r_thumb_']*) and at least one other finger AND final object rise >= 400 mm; the mano-1111-p1 definition with the fingers mapped by the spec's body prefixes; palm = ['r_mount', 'r_wrist', 'r_adductor_pollicis_cover', 'r_thenar_cover', 'r_midpalm_cover', 'r_hypothenar_cover', 'r_palm_index_cover', 'r_palm_middle_cover', 'r_palm_ring_cover'] and the wrist body",
+  "october_rule": "the evaluator's own flag (not on the ground at the final frame, no validity check); diagnostic only"
+ },
+ "stages": [
+  "invalid_input",
+  "sim_invalid",
+  "no_prelift_contact",
+  "not_lifted",
+  "dropped",
+  "success"
+ ],
+ "digest_rule": "sha256 of the canonical JSON (sorted keys, separators ',' ':') of {name, base_digest, hand_name, code, hand, retargeter{files}, drive} plus `wrist` {path, sha256, rule, parameters}",
+ "wrist": {
+  "path": "tools/float/wristload.py",
+  "sha256": "c2f06050194e8764976577c03f5ede9fed6e11c23527875beb026f5667507160",
+  "rule": "wrist_total_weight",
+  "parameters": {
+   "compensated_dofs": "wrist_tx, wrist_ty, wrist_tz (slides) and wrist_rot (ball, 3 dofs)",
+   "force": "F = J_com^T (M_hand * (-gravity)) with J_com = mj_jacSubtreeCom(mano_body_0) and M_hand = body_subtreemass[mano_body_0], recomputed and written to qfrc_applied on the wrist dofs before every mj_step of the official loop",
+   "fingers": "no compensation: the finger joints' gravity load stays with the finger actuators",
+   "applies_to": "every physics step of tools/float_wuji22/hand_eval22.rollout (approach, curl, settle, lift)",
+   "hand_root": "the attached hand's root body (r_mount), instead of mano_body_0; the force, the joints and the step order are WristLoad's"
+  },
+  "same_rule_as": "mano-1111-p2"
+ },
+ "digest": "9dea9c235e184cb26e3c1ff559d4361f3ca7cfc7a06523143df6ed7715868e95"
+}

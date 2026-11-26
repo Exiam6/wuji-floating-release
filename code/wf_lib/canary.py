@@ -35,7 +35,8 @@ BATCH_REFERENCE = "reference_cpu"
 # on HUG-Bench inputs, keys <arm>/<unit>): (jobs file, expected file, protocol)
 REFERENCE_PAIRS = [("jobs_bench2000.npz", "expected_bench2000_mano-1111-p1.npz", "mano-1111-p1"),
                    ("jobs_ref200.npz", "expected_ref200_mano-1111-p1.npz", "mano-1111-p1"),
-                   ("jobs_ref200.npz", "expected_ref200_mano-1111-p2.npz", "mano-1111-p2")]
+                   ("jobs_ref200.npz", "expected_ref200_mano-1111-p2.npz", "mano-1111-p2"),
+                   ("hands22/jobs_ref200_wuji22.npz", "hands22/expected_ref200_wuji22-float-p2.npz", "wuji22-float-p2")]   # r8f: the Wuji Hand 2.2's known answers
 # fields a jobs file made by `wf.py` has and an older reference jobs file lacks; the MANO protocols never read them, so a canary row gets zeros there
 UNUSED_BY_MANO = {"landmarks_camera": (21, 3)}
 MANO_PROTOCOLS = ["mano-1111-p1", "mano-1111-p2", "mano-1111-p2s-dzm1", "mano-1111-p2-dzm1", "mano-1111-p2-dzm2", "mano-1111-p2-dzp1"]

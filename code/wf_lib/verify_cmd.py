@@ -6,7 +6,8 @@
        reference bit for bit (status pass_bitwise). `labels_only` (labels equal, a diagnostic differs) means this CPU computes
        slightly different physics: that is not a pass, tell us before running any job there.
   L1h  CPU physics, robot hands: sharpa-float-p1/p2 and wuji1hr-float-p1/p2 (200 + 64 reference grasps each) and wuji1-float-p1
-       (200 grasps); needs the `hands` asset part, `wf.py assets link-hands` and requirements/cpu_hands.txt
+       (200 grasps); needs the `hands` asset part, `wf.py assets link-hands` and requirements/cpu_hands.txt. r8f: wuji22-float-p2 (the Wuji Hand 2.2,
+       200 known-answer grasps) is checked too when the asset part `hands22` is unpacked (or named with --protocols)
   L1b  CPU physics on our production batches (needs the `batches` asset part): 100 rows spread over each batch are rolled and compared with
        our stored results (every label equal; bit for bit, or `pass_near`: at most 2 % of the jobs differ in a diagnostic by at most 1e-3,
        the floating-point noise between CPU models that a few Wuji rollouts show); robot-hand batches need the `hands` part
@@ -104,6 +105,8 @@ def main(a) -> int:
     need_parts = {"core", "mano"} if any(l in levels for l in ("L1", "L1h", "L1b")) else set()
     if "L1h" in levels:
         need_parts.add("hands")
+        if "wuji22-float-p2" in (a.protocols or "").split(",") or (not a.protocols and "hands22" in manifest.present_parts(assets)):
+            need_parts.add("hands22")
     if "L1b" in levels:
         need_parts.update({"core", "mano", "batches"})
     if "L2" in levels:
@@ -178,8 +181,11 @@ def main(a) -> int:
                     continue
                 _cpu_check(name, pair["protocol"], sdir / "jobs_slice.npz", sdir / "expected_slice.npz", out, assets, a.workers, results, strict=False)
     if "L1h" in levels:
-        hp = a.protocols.split(",") if a.protocols else HAND_PROTOCOLS + ["wuji1-float-p1"]
+        hp = a.protocols.split(",") if a.protocols else HAND_PROTOCOLS + ["wuji1-float-p1"] + (["wuji22-float-p2"] if "hands22" in need_parts else [])
         for p in hp:
+            if p == "wuji22-float-p2":
+                _cpu_check(f"l1h_ref200_{p}", p, REF / "hands22/jobs_ref200_wuji22.npz", REF / "hands22/expected_ref200_wuji22-float-p2.npz", out, assets, a.workers, results)
+                continue
             if p == "wuji1-float-p1":
                 _cpu_check(f"l1h_ref200_{p}", p, REF / "wuji1/jobs_ref200_wuji1.npz", REF / "wuji1/expected_ref200_wuji1-float-p1.npz", out, assets, a.workers, results)
                 continue
