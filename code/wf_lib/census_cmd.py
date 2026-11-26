@@ -69,7 +69,8 @@ SCHEMA_PLAN = "wf-census-plan-1"
 SCHEMA_STAMP = "wf-census-stamp-1"
 SCHEMA_LIST = "wf-object-list-1"
 PRIOR = "hug2"                           # the default prior; `--prior NAME` (main) replaces it for one command; a plan records the prior it was made with
-PROTOCOL = "mano-1111-p2"
+PROTOCOL = "mano-1111-p2"                  # the default label protocol; `--protocol NAME` (r8e, main) replaces it for one command; a plan records the protocol it was made with
+LABEL_PROTOCOLS = ("mano-1111-p2", "sharpa-float-p2", "wuji1hr-float-p2")   # r8e: the carrying-wrist protocols a census may label with (EX409)
 BASE_SEED = 20261116                      # EX245's census seed (the shipped actions.npz noise is derived from it)
 REQUEST_SEED = 0
 DRAWS = 32
@@ -440,6 +441,8 @@ def load_plan(out: Path) -> tuple:
         fail(f"{p}: schema {plan.get('schema')!r}, this release reads {SCHEMA_PLAN!r}")
     if plan_digest(plan) != plan.get("digest"):
         fail(f"{p} was edited (its digest no longer matches its content): a plan is never edited")
+    if PROTOCOL_GIVEN and plan["params"].get("protocol") != PROTOCOL:
+        fail(f"{p} was made for protocol {plan['params'].get('protocol')!r} but this command names protocol {PROTOCOL!r}: pass --protocol {plan['params'].get('protocol')} or none")
     if plan["params"].get("prior", "hug2") != PRIOR:
         fail(f"{p} was made for prior {plan['params'].get('prior')!r} but this command runs prior {PRIOR!r}: pass --prior {plan['params'].get('prior')}")
     local = json.loads((out / "paths.json").read_text()) if (out / "paths.json").is_file() else {}
@@ -1852,6 +1855,7 @@ def add_parser(sub) -> None:
     work_args(p)
     for p in ss.choices.values():                            # the prior of the command (default: the old prior, hug2); a plan made for another prior refuses to run without it
         p.add_argument("--prior", default=None, choices=list(paths.PRIORS) + list(paths.OBJECT_FRAME_PRIORS), help="the grasp prior (default hug2)")
+        p.add_argument("--protocol", default=None, choices=list(LABEL_PROTOCOLS), help="r8e: the label protocol of a new plan (default mano-1111-p2, the shipped census's); a later stage only checks it against the plan")
 
 
 def use_prior(name: str) -> None:
@@ -1861,9 +1865,22 @@ def use_prior(name: str) -> None:
     PRIOR = name
 
 
+PROTOCOL_GIVEN = False
+
+
+def use_protocol(name: str) -> None:
+    """r8e: make `name` the label protocol of a new plan; for every other stage it is only checked against the plan."""
+    global PROTOCOL, PROTOCOL_GIVEN
+    if name not in LABEL_PROTOCOLS:
+        fail(f"--protocol {name!r}: a census labels with one of {', '.join(LABEL_PROTOCOLS)}")
+    PROTOCOL, PROTOCOL_GIVEN = name, True
+
+
 def main(a) -> int:
     if getattr(a, "prior", None):
         use_prior(a.prior)
+    if getattr(a, "protocol", None):
+        use_protocol(a.protocol)
     layout = paths.Layout(paths.assets_root(a.assets))
     if a.cmd in ("plan", "run"):
         util.refuse_inside(a.out, paths.RELEASE, layout.root)
