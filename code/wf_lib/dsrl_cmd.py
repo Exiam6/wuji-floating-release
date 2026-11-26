@@ -64,7 +64,7 @@ ALIAS_DIM = 99
 DRAW_SEED = 317_000          # the project's draw rule for the norm-matched random noise: default_rng(DRAW_SEED + 10000 seed + k)
 PRIOR_DRAW_OFFSET = 20_000   # r7 arm `prior`: default_rng(DRAW_SEED + PRIOR_DRAW_OFFSET + the unit's index in the input set file).standard_normal(99), one draw per unit, the same at every training-set size
 LOG_EVERY = 25
-ACTOR_ARMS = ("own", "stoch", "normrand")             # arms that need a trained actor (own, stoch) or its noise norm (normrand)
+ACTOR_ARMS = ("own", "stoch", "normrand", "randres")   # r8d (EX408): randres = a random residual of the residual actor's norm (action_space residual only)             # arms that need a trained actor (own, stoch) or its noise norm (normrand)
 FIXED_ARMS = ("zero", "prior", "const", "file")       # r7: arms that do not depend on any training (file: a noise per unit from --noise-file, e.g. a retrieved noise)
 SELECT_ARMS = ("rerank32", "rerank8", "swap_obs", "frozen_obs", "mean_obs", "lib4", "lib8")      # r8c: arms that READ a trained checkpoint (its actor or its noise critic), no training
 CENSUS_NOISE_RULES = ("shared", "fresh", "fresh64")   # r8c, rerank arms: the census's label-noise rule of the read-out inputs (census_cmd.LABEL_NOISE)
@@ -499,7 +499,7 @@ def train_model(cfg: dict, folder: Path, out: Path, device: str, log_every: int 
     """The pool-path training of the project's DSRL rows (offline): returns the diagnostics dict; writes out/na/*."""
     import numpy as np
     import torch
-    from . import na
+    from . import na, residual
     noise_source = cfg.get("noise_source", "pool")
     if noise_source not in NOISE_SOURCES:
         raise SystemExit(f"noise_source {noise_source!r} is not one of {NOISE_SOURCES}")
@@ -544,6 +544,28 @@ def train_model(cfg: dict, folder: Path, out: Path, device: str, log_every: int 
         box = float(cfg["bound"]) if var is None or var["noise_param"] == "box" else 1.0          # r8c: a non-box map has the box [-1, 1]
         assert model.policy_kwargs["n_critics"] == RECIPE_MODEL["n_critics"] and float(model.high.max()) == box == float(-model.low.min())
         assert var is None or var["noise_param"] not in ("anchored", "sphere_anchored") or model.steer_bound == float(cfg["bound"])
+    space = cfg.get("action_space", "noise")                            # r8d (EX408): where the actor acts; "noise" = r8c, unchanged
+    res_rec = {}
+    if space not in residual.ACTION_SPACES:
+        raise SystemExit(f"action_space {space!r} is not one of {residual.ACTION_SPACES}")
+    if space == "residual":
+        if fresh is None:
+            raise SystemExit("action_space residual needs noise_source fresh (its decoder gives the zero-noise output a0 of each training view)")
+        if var is not None and var.get("noise_param", "box") != "box":
+            raise SystemExit("action_space residual takes the authors' box map only (noise_param box)")
+        r_half = residual.halfwidth(cfg["res_halfwidth"])
+        a0 = residual.zero_output_table(fresh.dec, fresh.cond)
+        clip = None
+        if cfg.get("res_clip") not in (None, "none", "view_range"):
+            raise SystemExit(f"res_clip {cfg.get('res_clip')!r} is not none or view_range")
+        if cfg.get("res_clip") == "view_range":                          # B-reg (EX408 Amendment 1): a0 + r u clipped to the view's labelled actions' range
+            tpos = {u: k for k, u in enumerate(train_ids)}
+            vr = [tpos[str(u)] for u in act["unit"][rows]]
+            clip = residual.view_ranges(vr, act["action"][rows], len(train_ids))
+        (out / "na").mkdir(parents=True, exist_ok=True)
+        np.savez(out / "na" / "a0_train.npz", ids=np.array(train_ids), a0=a0, **({"lo": clip[0], "hi": clip[1]} if clip is not None else {}))
+        residual.attach(model, na.dsrl_port, na.hug2_adapter, S_train, a0, r_half, device, clip=clip)
+        res_rec = dict(res_halfwidth=[float(x) for x in r_half] if len(set(r_half.tolist())) > 1 else float(r_half[0]), res_clip=cfg.get("res_clip"), a0_finite=bool(np.isfinite(a0).all()))
     n = na.add(model, S[[pos[str(u)] for u in act["unit"][rows]]], act["action"][rows], act["label"][rows])
     model.replay_buffer.final_offline_step()                           # utils.load_offline_data's last line
     nadir = out / "na"
@@ -608,7 +630,7 @@ def train_model(cfg: dict, folder: Path, out: Path, device: str, log_every: int 
                 train_views=len(train_ids), train_objects=len({u.rsplit("/", 1)[-1] for u in train_ids}), train_ids_missing=len(missing), train_ids_sha256=cfg.get("train_ids_sha256"),
                 calls_rule_calls=rule_calls, pool_layout="mapped" if mapped else "tiled", pool_stored_rows=int(pool["w"].shape[1]),
                 device=str(torch.cuda.get_device_name(0)) if device.startswith("cuda") else device, torch=torch.__version__,
-                peak_gpu_memory_mib=round(torch.cuda.max_memory_allocated() / 2 ** 20, 1) if device.startswith("cuda") else None)
+                peak_gpu_memory_mib=round(torch.cuda.max_memory_allocated() / 2 ** 20, 1) if device.startswith("cuda") else None, action_space=space, **res_rec)
     if extras:                                                         # r8c: what the variant did (absent for every r8b config)
         diag["r8c"] = dict(variant={k: v for k, v in (var or {}).items() if k != "anchor"}, anchor_noise_sha256=cfg.get("anchor_noise_sha256"), learner=extras.get("learner"),
                            wstar_norm_p5=float(np.percentile(ns["noise_norm"], 5)), wstar_norm_p95=float(np.percentile(ns["noise_norm"], 95)),
@@ -617,7 +639,7 @@ def train_model(cfg: dict, folder: Path, out: Path, device: str, log_every: int 
     if hooks is not None:
         diag["r8c_hooks"] = dict(checkpoints=hooks.written, dynamics_lines=hooks.lines, calls_deviation=bool(cfg.get("calls_deviation")), resumed_from=start if resume else None)
     Ws = na.act(model, S, deterministic=False)                         # their default evaluation (deterministic_eval False)
-    np.savez(nadir / "readout_noise.npz", ids=np.array(ids), w=W, q_noise=qw, w_stoch=Ws, q_noise_stoch=na.q_noise(model, S, Ws))
+    np.savez(nadir / "readout_noise.npz", ids=np.array(ids), w=W, q_noise=qw, w_stoch=Ws, q_noise_stoch=na.q_noise(model, S, Ws), action_space=np.array(space))   # r8d: for residual, w is the actor's u in [-1, 1] (the residual is res_halfwidth * u)
     (nadir / "diagnostics.json").write_text(json.dumps(diag, indent=1) + "\n")
     diag["log"] = log
     return diag
@@ -769,7 +791,7 @@ class _NoPool:
 def readout(a) -> int:
     import numpy as np
     import torch
-    from . import decode_cmd, na
+    from . import decode_cmd, na, residual
     layout = paths.Layout(paths.assets_root(a.assets))
     manifest.require_external(layout.root)               # the MANO model is downloaded by the user: stop early with a clear message if it is not in place
     out = util.refuse_inside(a.out, paths.RELEASE, layout.root)
@@ -794,6 +816,12 @@ def readout(a) -> int:
     if unknown_arms or not arms_asked:
         raise SystemExit(f"unknown arm(s) {unknown_arms or arms_asked!r}; choose from {list(ACTOR_ARMS + FIXED_ARMS + SELECT_ARMS)}")
     need_actor = any(x in ACTOR_ARMS + SELECT_ARMS for x in arms_asked)
+    space = cfg.get("action_space", "noise")                                # r8d (EX408)
+    if space == "residual" and any(x in ("normrand",) + SELECT_ARMS for x in arms_asked):
+        raise SystemExit("arms normrand and the selection arms are noise arms; a residual actor's control is randres")
+    if space != "residual" and "randres" in arms_asked:
+        raise SystemExit("arm randres needs a residual actor (action_space residual)")
+    rng_tab = None                                                           # r8d: B-reg's per-unit ranges, made on first use and saved as unit_ranges.npz
     ckpt = getattr(a, "checkpoint", None)                   # r8c: read a checkpoint of the training (checkpoints/<calls>/) instead of its endpoint (na/)
     vx = {}
     if tr is not None:
@@ -871,11 +899,28 @@ def readout(a) -> int:
     chunk = 48
     summary = {}
     for arm in [x for x in a.arms.split(",") if x]:
-        rows = {k: [] for k in ("id", "noise", "T_camera_wrist", "mano_pose_aa", "landmarks_camera", "finite", "q_noise", "q_action")}
+        rows = {k: [] for k in ("id", "noise", "delta", "action99", "T_camera_wrist", "mano_pose_aa", "landmarks_camera", "finite", "q_noise", "q_action")}
         for s0 in range(0, len(units), chunk):
             part = list(range(s0, min(s0 + chunk, len(units))))
             ks = [pos[units[i]["unit"]] for i in part] if need_actor else None
-            if arm == "own":
+            Dl = None                                                       # r8d: the residual per row (residual actors only)
+            if space == "residual" and arm in residual.RESIDUAL_ARMS:
+                r_half = residual.halfwidth(cfg["res_halfwidth"])
+                U = (z["w"] if arm != "stoch" else z["w_stoch"])[ks].astype(np.float32)
+                Dl = (r_half[None] * U).astype(np.float32)
+                if cfg.get("res_clip") == "view_range" and arm != "randres":     # B-reg read-out: the unit's range of 32 decoded prior draws (seeded by the unit name)
+                    if rng_tab is None:
+                        rr_ = residual.unit_ranges(dec, frames, [u["unit"] for u in units])
+                        rng_tab = {u["unit"]: (rr_["lo"][j], rr_["hi"][j], rr_["a0"][j]) for j, u in enumerate(units)}
+                        np.savez_compressed(out / "unit_ranges.npz", ids=np.array([u["unit"] for u in units]), **rr_)
+                    rr = [rng_tab[units[i]["unit"]] for i in part]
+                    a0r = np.stack([x[2] for x in rr])
+                    Dl = (np.clip(a0r + Dl, np.stack([x[0] for x in rr]), np.stack([x[1] for x in rr])) - a0r).astype(np.float32)
+                if arm == "randres":
+                    Dl = np.stack([residual.randres_delta(units[i]["unit"], float(np.linalg.norm(d))) for i, d in zip(part, Dl)])
+                W = np.zeros((len(part), ALIAS_DIM), np.float32)
+                qn = np.full(len(part), np.nan)
+            elif arm == "own":
                 W = z["w"][ks].astype(np.float32)
                 qn = z["q_noise"][ks]
             elif arm == "stoch":
@@ -902,8 +947,11 @@ def readout(a) -> int:
                 W = np.stack([const_vec] * len(part))
                 qn = None
             if need_actor and qn is None:
-                qn = na.q_noise(model, S[ks], W)
-            decs = dec.decode_many([frames[i] for i in part], [w[None] for w in W], return_encoding=False)
+                qn = na.q_noise(model, S[ks], W) if space != "residual" else np.full(len(part), np.nan)
+            if Dl is not None:
+                decs = residual.decode_many(dec, [frames[i] for i in part], list(Dl), return_encoding=False)
+            else:
+                decs = dec.decode_many([frames[i] for i in part], [w[None] for w in W], return_encoding=False)
             A = np.stack([dec.model.flow.denoise_fn.normalize(torch.as_tensor(d["flow_output99"], device=dec.device)).float().cpu().numpy()[0] for d in decs])
             qa = na.q_action(model, S[ks], A) if need_actor else np.full(len(part), np.nan)
             if qn is None:
@@ -911,6 +959,8 @@ def readout(a) -> int:
             for n_, (i, d) in enumerate(zip(part, decs)):
                 rows["id"].append(units[i]["unit"])
                 rows["noise"].append(W[n_])
+                rows["delta"].append(Dl[n_] if Dl is not None else np.zeros(ALIAS_DIM, np.float32))
+                rows["action99"].append(A[n_])                              # r8d: the executed action, normalised (EX408 diagnostics: distance to the view's dataset actions)
                 rows["T_camera_wrist"].append(d["T_camera_wrist"][0])
                 rows["mano_pose_aa"].append(d["mano_pose_aa"][0])
                 rows["landmarks_camera"].append(d["landmarks_camera"][0])

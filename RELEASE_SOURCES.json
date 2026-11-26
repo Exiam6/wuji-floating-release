@@ -232,5 +232,10 @@
   "base": "r8b",
   "tag": "wf-20261125-r8c",
   "note": "see docs/R8C.md: optional dsrl train keys and read-out arms (absent = r8b, bit for bit), the dynamics log, and the online job type of batch 4 (online overlay and batch patch) with four edits for the object-frame prior"
+ },
+ "r8d": {
+  "base": "r8c",
+  "tag": "wf-20261126-r8d",
+  "note": "see docs/R8D.md: optional dsrl train key action_space (absent = r8c, bit for bit), res_halfwidth, read-out arm randres"
  }
 }
